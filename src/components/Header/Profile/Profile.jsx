@@ -1,12 +1,15 @@
 import React from 'react';
 import './Profile.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { toogleDarkMode } from '../../../utils/ReduxStore/appSlice';
 
 const Profile = () => {
 
-    const darkMode = true;
+    const darkMode = useSelector((store) => store.app.darkMode);
+    const dispatch = useDispatch();
 
     const handleDarkMode = () => {
-        // dispatch(toggleDarkMode());
+        dispatch(toogleDarkMode());
     }
 
     return (

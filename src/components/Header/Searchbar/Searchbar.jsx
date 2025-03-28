@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Searchbar.css';
 import SearchResultContainer from './SearchResultContainer/SearchResultContainer';
+import { useSelector } from 'react-redux';
 
 const Searchbar = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const darkMode = true;
+  const darkMode = useSelector((store) => store.app.darkMode);
 
   const handleQuerySearch = (event) => {
     setSearchQuery(event.target.value);
