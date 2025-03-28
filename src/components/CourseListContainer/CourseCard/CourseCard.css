@@ -1,0 +1,15 @@
+.course-card-container{
+    border: 1px solid var(--home-text-color);
+    padding: 6rem;
+    border-radius: 8px;
+}
+
+.course-card-container:hover{
+   transform: scale(1.1, 1.1);
+   cursor: pointer;
+   transition: 0.1s ease-in-out;
+   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+   background-color: aliceblue;
+   color: black;
+   font-weight: 600;
+}
