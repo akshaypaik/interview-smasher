@@ -3,13 +3,16 @@ import './Header.css';
 import Searchbar from './Searchbar/Searchbar';
 import Logo from './Logo/Logo';
 import Profile from './Profile/Profile';
+import { useDispatch } from 'react-redux';
+import { toggleSideBar } from '../../utils/ReduxStore/appSlice';
 
 const Header = () => {
 
+    const dispatch = useDispatch();
     const darkMode = true;
 
     const handleToggleSideBar = () => {
-        // dispatch(toggleSideBar());
+        dispatch(toggleSideBar());
     }
 
     return (
