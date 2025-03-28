@@ -1,0 +1,9 @@
+.app-container{
+  background-color: var(--home-bg-color);
+  color: var(--home-text-color);
+}
+
+.app-body-container{
+  display: flex;
+  gap: 2rem;
+}

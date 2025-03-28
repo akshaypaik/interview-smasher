@@ -1,0 +1,16 @@
+:root{
+  --home-bg-color: rgb(22 24 29/1);
+  --home-text-color: #fff;
+  --sidarbar-hover-bg-color: #334155;
+}
+
+.light-mode{
+  --home-bg-color: #fff;
+  --home-text-color: #000;
+  --sidarbar-hover-bg-color: rgba(255,255,255,0.1);
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}

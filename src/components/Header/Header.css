@@ -1,0 +1,18 @@
+.header-container{
+    height: 4rem;
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+}
+
+.menu-logo-container{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.menu-logo-container svg{
+    margin-left: 18px;
+    cursor: pointer;
+    padding: 0px 8px;
+}
