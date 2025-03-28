@@ -19,12 +19,16 @@ const CourseListContainer = () => {
     }, []);
 
     return (
-        <div className='course-list-container'>
-            {/* <CourseCard /> */}
-            {courseList.map((course) => <Link key={course.courseId} to={`/course/${course.courseId}`}>
-                <CourseCard info={course} />
-            </Link>)}
-        </div>
+        <>
+            <h1>Pick a course</h1>
+            <div className='course-list-container'>
+                {/* <CourseCard /> */}
+
+                {courseList.map((course) => <Link key={course.courseId} to={`/course/${course.courseId}`}>
+                    <CourseCard info={course} />
+                </Link>)}
+            </div>
+        </>
     )
 }
 
