@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const TopicCard = ({ topicInfo }) => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
     const course = useSelector((store) => store.course.currentCourse);
 
     const handleTopicClick = () => {
-        dispatch(updateCurrentTopic(topicInfo));
+        // dispatch(updateCurrentTopic(topicInfo));
         navigate(`/topic/${course}/${topicInfo?.topicName}`);
     }
 

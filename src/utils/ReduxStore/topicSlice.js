@@ -6,6 +6,7 @@ const topicSlice = createSlice({
         currentTopic: {}
     },
     reducers: {
+        //Not used currently
         updateCurrentTopic: (state, action) => {
             state.currentTopic = action.payload;
         }

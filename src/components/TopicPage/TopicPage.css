@@ -3,3 +3,18 @@
     max-height: 100%;
     margin: 48px;
 }
+
+.topic-page-container a{
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.topic-page-container a:hover{
+    color: #aaa;    
+    cursor: pointer;
+}
+
+.topic-page-nav-menu{
+    display: flex;
+    gap: 8px;
+}
