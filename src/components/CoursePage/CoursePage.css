@@ -13,8 +13,17 @@
     height: 48px;
 }
 
+.module-course-container{
+    display: flex;
+    flex-direction: column;
+}
 
-.topic-card-course-container{
+.module-course-list{
     display: flex;
     gap: 24px;
+}
+
+.topic-card-course-container{   
+    display: flex;
+    flex-direction: column;
 }
