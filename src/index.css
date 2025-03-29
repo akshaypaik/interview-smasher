@@ -10,7 +10,7 @@
 .light-mode{
   --home-bg-color: #fff;
   --home-text-color: #000;
-  --sidarbar-hover-bg-color: rgba(255,255,255,0.1);
+  --sidarbar-hover-bg-color: rgba(29, 25, 25, 0.1);
   --course-card-hover-bg-color: rgb(41, 39, 39);
   --course-card-hover-text-color: #fff;
   --course-card-border-color: #aaa;
