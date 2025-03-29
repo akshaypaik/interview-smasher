@@ -12,13 +12,10 @@ const CoursePage = () => {
   const courseName = useSelector((store) => store.course.currentCourse);
   const dispatch = useDispatch();
   const [courseByModule, setCourseByModule] = useState([]);
+  const [filteredCourseByModule, setFilteredCourseByModule] = useState([]);
+  const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
 
-  const fetchCourseDetails = async () => {
-    const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getCourseDetailsByCourseId?courseId=${courseId}`);
-    const resultJson = await result.json();
-    console.log("resultJson: ", resultJson);
-    setCourseInfo(resultJson);
- 
+  const getUpdatedCourseByModule = (resultJson) => {
     const moduleCategories = new Set([]);
     resultJson?.topicsInfo?.forEach((topic) => {
       moduleCategories.add(topic.module);
@@ -29,8 +26,17 @@ const CoursePage = () => {
       const topicModuleInfos = resultJson?.topicsInfo?.filter((topic) => topic.module === moduleCategory);
       updatedCourseByModule.push({ module: moduleCategory, topicsInfo: topicModuleInfos });
     });
-    setCourseByModule(updatedCourseByModule);
-    console.log("courseByModule: ", courseByModule);
+
+    return updatedCourseByModule;
+  }
+
+  const fetchCourseDetails = async () => {
+    const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getCourseDetailsByCourseId?courseId=${courseId}`);
+    const resultJson = await result.json();
+    setCourseInfo(resultJson);
+
+    setCourseByModule(getUpdatedCourseByModule(resultJson));
+    setFilteredCourseByModule(getUpdatedCourseByModule(resultJson));
   }
 
   useEffect(() => {
@@ -43,6 +49,17 @@ const CoursePage = () => {
     }
   }, [courseInfo]);
 
+  useEffect(() => {
+    if (courseByModule && courseByModule.length > 0) {
+      let filteredTopicsInfo = {
+        topicsInfo: []
+      };
+      filteredTopicsInfo.topicsInfo = courseInfo?.topicsInfo?.filter((topic) => topic.topicDisplayName.toLowerCase().includes(searchBarQuery));
+      const filteredTopics = getUpdatedCourseByModule(filteredTopicsInfo)
+      setFilteredCourseByModule(filteredTopics);
+    }
+  }, [searchBarQuery]);
+
   return (
     <div className='course-page-container'>
       <div className='course-page-header'>
@@ -51,7 +68,7 @@ const CoursePage = () => {
       </div>
       <p>{courseInfo?.basicInfo?.overviewText}</p>
       <div className='topic-card-course-container'>
-        {courseByModule.length > 0 && courseByModule?.map((module) =>
+        {filteredCourseByModule.length > 0 && filteredCourseByModule?.map((module) =>
           <div key={module.module} className='module-course-container'>
             <h2>{module.module.charAt(0).toUpperCase() + module.module.slice(1)}</h2>
             <div className='module-course-list'>
