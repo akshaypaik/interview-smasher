@@ -12,3 +12,9 @@
 .course-page-header img{
     height: 48px;
 }
+
+
+.topic-card-course-container{
+    display: flex;
+    gap: 24px;
+}

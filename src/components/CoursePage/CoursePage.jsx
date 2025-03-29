@@ -36,7 +36,9 @@ const CoursePage = () => {
         <h1>{courseInfo?.basicInfo?.name}</h1>
       </div>
       <p>{courseInfo?.basicInfo?.overviewText}</p>
-      {courseInfo?.topicsInfo?.map((topic) => <TopicCard key={topic.topicName} topicInfo={topic} />)}
+      <div className='topic-card-course-container'>
+        {courseInfo?.topicsInfo?.map((topic) => <TopicCard key={topic.topicName} topicInfo={topic} />)}
+      </div>
     </div>
   )
 }

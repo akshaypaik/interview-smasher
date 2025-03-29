@@ -23,7 +23,7 @@ const TopicCard = ({ topicInfo }) => {
 
     return (
         <div className='topic-card-container' onClick={handleTopicClick}>
-            {topicInfo?.topicName}
+            {topicInfo?.topicDisplayName}
         </div>
     )
 }
