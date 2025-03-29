@@ -1,6 +1,7 @@
 .course-page-container{
     min-height: 100vh;
     max-height: 100%;
+    margin: 0 48px;
 }
 
 .course-page-header{
