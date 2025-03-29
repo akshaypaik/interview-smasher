@@ -1,0 +1,14 @@
+.course-page-container{
+    min-height: 100vh;
+    max-height: 100%;
+}
+
+.course-page-header{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.course-page-header img{
+    height: 48px;
+}

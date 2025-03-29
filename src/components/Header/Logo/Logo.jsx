@@ -3,7 +3,7 @@ import './Logo.css';
 
 const Logo = () => {
   return (
-    <div className='logo-container'>Logo</div>
+    <div className='logo-container'>INTERVIEW SMASHER</div>
   )
 }
 

@@ -5,6 +5,7 @@ import Body from './components/Body/Body';
 import MainContainer from './components/MainContainer/MainContainer';
 import { useSelector } from 'react-redux';
 import CoursePage from './components/CoursePage/CoursePage';
+import TopicPage from './components/TopicPage/TopicPage';
 
 function App() {
 
@@ -21,6 +22,10 @@ function App() {
         {
           path: "/course/:courseId",
           element: <CoursePage />
+        },
+        {
+          path: "/topic/:courseName/:topicName",
+          element: <TopicPage />
         }
       ]
     }
