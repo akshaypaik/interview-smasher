@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './CourseListContainer.css';
 import CourseCard from './CourseCard/CourseCard';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 
 const CourseListContainer = () => {
 
     const [courseList, setCourseList] = useState([]);
     const [filteredCourseList, setFilteredCourseList] = useState([]);
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
+    const dispatch = useDispatch();
 
     const fetchAllCourses = async () => {
         const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getAllCourses`);
@@ -18,6 +20,7 @@ const CourseListContainer = () => {
     }
 
     useEffect(() => {
+        dispatch(updateSearchBarQuery(""));
         fetchAllCourses();
     }, []);
 

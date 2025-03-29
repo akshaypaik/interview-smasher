@@ -10,11 +10,16 @@ const Searchbar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const darkMode = useSelector((store) => store.app.darkMode);
   const dispatch = useDispatch();
+  const searchBarQueryReduxState = useSelector((store) => store.app.searchBarQuery);
 
   const handleQuerySearch = (event) => {
     setSearchQuery(event.target.value);
     dispatch(updateSearchBarQuery(event.target.value));
   }
+
+  useEffect(() => {
+    setSearchQuery(searchBarQueryReduxState);
+  }, [searchBarQueryReduxState]);
 
   return (
     <div className='search-bar-container'>

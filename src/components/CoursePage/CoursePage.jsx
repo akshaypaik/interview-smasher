@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import TopicCard from './TopicCard/TopicCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCurrentCourse } from '../../utils/ReduxStore/courseSlice';
+import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 
 const CoursePage = () => {
 
@@ -40,6 +41,7 @@ const CoursePage = () => {
   }
 
   useEffect(() => {
+    dispatch(updateSearchBarQuery(""));
     fetchCourseDetails();
   }, []);
 
