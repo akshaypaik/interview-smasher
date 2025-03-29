@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './Searchbar.css';
 import SearchResultContainer from './SearchResultContainer/SearchResultContainer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSearchBarQuery } from '../../../utils/ReduxStore/appSlice';
 
 const Searchbar = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const darkMode = useSelector((store) => store.app.darkMode);
+  const dispatch = useDispatch();
 
   const handleQuerySearch = (event) => {
     setSearchQuery(event.target.value);
+    dispatch(updateSearchBarQuery(event.target.value));
   }
 
   return (
