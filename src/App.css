@@ -6,4 +6,6 @@
 .app-body-container{
   display: flex;
   gap: 2rem;
+  min-height: 100vh;
+  max-height: 100%;
 }
