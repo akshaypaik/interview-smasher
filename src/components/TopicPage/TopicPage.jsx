@@ -11,6 +11,7 @@ const TopicPage = () => {
     const { courseName, topicName } = useParams();
     const [topicInfoState, setTopicsInfoState] = useState({});
     const [currentCourseId, setCurrentCourseId] = useState(0);
+    const [isTopicCompleted, setIsTopicCompleted] = useState(false);
 
     const fetchTopicDetailsUsingTopicName = async () => {
         const result = await fetch(`http://localhost:3000/BackendApp/api/topics/getTopicByTopicName?topicName=${topicName}`);
@@ -18,6 +19,39 @@ const TopicPage = () => {
         console.log("resultJson: ", resultJson);
         setTopicsInfoState(resultJson[0]);
         setCurrentCourseId(resultJson[0].courseId);
+    }
+
+    const fetchTopicCompletionStatus = async () => {
+        if (!topicInfoState.topicId) {
+            return;
+        }
+        const result = await fetch(`http://localhost:3000/BackendApp/api/topics/getTopicCompletionStatus?topicId=${topicInfoState.topicId}`);
+        const resultJson = await result.json();
+        setIsTopicCompleted(resultJson.isCompleted);
+    }
+
+    const updateMarkAsCompleted = async () => {
+        const topicCompletionObj = {
+            courseId: topicInfoState.courseId,
+            topicId: topicInfoState.topicId,
+            isCompleted: true,
+            module: topicInfoState.module,
+            topicName: topicInfoState.topicName,
+            user: {
+                username: "akshay",
+                email: "akshaypaik@gmail.com"
+            }
+        }
+        const result = await fetch(`http://localhost:3000/BackendApp/api/topics/updateTopicCompletion`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(topicCompletionObj)
+        });
+        const resultJson = await result.json();
+        setIsTopicCompleted(true);
+        console.log("updateMarkAsCompleted resultJson: ", resultJson);
     }
 
     useEffect(() => {
@@ -28,6 +62,10 @@ const TopicPage = () => {
         }
     }, [topicInfo]);
 
+    useEffect(() => {
+        fetchTopicCompletionStatus();
+    }, [topicInfoState]);
+
     return (
         <div className='topic-page-container'>
             <div className='topic-page-nav-menu'>
@@ -35,7 +73,12 @@ const TopicPage = () => {
                 {'>'}
                 <span>{topicInfoState?.topicDisplayName}</span>
             </div>
-            <h1>{topicInfoState?.topicDisplayName}</h1>
+            <div className='topic-heading-btn'>
+                <h1>{topicInfoState?.topicDisplayName}</h1>
+                {!isTopicCompleted ?
+                    <button onClick={updateMarkAsCompleted}>Mark as complete</button> :
+                    <button>Completed</button>}
+            </div>
             <p>{topicInfoState?.description}</p>
             <div className='topic-page-code-snippet-container'>
                 <SyntaxHighlighter language="javascript" style={dark}>
