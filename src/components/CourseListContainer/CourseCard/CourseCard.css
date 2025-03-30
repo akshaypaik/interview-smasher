@@ -24,6 +24,7 @@
 
 .course-card-container img, .disabled-course-card img{
     height: 108px;
+    width: 120px;
 }
 
 .disabled-course-card{
