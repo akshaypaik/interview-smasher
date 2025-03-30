@@ -9,7 +9,6 @@ const CourseCompletionStatus = ({ totalTopics, completedTopics }) => {
     const calcProgressValue = () => {
         if (completedTopics && totalTopics) {
             const progress = (completedTopics / totalTopics) * 100;
-            console.log("progress: ", progress);
             setProgressVal(progress.toFixed());
         }
     }

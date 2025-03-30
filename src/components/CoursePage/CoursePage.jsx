@@ -17,6 +17,10 @@ const CoursePage = () => {
   const [filteredCourseByModule, setFilteredCourseByModule] = useState([]);
   const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
   const [courseCompletionStatus, setCourseCompletionStatus] = useState();
+  const [courseCompletionStatusData, setCourseCompletionStatusData] = useState([]);
+  const [showCompletedText, setShowCompletedText] = useState(true);
+
+  const TopicCardCompletedComp = TopicCardCompleted(TopicCard);
 
   const getUpdatedCourseByModule = (resultJson) => {
     const moduleCategories = new Set([]);
@@ -46,6 +50,15 @@ const CoursePage = () => {
     const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getCourseCompletionStatus?courseId=${courseId}`);
     const resultJson = await result.json();
     setCourseCompletionStatus(resultJson.status);
+    setCourseCompletionStatusData(resultJson.data);
+  }
+
+  const showCompletedTextTopicCard = () => {
+    setShowCompletedText(true);
+  }
+
+  const hideCompletedTextTopicCard = () => {
+    setShowCompletedText(false);
   }
 
   useEffect(() => {
@@ -86,7 +99,17 @@ const CoursePage = () => {
           <div key={module.module} className='module-course-container'>
             <h2>{module.module.charAt(0).toUpperCase() + module.module.slice(1)}</h2>
             <div className='module-course-list'>
-              {module.topicsInfo.map((topic) => <TopicCard key={topic.topicName} topicInfo={topic} />)}
+              {module.topicsInfo.map((topic) => {
+                const statusData = courseCompletionStatusData.find((item) => item.topicName === topic.topicName);
+                return statusData?.isCompleted ?
+                  <TopicCardCompletedComp
+                    key={topic.topicName}
+                    topicInfo={topic}
+                    showCompletedText={showCompletedText}
+                    onShowCompletedTextTopicCard={showCompletedTextTopicCard}
+                    onHideCompletedTextTopicCard={hideCompletedTextTopicCard} /> :
+                  <TopicCard key={topic.topicName} topicInfo={topic} />
+              })}
             </div>
           </div>)}
       </div>
@@ -95,3 +118,15 @@ const CoursePage = () => {
 }
 
 export default CoursePage;
+
+export function TopicCardCompleted(TopicCard) {
+  return (props) => {
+    return (
+      <div className='topic-card-completed-container' onMouseEnter={props.onHideCompletedTextTopicCard}
+        onMouseLeave={props.onShowCompletedTextTopicCard}>
+        <TopicCard {...props} />
+        {props.showCompletedText && <div className='complete-text'>Completed</div>}
+      </div>
+    )
+  }
+}

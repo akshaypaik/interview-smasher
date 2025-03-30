@@ -1,37 +1,50 @@
-.course-page-container{
+.course-page-container {
     min-height: 100vh;
     max-height: 100%;
     margin: 0 48px;
     width: 100%;
 }
 
-.course-page-header{
+.course-page-header {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.course-page-header img{
+.course-page-header img {
     height: 48px;
 }
 
-.course-page-header-container{
+.course-page-header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.module-course-container{
+.module-course-container {
     display: flex;
     flex-direction: column;
 }
 
-.module-course-list{
+.module-course-list {
     display: flex;
     gap: 24px;
 }
 
-.topic-card-course-container{   
+.topic-card-course-container {
     display: flex;
     flex-direction: column;
+}
+
+.topic-card-completed-container {
+    position: relative;
+}
+
+.complete-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: green;
+    padding: 6px 18px;
+    border-bottom-right-radius: 8px;
 }
