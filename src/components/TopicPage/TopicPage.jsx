@@ -37,9 +37,11 @@ const TopicPage = () => {
             </div>
             <h1>{topicInfoState?.topicDisplayName}</h1>
             <p>{topicInfoState?.description}</p>
-            <SyntaxHighlighter language="javascript" style={dark}>
-                {topicInfoState?.codeSnippet}
-            </SyntaxHighlighter>
+            <div className='topic-page-code-snippet-container'>
+                <SyntaxHighlighter language="javascript" style={dark}>
+                    {topicInfoState?.codeSnippet}
+                </SyntaxHighlighter>
+            </div>
         </div>
     )
 }

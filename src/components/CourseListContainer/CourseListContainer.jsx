@@ -16,7 +16,9 @@ const CourseListContainer = () => {
         const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getAllCourses`);
         const resultJson = await result.json();
         setCourseList(resultJson);
-        setFilteredCourseList(resultJson);
+        setFilteredCourseList(resultJson.sort((a,b) => {
+            return a.courseId - b.courseId
+        }));
     }
 
     useEffect(() => {
@@ -33,9 +35,15 @@ const CourseListContainer = () => {
             <h1>Pick a course</h1>
             <div className='course-list-container'>
                 {/* <CourseCard /> */}
-                {filteredCourseList.map((course) => <Link key={course.courseId} to={`/course/${course.courseId}`}>
-                    <CourseCard info={course} />
-                </Link>)}
+                {filteredCourseList.map((course) =>
+                    course.isCourseActive ? (
+                        <Link key={course.courseId} to={`/course/${course.courseId}`}>
+                            <CourseCard info={course} />
+                        </Link>
+                    ) : (
+                        <CourseCard key={course.courseId} info={course} />
+                    )
+                )}
             </div>
         </>
     )
