@@ -28,7 +28,9 @@
 
 .module-course-list {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
+    margin-bottom: 48px;
 }
 
 .topic-card-course-container {

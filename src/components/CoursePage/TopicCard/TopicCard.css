@@ -10,6 +10,7 @@
     flex-wrap: wrap;
     width: 240px;
     background-color: var(--course-card-bg-color);
+    height: 40px;
 }
 
 .topic-card-container:hover{
