@@ -18,7 +18,7 @@ const CoursePage = () => {
   const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
   const [courseCompletionStatus, setCourseCompletionStatus] = useState();
   const [courseCompletionStatusData, setCourseCompletionStatusData] = useState([]);
-  const [showCompletedText, setShowCompletedText] = useState(true);
+  const [hideTopicCardComplete, setHideTopicCardComplete] = useState("");
 
   const TopicCardCompletedComp = TopicCardCompleted(TopicCard);
 
@@ -54,11 +54,11 @@ const CoursePage = () => {
   }
 
   const showCompletedTextTopicCard = () => {
-    setShowCompletedText(true);
+    setHideTopicCardComplete("");
   }
 
-  const hideCompletedTextTopicCard = () => {
-    setShowCompletedText(false);
+  const hideCompletedTextTopicCard = (topicId) => {
+    setHideTopicCardComplete(topicId);
   }
 
   useEffect(() => {
@@ -105,9 +105,9 @@ const CoursePage = () => {
                   <TopicCardCompletedComp
                     key={topic.topicName}
                     topicInfo={topic}
-                    showCompletedText={showCompletedText}
                     onShowCompletedTextTopicCard={showCompletedTextTopicCard}
-                    onHideCompletedTextTopicCard={hideCompletedTextTopicCard} /> :
+                    onHideCompletedTextTopicCard={hideCompletedTextTopicCard}
+                    hideTopicId={hideTopicCardComplete} /> :
                   <TopicCard key={topic.topicName} topicInfo={topic} />
               })}
             </div>
@@ -121,11 +121,14 @@ export default CoursePage;
 
 export function TopicCardCompleted(TopicCard) {
   return (props) => {
+    const curTopicId = props?.hideTopicId === props.topicInfo?.topicName ? true : false;
     return (
-      <div className='topic-card-completed-container' onMouseEnter={props.onHideCompletedTextTopicCard}
+
+      <div className='topic-card-completed-container'
+        onMouseEnter={() => props.onHideCompletedTextTopicCard(props.topicInfo?.topicName)}
         onMouseLeave={props.onShowCompletedTextTopicCard}>
         <TopicCard {...props} />
-        {props.showCompletedText && <div className='complete-text'>Completed</div>}
+        {!curTopicId && <div className='complete-text'>Completed</div>}
       </div>
     )
   }

@@ -38,6 +38,7 @@
 
 .topic-card-completed-container {
     position: relative;
+    cursor: pointer;
 }
 
 .complete-text {
