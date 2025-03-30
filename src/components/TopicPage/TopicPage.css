@@ -1,4 +1,4 @@
-.topic-page-container{
+.topic-page-container {
     min-height: 100vh;
     max-height: 100%;
     margin: 48px;
@@ -6,52 +6,69 @@
     flex-direction: column;
 }
 
-.topic-page-container a{
+.topic-page-container a {
     text-decoration: underline;
     text-underline-offset: 4px;
 }
 
-.topic-page-container a:hover{
-    color: #aaa;    
+.topic-page-container a:hover {
+    color: #aaa;
     cursor: pointer;
 }
 
-.topic-page-nav-menu{
+.topic-page-nav-menu {
     display: flex;
     gap: 8px;
 }
 
-.topic-page-code-snippet-container{
+.topic-page-code-snippet-container {
     max-width: 400px;
 }
 
-@media screen and (max-width: 2400px){
-    .topic-page-code-snippet-container{
+.topic-heading-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topic-heading-btn button {
+    max-height: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    background-color: rgb(40 167 69/1);
+    font-weight: 600;
+    cursor: pointer;
+    color: rgb(255 255 255/1);
+}
+
+@media screen and (max-width: 2400px) {
+    .topic-page-code-snippet-container {
         max-width: 1600px;
     }
 }
 
-@media screen and (max-width: 1600px){
-    .topic-page-code-snippet-container{
+@media screen and (max-width: 1600px) {
+    .topic-page-code-snippet-container {
         max-width: 1200px;
     }
 }
 
-@media screen and (max-width: 1200px){
-    .topic-page-code-snippet-container{
+@media screen and (max-width: 1200px) {
+    .topic-page-code-snippet-container {
         max-width: 800px;
     }
 }
 
-@media screen and (max-width: 768px){
-    .topic-page-code-snippet-container{
+@media screen and (max-width: 768px) {
+    .topic-page-code-snippet-container {
         max-width: 360px;
     }
 }
 
-@media screen and (max-width: 560px){
-    .topic-page-code-snippet-container{
+@media screen and (max-width: 560px) {
+    .topic-page-code-snippet-container {
         max-width: 260px;
     }
 }
-
