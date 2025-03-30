@@ -31,7 +31,7 @@
     align-items: center;
 }
 
-.topic-heading-btn button {
+.topic-heading-btn .topic-page-completed-btn {
     max-height: 36px;
     padding: 8px 12px;
     border-radius: 8px;
@@ -41,6 +41,23 @@
     font-weight: 600;
     cursor: pointer;
     color: rgb(255 255 255/1);
+}
+
+.topic-page-relearn-btn{
+    max-height: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    background-color: var(--topic-page-btn-bg-color);
+    color: var(--topic-page-btn-color);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.topic-completion-status-btns{
+    display: flex;
+    gap: 24px;
 }
 
 @media screen and (max-width: 2400px) {

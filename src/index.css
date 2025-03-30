@@ -6,6 +6,8 @@
   --course-card-hover-text-color: #000;
   --course-card-border-color: rgb(22 24 29/1);
   --course-card-bg-color: #334155;
+  --topic-page-btn-bg-color: rgb(255 255 255/1);
+  --topic-page-btn-color: #000;
 }
 
 .light-mode{
@@ -16,6 +18,8 @@
   --course-card-hover-text-color: #fff;
   --course-card-border-color: #fff;
   --course-card-bg-color: rgba(29, 25, 25, 0.1);
+  --topic-page-btn-bg-color: rgb(44, 43, 43);
+  --topic-page-btn-color: #fff;
 }
 
 body{

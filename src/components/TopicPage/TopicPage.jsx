@@ -30,11 +30,11 @@ const TopicPage = () => {
         setIsTopicCompleted(resultJson.isCompleted);
     }
 
-    const updateMarkAsCompleted = async () => {
+    const updateMarkAsCompleted = async (status) => {
         const topicCompletionObj = {
             courseId: topicInfoState.courseId,
             topicId: topicInfoState.topicId,
-            isCompleted: true,
+            isCompleted: status,
             module: topicInfoState.module,
             topicName: topicInfoState.topicName,
             user: {
@@ -50,8 +50,11 @@ const TopicPage = () => {
             body: JSON.stringify(topicCompletionObj)
         });
         const resultJson = await result.json();
-        setIsTopicCompleted(true);
-        console.log("updateMarkAsCompleted resultJson: ", resultJson);
+        if(status){
+            setIsTopicCompleted(true);
+        }else{
+            setIsTopicCompleted(false);
+        }
     }
 
     useEffect(() => {
@@ -75,9 +78,12 @@ const TopicPage = () => {
             </div>
             <div className='topic-heading-btn'>
                 <h1>{topicInfoState?.topicDisplayName}</h1>
-                {!isTopicCompleted ?
-                    <button onClick={updateMarkAsCompleted}>Mark as complete</button> :
-                    <button>Completed</button>}
+                <div className='topic-completion-status-btns'>
+                    {!isTopicCompleted ?
+                        <button className='topic-page-completed-btn' onClick={() => updateMarkAsCompleted(true)}>Mark as complete</button> :
+                        <button className='topic-page-completed-btn'>Completed</button>}
+                    {isTopicCompleted ? <button className='topic-page-relearn-btn' onClick={() => updateMarkAsCompleted(false)}>Relearn</button> : ''}
+                </div>
             </div>
             <p>{topicInfoState?.description}</p>
             <div className='topic-page-code-snippet-container'>
