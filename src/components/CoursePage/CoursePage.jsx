@@ -5,6 +5,7 @@ import TopicCard from './TopicCard/TopicCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCurrentCourse } from '../../utils/ReduxStore/courseSlice';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
+import CourseCompletionStatus from './CourseCompletionStatus/CourseCompletionStatus';
 
 const CoursePage = () => {
 
@@ -15,6 +16,7 @@ const CoursePage = () => {
   const [courseByModule, setCourseByModule] = useState([]);
   const [filteredCourseByModule, setFilteredCourseByModule] = useState([]);
   const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
+  const [courseCompletionStatus, setCourseCompletionStatus] = useState();
 
   const getUpdatedCourseByModule = (resultJson) => {
     const moduleCategories = new Set([]);
@@ -40,9 +42,16 @@ const CoursePage = () => {
     setFilteredCourseByModule(getUpdatedCourseByModule(resultJson));
   }
 
+  const fetchCourseCompletionStatus = async () => {
+    const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getCourseCompletionStatus?courseId=${courseId}`);
+    const resultJson = await result.json();
+    setCourseCompletionStatus(resultJson.status);
+  }
+
   useEffect(() => {
     dispatch(updateSearchBarQuery(""));
     fetchCourseDetails();
+    fetchCourseCompletionStatus();
   }, []);
 
   useEffect(() => {
@@ -64,9 +73,12 @@ const CoursePage = () => {
 
   return (
     <div className='course-page-container'>
-      <div className='course-page-header'>
-        <img src={courseInfo?.basicInfo?.iconURL} alt='course-img' />
-        <h1>{courseInfo?.basicInfo?.name}</h1>
+      <div className='course-page-header-container'>
+        <div className='course-page-header'>
+          <img src={courseInfo?.basicInfo?.iconURL} alt='course-img' />
+          <h1>{courseInfo?.basicInfo?.name}</h1>
+        </div>
+        <CourseCompletionStatus totalTopics={courseCompletionStatus?.totalTopics} completedTopics={courseCompletionStatus?.completedTopics} />
       </div>
       <p>{courseInfo?.basicInfo?.overviewText}</p>
       <div className='topic-card-course-container'>

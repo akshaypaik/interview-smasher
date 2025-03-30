@@ -1,0 +1,10 @@
+.course-completion-progress-status{
+    display: flex;
+    justify-content: space-between;
+}
+
+.course-completion-progress-status-value{
+    color: green;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
