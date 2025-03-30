@@ -9,6 +9,7 @@
     gap: 24px;
     flex-wrap: wrap;
     width: 240px;
+    background-color: var(--course-card-bg-color);
 }
 
 .topic-card-container:hover{
