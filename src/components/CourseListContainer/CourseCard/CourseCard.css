@@ -27,7 +27,7 @@
 
 .disabled-course-card{
     border: 0.5px solid var(--course-card-border-color);
-    padding: 2rem 2rem;
+    padding: 3rem 3rem;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
