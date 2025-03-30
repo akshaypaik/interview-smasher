@@ -9,6 +9,7 @@
     gap: 24px;
     flex-wrap: wrap;
     width: 240px;
+    background-color: var(--course-card-bg-color);
 }
 
 .course-card-container:hover{
@@ -38,6 +39,7 @@
     width: 240px;
     opacity: 0.3;
     position: relative;
+    background-color: var(--course-card-bg-color);
 }
 
 .course-lock{

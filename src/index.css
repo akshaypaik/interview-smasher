@@ -4,7 +4,8 @@
   --sidarbar-hover-bg-color: #334155;
   --course-card-hover-bg-color: aliceblue;
   --course-card-hover-text-color: #000;
-  --course-card-border-color: #aaa;
+  --course-card-border-color: rgb(22 24 29/1);
+  --course-card-bg-color: #334155;
 }
 
 .light-mode{
@@ -13,7 +14,8 @@
   --sidarbar-hover-bg-color: rgba(29, 25, 25, 0.1);
   --course-card-hover-bg-color: rgb(41, 39, 39);
   --course-card-hover-text-color: #fff;
-  --course-card-border-color: #aaa;
+  --course-card-border-color: #fff;
+  --course-card-bg-color: rgba(29, 25, 25, 0.1);
 }
 
 body{
