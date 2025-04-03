@@ -18,11 +18,12 @@
     background-color: var(--primary-color);
     font-weight: 600;
     cursor: pointer;
-    color: rgb(255 255 255/1);
+    color: var(--text-color);
     font-weight: 600;
 }
 
 .profile-login-btn:hover {
     background-color: #fff;
     color: #000;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.30);
 }

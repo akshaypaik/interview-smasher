@@ -16,7 +16,6 @@ const Interviews = () => {
         const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}`);
         const resultJson = await result.json();
         setCompanies(resultJson);
-        console.log(resultJson);
         setLoading(false);
     }
 
