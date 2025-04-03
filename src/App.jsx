@@ -1,18 +1,20 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header/Header';
 import Body from './components/Body/Body';
 import MainContainer from './components/MainContainer/MainContainer';
 import { useSelector } from 'react-redux';
-import CoursePage from './components/CoursePage/CoursePage';
-import TopicPage from './components/TopicPage/TopicPage';
-import Interviews from './components/Interviews/Interviews';
-import Login from './components/Login/Login';
-import FavoriteCompanies from './components/Interviews/FavoriteCompanies/FavoriteCompanies';
+import { lazy, Suspense } from 'react';
 
 function App() {
 
   const darkMode = useSelector((store) => store.app.darkMode);
+
+  const Interviews = lazy(() => import('./components/Interviews/Interviews.jsx'));
+  const Login = lazy(() => import('./components/Login/Login.jsx'));
+  const FavoriteCompanies = lazy(() => import('./components/Interviews/FavoriteCompanies/FavoriteCompanies.jsx'));
+  const TopicPage = lazy(() => import('./components/TopicPage/TopicPage.jsx'));
+  const CoursePage = lazy(() => import('./components/CoursePage/CoursePage.jsx'));
+
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -24,23 +26,23 @@ function App() {
         },
         {
           path: "/course/:courseId",
-          element: <CoursePage />
+          element: <Suspense><CoursePage /></Suspense>
         },
         {
           path: "/topic/:courseName/:topicName",
-          element: <TopicPage />
+          element: <Suspense><TopicPage /></Suspense>
         },
         {
           path: "interviews",
-          element: <Interviews />
+          element: <Suspense><Interviews /></Suspense>
         },
         {
           path: "login",
-          element: <Login />
+          element: <Suspense><Login /></Suspense>
         },
         {
           path: "favorite-companies",
-          element: <FavoriteCompanies />
+          element: <Suspense><FavoriteCompanies /></Suspense>
         }
       ]
     }
