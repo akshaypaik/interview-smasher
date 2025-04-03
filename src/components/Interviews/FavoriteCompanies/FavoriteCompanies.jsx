@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './FavoriteCompanies.css';
 import { GET_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
 import CompanyCard from '../CompanyCard/CompanyCard';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSearchBarQuery } from '../../../utils/ReduxStore/appSlice';
 
 const FavoriteCompanies = () => {
 
     const [favoriteCompanies, setFavoriteCompanies] = useState([]);
     const [filteredFavoriteCompanies, setFilteredFavoriteCompanies] = useState([]);
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
+    const dispatch = useDispatch();
 
     const fetchFavCompanies = async () => {
         const userEmail = "akshaypaik@gmail.com"
@@ -20,6 +22,10 @@ const FavoriteCompanies = () => {
 
     useEffect(() => {
         fetchFavCompanies();
+
+        return () => {
+            dispatch(updateSearchBarQuery(""));
+        }
     }, []);
 
     useEffect(() => {
