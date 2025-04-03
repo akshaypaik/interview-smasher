@@ -40,6 +40,12 @@ const CompanyCard = ({ info }) => {
     }
 
     const removeFavoriteCompany = async (favCompanyObj) => {
+        if (!favCompanyObj.user) {
+            favCompanyObj.user = {
+                username: "akshay",
+                email: "akshaypaik@gmail.com"
+            }
+        }
         const result = await fetch(`${REMOVE_FAVORITE_COMPANIES_INTERVIEW}`, {
             method: "POST",
             headers: {
