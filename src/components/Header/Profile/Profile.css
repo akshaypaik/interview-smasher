@@ -1,7 +1,21 @@
-.profile-container{
+.profile-container {
     margin-right: 3rem;
+    display: flex;
+    gap: 16px;
 }
 
-.dark-mode-container svg{
+.dark-mode-container svg {
     cursor: pointer;
+}
+
+.profile-login-btn {
+    max-height: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    background-color: rgb(40 167 69/1);
+    font-weight: 600;
+    cursor: pointer;
+    color: rgb(255 255 255/1);
 }

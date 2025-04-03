@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import CoursePage from './components/CoursePage/CoursePage';
 import TopicPage from './components/TopicPage/TopicPage';
 import Interviews from './components/Interviews/Interviews';
+import Login from './components/Login/Login';
 
 function App() {
 
@@ -31,6 +32,10 @@ function App() {
         {
           path: "interviews",
           element: <Interviews />
+        },
+        {
+          path: "login",
+          element: <Login />
         }
       ]
     }
@@ -38,7 +43,6 @@ function App() {
 
   return (
     <div className={`app-container ${!darkMode ? 'light-mode' : ''}`}>
-      <Header />
       <div className='app-body-container'>
         <RouterProvider router={routes} />
       </div>

@@ -1,0 +1,5 @@
+.body-container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}

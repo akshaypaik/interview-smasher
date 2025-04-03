@@ -2,6 +2,8 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../Sidebar/Sidebar'
 import { useSelector } from 'react-redux'
+import Header from '../Header/Header';
+import './Body.css';
 
 const Body = () => {
 
@@ -9,8 +11,11 @@ const Body = () => {
 
     return (
         <>
-            {showSidebar && <Sidebar />}
-            <Outlet />
+            <Header />
+            <div className='body-container'>
+                {showSidebar && <Sidebar />}
+                <Outlet />
+            </div>
         </>
     )
 }

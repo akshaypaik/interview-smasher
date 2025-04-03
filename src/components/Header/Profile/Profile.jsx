@@ -2,6 +2,7 @@ import React from 'react';
 import './Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { toogleDarkMode } from '../../../utils/ReduxStore/appSlice';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
 
@@ -14,6 +15,9 @@ const Profile = () => {
 
     return (
         <div className='profile-container'>
+            <Link to={"/login"}>
+                <button className='profile-login-btn'>Log In</button>
+            </Link>
             <div className='dark-mode-container' onClick={handleDarkMode}>
                 {darkMode ?
                     <svg fill={darkMode ? 'white' : 'black'} height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" style={{ display: 'inherit' }}>
