@@ -1,3 +1,3 @@
 .logo-container{
-    color: aqua;
+    color: var(--primary-color);
 }

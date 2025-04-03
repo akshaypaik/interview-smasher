@@ -2,6 +2,7 @@
     margin-right: 3rem;
     display: flex;
     gap: 16px;
+    align-items: center;
 }
 
 .dark-mode-container svg {
@@ -10,12 +11,18 @@
 
 .profile-login-btn {
     max-height: 36px;
-    padding: 8px 12px;
+    padding: 12px 24px;
     border-radius: 8px;
     outline: none;
     border: none;
-    background-color: rgb(40 167 69/1);
+    background-color: var(--primary-color);
     font-weight: 600;
     cursor: pointer;
     color: rgb(255 255 255/1);
+    font-weight: 600;
+}
+
+.profile-login-btn:hover {
+    background-color: #fff;
+    color: #000;
 }

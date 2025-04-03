@@ -8,6 +8,7 @@
   --course-card-bg-color: #334155;
   --topic-page-btn-bg-color: rgb(255 255 255/1);
   --topic-page-btn-color: #000;
+  --primary-color: rgb(207, 27, 27);
   transition: 0.3 ease-in-out;
 }
 

@@ -8,6 +8,7 @@ import CoursePage from './components/CoursePage/CoursePage';
 import TopicPage from './components/TopicPage/TopicPage';
 import Interviews from './components/Interviews/Interviews';
 import Login from './components/Login/Login';
+import FavoriteCompanies from './components/Interviews/FavoriteCompanies/FavoriteCompanies';
 
 function App() {
 
@@ -36,6 +37,10 @@ function App() {
         {
           path: "login",
           element: <Login />
+        },
+        {
+          path: "favorite-companies",
+          element: <FavoriteCompanies />
         }
       ]
     }
