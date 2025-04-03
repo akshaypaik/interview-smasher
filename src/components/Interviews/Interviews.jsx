@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import './Interviews.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
+import { updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
 
 const Interviews = () => {
 
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const searchResultCache = useSelector((store) => store.companies.companiesSearchResultCache);
 
     const fetchSearchQueryResultsForCompanies = async () => {
         setLoading(true);
+
+        // Read from redux cache
+        if (searchResultCache[searchBarQuery]) {
+            setCompanies(searchResultCache[searchBarQuery]);
+            setLoading(false);
+            return;
+        }
+
         const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}`);
         const resultJson = await result.json();
         setCompanies(resultJson);
         setLoading(false);
+        dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
     }
 
     useEffect(() => {
