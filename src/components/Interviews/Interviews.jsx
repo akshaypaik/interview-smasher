@@ -38,7 +38,9 @@ const Interviews = () => {
             {companies.length === 0 &&
                 <div className='interview-no-result-text'> Start typing in search bar to get the companies listed...
                 </div>}
-            {companies.length > 0 && companies.map((company) => <CompanyCard key={company.companyId} info={company} />)}
+            <div className='company-card-main-container'>
+                {companies.length > 0 && companies.map((company) => <CompanyCard key={company.companyId} info={company} />)}
+            </div>
         </div>
     )
 }

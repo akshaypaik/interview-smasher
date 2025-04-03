@@ -23,6 +23,6 @@
 }
 
 .company-card-container img{
-    height: 108px;
-    width: 120px;
+    height: 60px;
+    max-width: 200px;
 }
