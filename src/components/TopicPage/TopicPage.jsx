@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import './TopicPage.css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { GET_TOPIC_COMPLETION_STATUS_USING_TOPIC_NAME, GET_TOPIC_DETIALS_USING_TOPIC_NAME, UPDATE_TOPIC_COMPLETION } from '../../utils/constants/apiConstants';
 
 const TopicPage = () => {
 
@@ -14,7 +15,7 @@ const TopicPage = () => {
     const [isTopicCompleted, setIsTopicCompleted] = useState(false);
 
     const fetchTopicDetailsUsingTopicName = async () => {
-        const result = await fetch(`http://localhost:3000/BackendApp/api/topics/getTopicByTopicName?topicName=${topicName}`);
+        const result = await fetch(`${GET_TOPIC_DETIALS_USING_TOPIC_NAME}${topicName}`);
         const resultJson = await result.json();
         console.log("resultJson: ", resultJson);
         setTopicsInfoState(resultJson[0]);
@@ -25,7 +26,7 @@ const TopicPage = () => {
         if (!topicInfoState.topicId) {
             return;
         }
-        const result = await fetch(`http://localhost:3000/BackendApp/api/topics/getTopicCompletionStatus?topicId=${topicInfoState.topicId}`);
+        const result = await fetch(`${GET_TOPIC_COMPLETION_STATUS_USING_TOPIC_NAME}${topicInfoState.topicId}`);
         const resultJson = await result.json();
         setIsTopicCompleted(resultJson.isCompleted);
     }
@@ -42,7 +43,7 @@ const TopicPage = () => {
                 email: "akshaypaik@gmail.com"
             }
         }
-        const result = await fetch(`http://localhost:3000/BackendApp/api/topics/updateTopicCompletion`, {
+        const result = await fetch(`${UPDATE_TOPIC_COMPLETION}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -50,9 +51,9 @@ const TopicPage = () => {
             body: JSON.stringify(topicCompletionObj)
         });
         const resultJson = await result.json();
-        if(status){
+        if (status) {
             setIsTopicCompleted(true);
-        }else{
+        } else {
             setIsTopicCompleted(false);
         }
     }

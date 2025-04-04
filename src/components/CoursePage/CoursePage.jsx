@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateCurrentCourse } from '../../utils/ReduxStore/courseSlice';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 import CourseCompletionStatus from './CourseCompletionStatus/CourseCompletionStatus';
+import useCourseDetailsByCourseId from '../../utils/custom-hooks/useCourseDetailsByCourseId';
+import { GET_COURSE_COMPLETION_STATUS } from '../../utils/constants/apiConstants';
 
 const CoursePage = () => {
 
@@ -13,7 +15,6 @@ const CoursePage = () => {
   const [courseInfo, setCourseInfo] = useState({});
   const courseName = useSelector((store) => store.course.currentCourse);
   const dispatch = useDispatch();
-  const [courseByModule, setCourseByModule] = useState([]);
   const [filteredCourseByModule, setFilteredCourseByModule] = useState([]);
   const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
   const [courseCompletionStatus, setCourseCompletionStatus] = useState();
@@ -21,6 +22,8 @@ const CoursePage = () => {
   const [hideTopicCardComplete, setHideTopicCardComplete] = useState("");
 
   const TopicCardCompletedComp = TopicCardCompleted(TopicCard);
+
+  const { courseByModule } = useCourseDetailsByCourseId(courseId);
 
   const getUpdatedCourseByModule = (resultJson) => {
     const moduleCategories = new Set([]);
@@ -37,17 +40,8 @@ const CoursePage = () => {
     return updatedCourseByModule;
   }
 
-  const fetchCourseDetails = async () => {
-    const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getCourseDetailsByCourseId?courseId=${courseId}`);
-    const resultJson = await result.json();
-    setCourseInfo(resultJson);
-
-    setCourseByModule(getUpdatedCourseByModule(resultJson));
-    setFilteredCourseByModule(getUpdatedCourseByModule(resultJson));
-  }
-
   const fetchCourseCompletionStatus = async () => {
-    const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getCourseCompletionStatus?courseId=${courseId}`);
+    const result = await fetch(`${GET_COURSE_COMPLETION_STATUS}${courseId}`);
     const resultJson = await result.json();
     setCourseCompletionStatus(resultJson.status);
     setCourseCompletionStatusData(resultJson.data);
@@ -63,9 +57,13 @@ const CoursePage = () => {
 
   useEffect(() => {
     dispatch(updateSearchBarQuery(""));
-    fetchCourseDetails();
     fetchCourseCompletionStatus();
   }, []);
+
+  useEffect(() => {
+    setCourseInfo(courseByModule);
+    setFilteredCourseByModule(getUpdatedCourseByModule(courseByModule));
+  }, [courseByModule])
 
   useEffect(() => {
     if (!courseName) {

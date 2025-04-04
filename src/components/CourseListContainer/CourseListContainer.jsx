@@ -4,6 +4,7 @@ import CourseCard from './CourseCard/CourseCard';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
+import { GET_ALL_COURSES } from '../../utils/constants/apiConstants';
 
 const CourseListContainer = () => {
 
@@ -13,7 +14,7 @@ const CourseListContainer = () => {
     const dispatch = useDispatch();
 
     const fetchAllCourses = async () => {
-        const result = await fetch(`http://localhost:3000/BackendApp/api/courses/getAllCourses`);
+        const result = await fetch(`${GET_ALL_COURSES}`);
         const resultJson = await result.json();
         setCourseList(resultJson);
         setFilteredCourseList(resultJson.sort((a,b) => {
