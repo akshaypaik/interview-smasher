@@ -3,7 +3,8 @@
     width: 100%;
 }
 
-.interview-no-result-text {
+.interview-no-result-text,
+.no-result-found-container {
     font-size: 2rem;
     display: flex;
     justify-content: center;
@@ -17,7 +18,16 @@
     gap: 48px;
 }
 
-.autoWrite{
-    color: #cf1b1b;
+.autoWrite {
+    color: var(--primary-color);
     margin-left: 8px;
+}
+
+.no-result-found-container {
+    color: var(--primary-color);
+}
+
+.no-result-found-container span {
+    color: var(--home-text-color);
+    padding-left: 8px;
 }

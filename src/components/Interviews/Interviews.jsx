@@ -11,6 +11,7 @@ const Interviews = () => {
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [noResultFound, setNoResultFound] = useState(false);
     const dispatch = useDispatch();
     const searchResultCache = useSelector((store) => store.companies.companiesSearchResultCache);
     const searchUIText = "Start typing in search bar to ";
@@ -22,12 +23,22 @@ const Interviews = () => {
         if (searchResultCache[searchBarQuery]) {
             setCompanies(searchResultCache[searchBarQuery]);
             setLoading(false);
+            if (Object.values(searchResultCache[searchBarQuery]).length === 0) {
+                setNoResultFound(true);
+            } else {
+                setNoResultFound(false);
+            }
             return;
         }
 
         const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}`);
         const resultJson = await result.json();
         setCompanies(resultJson);
+        if (resultJson.length === 0) {
+            setNoResultFound(true);
+        } else {
+            setNoResultFound(false);
+        }
         setLoading(false);
         dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
     }
@@ -53,10 +64,10 @@ const Interviews = () => {
     }
 
     useEffect(() => {
-        if (searchBarQuery.trim() === "" || searchBarQuery === undefined || searchBarQuery === null) {
-            setCompanies([]);
-            return;
-        }
+        // if (searchBarQuery.trim() === "" || searchBarQuery === undefined || searchBarQuery === null) {
+        //     setCompanies([]);
+        //     return;
+        // }
         const timer = setTimeout(() => {
             fetchSearchQueryResultsForCompanies();
         }, 300);
@@ -73,13 +84,14 @@ const Interviews = () => {
     return (
         <div className='interview-container'>
             <h1>Quick Career Search</h1>
-            {companies.length === 0 && !loading &&
+            {companies.length === 0 && !loading && !noResultFound &&
                 <div className='interview-no-result-text'>
                     <span>{searchUIText}</span>
                     <div className='autoWrite'>
                     </div>
                 </div>}
             {loading && <LoadingSpinner />}
+            {noResultFound && !loading && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
             {!loading && <div className='company-card-main-container'>
                 {companies.length > 0 && companies.map((company) => <CompanyCard key={company.companyId} info={company} />)}
             </div>}
