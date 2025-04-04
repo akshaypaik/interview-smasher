@@ -4,10 +4,12 @@ import Body from './components/Body/Body';
 import MainContainer from './components/MainContainer/MainContainer';
 import { useSelector } from 'react-redux';
 import { lazy, Suspense } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
 
   const darkMode = useSelector((store) => store.app.darkMode);
+  const queryClient = new QueryClient();
 
   const Interviews = lazy(() => import('./components/Interviews/Interviews.jsx'));
   const Login = lazy(() => import('./components/Login/Login.jsx'));
@@ -34,7 +36,7 @@ function App() {
         },
         {
           path: "interviews",
-          element: <Suspense><Interviews /></Suspense>
+          element: <Suspense><QueryClientProvider client={queryClient}><Interviews /></QueryClientProvider> </Suspense>
         },
         {
           path: "login",

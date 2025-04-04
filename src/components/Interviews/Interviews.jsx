@@ -1,100 +1,60 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Interviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
-import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import { updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 
 const Interviews = () => {
 
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
-    const [companies, setCompanies] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [noResultFound, setNoResultFound] = useState(false);
     const dispatch = useDispatch();
-    const searchResultCache = useSelector((store) => store.companies.companiesSearchResultCache);
-    const searchUIText = "Start typing in search bar to ";
+    const bottomRef = useRef(true);
 
-    const fetchSearchQueryResultsForCompanies = async () => {
-        setLoading(true);
-
-        // Read from redux cache
-        if (searchResultCache[searchBarQuery]) {
-            setCompanies(searchResultCache[searchBarQuery]);
-            setLoading(false);
-            if (Object.values(searchResultCache[searchBarQuery]).length === 0) {
-                setNoResultFound(true);
-            } else {
-                setNoResultFound(false);
-            }
-            return;
+    const fetchSearchQueryResultsForCompanies = async ({ pageParam = 1 }) => {
+        try {
+            const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}&page=${pageParam}`);
+            const resultJson = await result.json();
+            dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
+            return resultJson;
+        } catch (error) {
+            return [];
         }
+    };
 
-        const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}`);
-        const resultJson = await result.json();
-        setCompanies(resultJson);
-        if (resultJson.length === 0) {
-            setNoResultFound(true);
-        } else {
-            setNoResultFound(false);
+    const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
+        queryKey: ['companies', searchBarQuery],
+        queryFn: fetchSearchQueryResultsForCompanies,
+        getNextPageParam: (lastPage, allPages) => {
+            return lastPage.length === 12 ? allPages.length + 1 : undefined;
         }
-        setLoading(false);
-        dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
-    }
+    });
 
-    const typewriterEffect = () => {
-        const typewriter = new Typewriter(document.querySelector('.autoWrite'), {
-            loop: true,
-        });
-        typewriter
-            .typeString(' get the companies listed...')
-            .pauseFor(2000)
-            .deleteAll()
-            .typeString(' apply for jobs...')
-            .pauseFor(2000)
-            .deleteAll()
-            .typeString(' add them as your dream company...')
-            .pauseFor(2000)
-            .deleteAll()
-            .typeString(' keep track of your dream company by adding them as favorite...')
-            .pauseFor(2000)
-            .deleteAll()
-            .start();
+    const handleScrollWindow = () => {
+        bottomRef.current = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 20;
+        if (bottomRef.current && hasNextPage) {
+            fetchNextPage();
+        }
     }
 
     useEffect(() => {
-        // if (searchBarQuery.trim() === "" || searchBarQuery === undefined || searchBarQuery === null) {
-        //     setCompanies([]);
-        //     return;
-        // }
-        const timer = setTimeout(() => {
-            fetchSearchQueryResultsForCompanies();
-        }, 300);
-
+        window.addEventListener('scroll', handleScrollWindow);
         return () => {
-            clearTimeout(timer);
+            window.removeEventListener('scroll', handleScrollWindow);
         }
-    }, [searchBarQuery]);
-
-    useEffect(() => {
-        typewriterEffect();
-    }, [companies]);
+    }, [hasNextPage]);
 
     return (
         <div className='interview-container'>
             <h1>Quick Career Search</h1>
-            {companies.length === 0 && !loading && !noResultFound &&
-                <div className='interview-no-result-text'>
-                    <span>{searchUIText}</span>
-                    <div className='autoWrite'>
-                    </div>
-                </div>}
-            {loading && <LoadingSpinner />}
-            {noResultFound && !loading && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
-            {!loading && <div className='company-card-main-container'>
-                {companies.length > 0 && companies.map((company) => <CompanyCard key={company.companyId} info={company} />)}
-            </div>}
+            <div className='company-card-main-container'>
+                {data?.pages?.map((pages, index) => {
+                    return pages?.map((company) => <CompanyCard key={company.companyId} info={company} />)
+                })}
+            </div>
+            {bottomRef.current && hasNextPage && <LoadingSpinner /> }
         </div>
     )
 }

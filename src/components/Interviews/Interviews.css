@@ -1,6 +1,7 @@
 .interview-container {
     margin: 24px;
     width: 100%;
+    overflow-y: auto;
 }
 
 .interview-no-result-text,
