@@ -6,6 +6,7 @@ import CompanyCard from './CompanyCard/CompanyCard';
 import { updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
+import _ from 'lodash';
 
 const Interviews = () => {
 
@@ -39,10 +40,14 @@ const Interviews = () => {
         }
     }
 
+    // Debounce the scroll handler to limit API calls
+    const debouncedHandleScroll = _.debounce(handleScrollWindow, 300);
+
     useEffect(() => {
-        window.addEventListener('scroll', handleScrollWindow);
+        window.addEventListener('scroll', debouncedHandleScroll);
         return () => {
-            window.removeEventListener('scroll', handleScrollWindow);
+            window.removeEventListener('scroll', debouncedHandleScroll);
+            debouncedHandleScroll.cancel(); // Cancel any pending debounced calls
         }
     }, [hasNextPage]);
 
