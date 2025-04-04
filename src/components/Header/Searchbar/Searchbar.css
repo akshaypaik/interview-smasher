@@ -24,8 +24,8 @@
 
 .search-bar input:focus{
     outline: none;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-    border: 0.5px solid blue !important;
+    box-shadow: 0 0 5px var(--primary-color);
+    border: 0.5px solid var(--primary-color) !important;
 }
 
 .search-bar svg{

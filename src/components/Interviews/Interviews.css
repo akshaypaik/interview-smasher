@@ -8,10 +8,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 8rem;
 }
 
 .company-card-main-container {
     display: flex;
     flex-wrap: wrap;
     gap: 48px;
+}
+
+.autoWrite{
+    color: #cf1b1b;
+    margin-left: 8px;
 }

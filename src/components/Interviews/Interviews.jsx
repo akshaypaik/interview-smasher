@@ -13,6 +13,7 @@ const Interviews = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const searchResultCache = useSelector((store) => store.companies.companiesSearchResultCache);
+    const searchUIText = "Start typing in search bar to ";
 
     const fetchSearchQueryResultsForCompanies = async () => {
         setLoading(true);
@@ -31,6 +32,26 @@ const Interviews = () => {
         dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
     }
 
+    const typewriterEffect = () => {
+        const typewriter = new Typewriter(document.querySelector('.autoWrite'), {
+            loop: true,
+        });
+        typewriter
+            .typeString(' get the companies listed...')
+            .pauseFor(2000)
+            .deleteAll()
+            .typeString(' apply for jobs...')
+            .pauseFor(2000)
+            .deleteAll()
+            .typeString(' add them as your dream company...')
+            .pauseFor(2000)
+            .deleteAll()
+            .typeString(' keep track of your dream company by adding them as favorite...')
+            .pauseFor(2000)
+            .deleteAll()
+            .start();
+    }
+
     useEffect(() => {
         if (searchBarQuery.trim() === "" || searchBarQuery === undefined || searchBarQuery === null) {
             setCompanies([]);
@@ -45,13 +66,18 @@ const Interviews = () => {
         }
     }, [searchBarQuery]);
 
-
+    useEffect(() => {
+        typewriterEffect();
+    }, [companies]);
 
     return (
         <div className='interview-container'>
             <h1>Quick Career Search</h1>
             {companies.length === 0 && !loading &&
-                <div className='interview-no-result-text'> Start typing in search bar to get the companies listed...
+                <div className='interview-no-result-text'>
+                    <span>{searchUIText}</span>
+                    <div className='autoWrite'>
+                    </div>
                 </div>}
             {loading && <LoadingSpinner />}
             {!loading && <div className='company-card-main-container'>
