@@ -18,7 +18,7 @@ const CompanyCard = ({ info, refetch }) => {
         e.stopPropagation();
         if (info.isFavoriteCompany) {
             // removeFavoriteCompany(info);
-            mutate(info);
+            removeFavoriteMutate(info);
             setFavoriteCompanyStyle(false);
             if (window.refetchQuickCareerCompanies) {
                 window.refetchQuickCareerCompanies(); // Call the refetch function
@@ -72,7 +72,7 @@ const CompanyCard = ({ info, refetch }) => {
     }
 
     const queryClient = useQueryClient();
-    const { mutate } = useMutation({
+    const { mutate: removeFavoriteMutate } = useMutation({
         mutationFn: removeFavoriteCompany,
         onSuccess: () => {
             toast.success("Favorite removed!");
