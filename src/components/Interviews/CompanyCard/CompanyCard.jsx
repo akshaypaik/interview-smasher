@@ -77,7 +77,6 @@ const CompanyCard = ({ info, refetch }) => {
             <div className='company-card-container'>
                 <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
                     <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
-
                 </span>
                 <img src={info.companyIconURL} alt='company-icon' />
                 <span className='company-name'> {info?.displayName}</span>
