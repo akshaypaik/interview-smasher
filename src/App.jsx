@@ -9,7 +9,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 function App() {
 
   const darkMode = useSelector((store) => store.app.darkMode);
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000    // time to refetching the data and not use cache
+      }
+    }
+  });
 
   const Interviews = lazy(() => import('./components/Interviews/Interviews.jsx'));
   const Login = lazy(() => import('./components/Login/Login.jsx'));
