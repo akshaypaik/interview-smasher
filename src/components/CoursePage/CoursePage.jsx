@@ -72,7 +72,7 @@ const CoursePage = () => {
   }, [courseInfo]);
 
   useEffect(() => {
-    if (courseByModule && courseByModule.length > 0) {
+    if (courseByModule) {
       let filteredTopicsInfo = {
         topicsInfo: []
       };

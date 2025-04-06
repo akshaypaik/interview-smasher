@@ -25,7 +25,7 @@ const Interviews = () => {
         }
     };
 
-    const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isLoading } = useInfiniteQuery({
         queryKey: ['companies', searchBarQuery],
         queryFn: fetchSearchQueryResultsForCompanies,
         getNextPageParam: (lastPage, allPages) => {
@@ -54,12 +54,13 @@ const Interviews = () => {
     return (
         <div className='interview-container'>
             <h1>Quick Career Search</h1>
+            {isLoading && <LoadingSpinner />}
             <div className='company-card-main-container'>
                 {data?.pages?.map((pages, index) => {
                     return pages?.map((company) => <CompanyCard key={company.companyId} info={company} />)
                 })}
             </div>
-            {bottomRef.current && hasNextPage && <LoadingSpinner /> }
+            {bottomRef.current && hasNextPage && <LoadingSpinner />}
         </div>
     )
 }
