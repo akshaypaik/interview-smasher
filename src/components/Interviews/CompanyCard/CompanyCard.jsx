@@ -6,6 +6,7 @@ import StarIcon from '../../Shared/StarIcon/StarIcon';
 import likeIcon from "../../../assets/images/icons/like-icon.svg";
 import likeIconFavorite from "../../../assets/images/icons/like-icon-favorite.svg";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const CompanyCard = ({ info, refetch }) => {
 
@@ -35,7 +36,8 @@ const CompanyCard = ({ info, refetch }) => {
                 email: "akshaypaik@gmail.com"
             }
         }
-        postFavoriteCompany(favCompanyObj);
+        // postFavoriteCompany(favCompanyObj);
+        postFavoriteMutate(favCompanyObj);
         setFavoriteCompanyStyle(true);
         refetch();
     }
@@ -67,16 +69,29 @@ const CompanyCard = ({ info, refetch }) => {
             body: JSON.stringify(updatedFavCompanyObj)
         })
         const resultJson = await result.json();
-        console.log(resultJson);
     }
 
     const queryClient = useQueryClient();
     const { mutate } = useMutation({
         mutationFn: removeFavoriteCompany,
         onSuccess: () => {
+            toast.success("Favorite removed!");
             queryClient.invalidateQueries({
                 queryKey: ["favoriteCompanies"]
             });
+        },
+        onError: () => {
+            toast.error("Removing favorite failed!");
+        }
+    });
+
+    const { mutate: postFavoriteMutate } = useMutation({
+        mutationFn: postFavoriteCompany,
+        onSuccess: () => {
+            toast.success("Favorite added!");
+        },
+        onError: () => {
+            toast.error("Adding favorite failed!");
         }
     });
 
