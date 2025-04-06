@@ -30,8 +30,8 @@ const UserRating = ({ userRatingInfo }) => {
                 {ratingDecimal >= 0.1 && <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="48" height="48">
                     <defs>
                         <linearGradient id="halfGrad">
-                            <stop offset="50%" stop-color="#FFC107" />
-                            <stop offset="50%" stop-color="#E0E0E0" />
+                            <stop offset="50%" stopColor="#FFC107" />
+                            <stop offset="50%" stopColor="#E0E0E0" />
                         </linearGradient>
                     </defs>
                     <path fill="url(#halfGrad)" d="M287.9 17.8L354 150l136.9 19.9c26.2 3.8 36.7 36 17.7 54.6l-99 96.5 

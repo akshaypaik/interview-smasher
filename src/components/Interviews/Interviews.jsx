@@ -35,7 +35,7 @@ const Interviews = () => {
     });
 
     const handleScrollWindow = () => {
-        bottomRef.current = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 20;
+        bottomRef.current = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
         if (bottomRef.current && hasNextPage) {
             fetchNextPage();
         }

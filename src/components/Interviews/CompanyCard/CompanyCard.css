@@ -28,6 +28,11 @@
     max-width: 200px;
 }
 
+.company-name{
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
 .star-company svg{
     position: absolute;
     top: 8px;

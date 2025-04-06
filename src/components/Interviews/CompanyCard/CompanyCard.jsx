@@ -80,7 +80,7 @@ const CompanyCard = ({ info, refetch }) => {
                     </svg>
                 </span>
                 <img src={info.companyIconURL} alt='company-icon' />
-                {info?.displayName}
+                <span className='company-name'> {info?.displayName}</span>
                 <span className='user-star-company'>
                     <UserRating userRatingInfo={userRatings} />
                 </span>
