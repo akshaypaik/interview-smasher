@@ -1,26 +1,33 @@
 import React, { useRef } from 'react';
 import './Login.css';
+import { useForm } from 'react-hook-form';
 
 const Login = () => {
 
-    const email = useRef(null);
-    const password = useRef(null);
+    const { register, handleSubmit } = useForm();
 
-    const handleLoginSubmit = (e) => {
-        e.preventDefault();
-        const loginDetails = {
-            email: email.current.value,
-            password: password.current.value
+    const handleLoginSubmit = (data) => {
+        if (data) {
+            const loginDetails = {
+                email: data.email,
+                password: data.password
+            }
+            console.log(loginDetails);
         }
-        console.log(loginDetails);
     }
 
     return (
         <div className='login-container'>
             <h2>Login</h2>
-            <form className='login-form'>
-                <input type='text' placeholder='Email' ref={email} />
-                <input type='password' placeholder='Password'  ref={password} />
+            <form className='login-form' onSubmit={handleSubmit(handleLoginSubmit)}>
+                <div className='login-field'>
+                    <label>Email</label>
+                    <input type='text' placeholder='Email' id='email' {...register("email")} />
+                </div>
+                <div className='login-field'>
+                    <label>Password</label>
+                    <input type='password' placeholder='Password' id='password' {...register("password")} />
+                </div>
                 <button onClick={(e) => handleLoginSubmit(e)}>Submit</button>
             </form>
         </div>

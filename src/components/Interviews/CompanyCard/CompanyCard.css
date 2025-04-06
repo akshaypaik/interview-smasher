@@ -1,6 +1,6 @@
 .company-card-container {
     border: 0.5px solid var(--course-card-border-color);
-    padding: 4rem 2rem;
+    padding: 4rem 3rem;
     border-radius: 8px;
     display: flex;
     flex-direction: column;

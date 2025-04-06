@@ -20,7 +20,7 @@ function App() {
   const queryClientFavCompanies = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 3 * 1000    // time to refetching the data and not use cache
+        staleTime: 0    // time to refetching the data and not use cache
       }
     }
   });
