@@ -7,6 +7,7 @@ import { updateCompaniesSearchResultCache } from '../../utils/ReduxStore/compani
 import { useInfiniteQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
+import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 
 const Interviews = () => {
 
@@ -50,6 +51,12 @@ const Interviews = () => {
             debouncedHandleScroll.cancel(); // Cancel any pending debounced calls
         }
     }, [hasNextPage]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(updateSearchBarQuery(""));
+        }
+    }, []);
 
     return (
         <div className='interview-container'>

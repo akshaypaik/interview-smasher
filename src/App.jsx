@@ -5,14 +5,22 @@ import MainContainer from './components/MainContainer/MainContainer';
 import { useSelector } from 'react-redux';
 import { lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
 
   const darkMode = useSelector((store) => store.app.darkMode);
-  const queryClient = new QueryClient({
+  const queryClientQuickCareerCompanies = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000    // time to refetching the data and not use cache
+        staleTime: 300 * 1000    // time to refetching the data and not use cache
+      }
+    }
+  });
+  const queryClientFavCompanies = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 1000    // time to refetching the data and not use cache
       }
     }
   });
@@ -42,7 +50,13 @@ function App() {
         },
         {
           path: "interviews",
-          element: <Suspense><QueryClientProvider client={queryClient}><Interviews /></QueryClientProvider> </Suspense>
+          element:
+            <Suspense>
+              <QueryClientProvider client={queryClientQuickCareerCompanies}>
+                <ReactQueryDevtools initialIsOpen={false} />
+                <Interviews />
+              </QueryClientProvider>
+            </Suspense>
         },
         {
           path: "login",
@@ -50,7 +64,12 @@ function App() {
         },
         {
           path: "favorite-companies",
-          element: <Suspense><FavoriteCompanies /></Suspense>
+          element:
+            <Suspense>
+              <QueryClientProvider client={queryClientFavCompanies}>
+                <FavoriteCompanies />
+              </QueryClientProvider>
+            </Suspense>
         }
       ]
     }
