@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './CompanyCard.css';
 import { POST_FAVORITE_COMPANIES_INTERVIEW, REMOVE_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
+import UserRating from '../UserRating/UserRating';
+import StarIcon from '../../Shared/StarIcon/StarIcon';
 
 const CompanyCard = ({ info, refetch }) => {
 
     const [favoriteCompanyStyle, setFavoriteCompanyStyle] = useState(false);
+    const { userRatings } = info;
 
     const handleFavoriteClick = (e) => {
         e.preventDefault();
@@ -14,7 +17,7 @@ const CompanyCard = ({ info, refetch }) => {
             setFavoriteCompanyStyle(false);
             if (window.refetchQuickCareerCompanies) {
                 window.refetchQuickCareerCompanies(); // Call the refetch function
-            }else{
+            } else {
                 refetch();
             }
             return;
@@ -69,14 +72,14 @@ const CompanyCard = ({ info, refetch }) => {
     return (
         <a href={info.companyCareerPageURL} target='_blank'>
             <div className='company-card-container'>
-                <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
-                    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <polygon points="12,2 15,8.5 22,9.5 17,14.5 18.5,21 12,17.5 5.5,21 7,14.5 2,9.5 9,8.5"
-                            stroke="black" strokeWidth="1" fill={favoriteCompanyStyle ? 'gold' : 'white'} />
-                    </svg>
+                <span onClick={(e) => handleFavoriteClick(e)}>
+                    <StarIcon fill={favoriteCompanyStyle ? 'gold' : 'white'} stroke="black" />
                 </span>
                 <img src={info.companyIconURL} alt='company-icon' />
                 {info?.displayName}
+                <span className='user-star-company'>
+                    <UserRating userRatingInfo={userRatings} />
+                </span>
             </div>
         </a>
     )

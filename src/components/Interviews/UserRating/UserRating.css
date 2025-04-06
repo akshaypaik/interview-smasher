@@ -1,0 +1,13 @@
+.user-rating-count-company{
+    font-size: 0.8rem;
+}
+
+.user-rating-count-star{
+    margin-left: 6px;
+}
+
+.half-star-company svg{
+    height: 16px;
+    margin-left: -14px;
+    margin-bottom: -2px;
+}

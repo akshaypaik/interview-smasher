@@ -3,7 +3,7 @@
   --home-bg-color: #000;
   --home-text-color: #fff;
   --sidarbar-hover-bg-color: #334155;
-  --course-card-hover-bg-color: rgb(238, 235, 235, 0.9);
+  --course-card-hover-bg-color: rgba(238, 235, 235, 0.8);
   --course-card-hover-text-color: #000;
   --course-card-border-color: rgb(22 24 29/1);
   /* --course-card-bg-color: #334155; */

@@ -1,6 +1,6 @@
 .company-card-container {
     border: 0.5px solid var(--course-card-border-color);
-    padding: 3rem 3rem;
+    padding: 4rem 2rem;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -34,4 +34,10 @@
     right: 0;
     padding-right: 24px;
     height: 32px;
+}
+
+.user-star-company{
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
 }
