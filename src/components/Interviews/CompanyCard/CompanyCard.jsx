@@ -5,6 +5,7 @@ import UserRating from '../UserRating/UserRating';
 import StarIcon from '../../Shared/StarIcon/StarIcon';
 import likeIcon from "../../../assets/images/icons/like-icon.svg";
 import likeIconFavorite from "../../../assets/images/icons/like-icon-favorite.svg";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const CompanyCard = ({ info, refetch }) => {
 
@@ -15,7 +16,8 @@ const CompanyCard = ({ info, refetch }) => {
         e.preventDefault();
         e.stopPropagation();
         if (info.isFavoriteCompany) {
-            removeFavoriteCompany(info);
+            // removeFavoriteCompany(info);
+            mutate(info);
             setFavoriteCompanyStyle(false);
             if (window.refetchQuickCareerCompanies) {
                 window.refetchQuickCareerCompanies(); // Call the refetch function
@@ -67,6 +69,16 @@ const CompanyCard = ({ info, refetch }) => {
         const resultJson = await result.json();
         console.log(resultJson);
     }
+
+    const queryClient = useQueryClient();
+    const { mutate } = useMutation({
+        mutationFn: removeFavoriteCompany,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["favoriteCompanies"]
+            });
+        }
+    });
 
     useEffect(() => {
         setFavoriteCompanyStyle(info.isFavoriteCompany);
