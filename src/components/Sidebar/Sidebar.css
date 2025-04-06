@@ -1,5 +1,10 @@
+.sidebar-container{
+    border-right: 0.5px solid hsla(0, 0%, 53.3%, 0.4);
+    height: 100vh;
+}
+
 .sidebar-container ul {
-    padding-left: 24px;
+    padding: 0;
 }
 
 .sidebar-ul li {
@@ -10,8 +15,9 @@
     gap: 12px;
     font-size: 0.8rem;
     letter-spacing: 0.4px;
-    margin-right: 4px;
+    margin: 4px;
     white-space: nowrap;
+    padding-left: 18px;
 }
 
 .router-link {
@@ -28,6 +34,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    padding-left: 16px;
 }
 
 hr {
