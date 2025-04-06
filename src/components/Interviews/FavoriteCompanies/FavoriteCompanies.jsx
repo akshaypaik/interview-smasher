@@ -43,7 +43,8 @@ const FavoriteCompanies = () => {
                 <div className='interview-no-result-text'> Please add favorite companies in Interview section...
                 </div>}
             <div className='company-card-main-container'>
-                {filteredFavoriteCompanies?.length > 0 && filteredFavoriteCompanies?.map((company) => <CompanyCard key={company.companyId} info={company} />)}
+                {filteredFavoriteCompanies?.length > 0 && filteredFavoriteCompanies?.map((company) => 
+                <CompanyCard key={company.companyId} info={company} />)}
             </div>
         </div>
     )

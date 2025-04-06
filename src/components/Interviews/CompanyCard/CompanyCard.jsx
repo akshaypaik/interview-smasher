@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './CompanyCard.css';
 import { POST_FAVORITE_COMPANIES_INTERVIEW, REMOVE_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
 
-const CompanyCard = ({ info }) => {
+const CompanyCard = ({ info, refetch }) => {
 
     const [favoriteCompanyStyle, setFavoriteCompanyStyle] = useState(false);
 
@@ -12,6 +12,11 @@ const CompanyCard = ({ info }) => {
         if (info.isFavoriteCompany) {
             removeFavoriteCompany(info);
             setFavoriteCompanyStyle(false);
+            if (window.refetchQuickCareerCompanies) {
+                window.refetchQuickCareerCompanies(); // Call the refetch function
+            }else{
+                refetch();
+            }
             return;
         }
         console.log("fav clicked");
@@ -25,6 +30,7 @@ const CompanyCard = ({ info }) => {
         }
         postFavoriteCompany(favCompanyObj);
         setFavoriteCompanyStyle(true);
+        refetch();
     }
 
     const postFavoriteCompany = async (favCompanyObj) => {
@@ -36,7 +42,6 @@ const CompanyCard = ({ info }) => {
             body: JSON.stringify(favCompanyObj)
         })
         const resultJson = await result.json();
-        console.log(resultJson);
     }
 
     const removeFavoriteCompany = async (favCompanyObj) => {

@@ -14,6 +14,13 @@ const companiesSlice = createSlice({
     }
 });
 
+const setRefetchQuickCareerCompaniesFunction = (refetch) => (dispatch) => {
+    // Store the refetch function in a closure
+    window.refetchQuickCareerCompanies = refetch;
+};
+
+export { setRefetchQuickCareerCompaniesFunction };
+
 export default companiesSlice.reducer;
 
 export const { updateCompaniesSearchResultCache } = companiesSlice.actions;

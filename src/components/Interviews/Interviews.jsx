@@ -3,7 +3,7 @@ import './Interviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
-import { updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
+import { setRefetchQuickCareerCompaniesFunction, updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
@@ -26,7 +26,7 @@ const Interviews = () => {
         }
     };
 
-    const { data, hasNextPage, fetchNextPage, isLoading } = useInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isLoading, refetch } = useInfiniteQuery({
         queryKey: ['companies', searchBarQuery],
         queryFn: fetchSearchQueryResultsForCompanies,
         getNextPageParam: (lastPage, allPages) => {
@@ -53,6 +53,7 @@ const Interviews = () => {
     }, [hasNextPage]);
 
     useEffect(() => {
+        dispatch(setRefetchQuickCareerCompaniesFunction(refetch));
         return () => {
             dispatch(updateSearchBarQuery(""));
         }
@@ -64,7 +65,11 @@ const Interviews = () => {
             {isLoading && <LoadingSpinner />}
             <div className='company-card-main-container'>
                 {data?.pages?.map((pages, index) => {
-                    return pages?.map((company) => <CompanyCard key={company.companyId} info={company} />)
+                    return pages?.map((company) =>
+                        <CompanyCard
+                            key={company.companyId}
+                            info={company}
+                            refetch={refetch} />)
                 })}
             </div>
             {bottomRef.current && hasNextPage && <LoadingSpinner />}
