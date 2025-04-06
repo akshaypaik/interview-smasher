@@ -63,6 +63,7 @@ const Interviews = () => {
         <div className='interview-container'>
             <h1>Quick Career Search</h1>
             {isLoading && <LoadingSpinner />}
+            {data?.pages[0].length === 0 && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
             <div className='company-card-main-container'>
                 {data?.pages?.map((pages, index) => {
                     return pages?.map((company) =>
