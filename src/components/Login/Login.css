@@ -50,3 +50,11 @@
     background-color: var(--topic-page-btn-bg-color);
     color: var(--home-bg-color);
 }
+
+.error-msg{
+    color: #b91c1c;
+    font-size: 0.8rem;
+    margin-top: 0.6rem;
+    white-space: wrap;
+    max-width: 280px;
+}
