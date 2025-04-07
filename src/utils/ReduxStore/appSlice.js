@@ -5,7 +5,8 @@ const appSlice = createSlice({
     initialState: {
         darkMode: true,
         showSidebar: true,
-        searchBarQuery: ""
+        searchBarQuery: "",
+        showLoginSidebar: false
     },
     reducers: {
         toogleDarkMode: (state, action) => {
@@ -16,10 +17,13 @@ const appSlice = createSlice({
         },
         updateSearchBarQuery: (state, action) => {
             state.searchBarQuery = action.payload;
+        },
+        updateShowLoginSidebar: (state, action) => {
+            state.showLoginSidebar = action.payload;
         }
     }
 });
 
 export default appSlice.reducer;
 
-export const { toogleDarkMode, toggleSideBar, updateSearchBarQuery } = appSlice.actions;
+export const { toogleDarkMode, toggleSideBar, updateSearchBarQuery, updateShowLoginSidebar } = appSlice.actions;

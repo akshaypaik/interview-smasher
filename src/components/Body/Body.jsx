@@ -5,10 +5,12 @@ import { useSelector } from 'react-redux'
 import Header from '../Header/Header';
 import './Body.css';
 import { Toaster } from 'react-hot-toast';
+import Login from '../Login/Login';
 
 const Body = () => {
 
     const showSidebar = useSelector((store) => store.app.showSidebar);
+    const showLoginSidebar = useSelector((store) => store.app.showLoginSidebar);
 
     return (
         <>
@@ -31,6 +33,7 @@ const Body = () => {
             <Header />
             <div className='body-container'>
                 {showSidebar && <Sidebar />}
+                {showLoginSidebar && <Login />}
                 <Outlet />
             </div>
         </>

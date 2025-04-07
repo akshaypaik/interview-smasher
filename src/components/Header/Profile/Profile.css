@@ -19,10 +19,17 @@
     cursor: pointer;
     color: #fff;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .profile-login-btn:hover {
     background-color: #fff;
     color: #000;
     box-shadow: 0 10px 36px rgba(0, 0, 0, 0.30);
+}
+
+.profile-login-btn:hover svg{
+    fill: #000;
 }
