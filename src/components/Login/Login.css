@@ -10,7 +10,7 @@ body.no-scroll {
     height: 100%;
     width: 480px;
     z-index: 21;
-    box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);;
+    box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
 }
 
 .login-header {

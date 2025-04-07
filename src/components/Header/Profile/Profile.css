@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-.dark-mode-container{
+.dark-mode-container {
     background-color: #908b8b;
     padding: 0.6rem;
     border-radius: 48px;
@@ -37,47 +37,62 @@
     box-shadow: 0 10px 36px rgba(0, 0, 0, 0.30);
 }
 
-.profile-login-btn:hover svg{
+.profile-login-btn:hover svg {
     fill: #000;
 }
 
-.user-avatar-container{
+.user-avatar-container {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    position: relative;
+    margin-right: 2rem;
 }
 
-.user-avatar-container img{
+.user-avatar-container img {
     height: 48px;
     border-radius: 48px;
     cursor: pointer;
 }
 
-.avatar-details{
+.avatar-details {
     position: absolute;
-    bottom: -48px;
-    background-color: #908b8b;
-    padding: 0.4rem;
+    margin-top: 0.4rem;
+    top: 100%;
+    background-color: var(--avatar-details-bg-color);
     border-radius: 8px;
+    box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
 }
 
-.avatar-details ul{
-    padding: 4px;
-    width: 120px;
-    height: 12px;
+.avatar-details ul {
+    padding: 0;
+    width: 240px;
 }
 
-.avatar-details ul li{
+.avatar-details ul li {
     list-style-type: none;
-    background-color: red;
-    color: #fff;
+    color: var(--home-text-color);
     padding: 6px 12px;
     cursor: pointer;
     border-radius: 8px;
     font-weight: 600;
+    text-align: center;
+    display: flex;
+    gap: 0.8rem;
+    margin: 0.6rem 0;
 }
 
-.avatar-details ul li:hover{
+.avatar-details ul li:hover {
     background-color: #fff;
     color: #000;
+}
+
+.avatar-details ul li:hover svg {
+    fill: #000;
+}
+
+.user-username-text {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-right: 2rem;
 }
