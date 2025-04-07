@@ -5,6 +5,13 @@
     align-items: center;
 }
 
+.dark-mode-container{
+    background-color: #908b8b;
+    padding: 0.6rem;
+    border-radius: 48px;
+    cursor: pointer;
+}
+
 .dark-mode-container svg {
     cursor: pointer;
 }
@@ -32,4 +39,45 @@
 
 .profile-login-btn:hover svg{
     fill: #000;
+}
+
+.user-avatar-container{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.user-avatar-container img{
+    height: 48px;
+    border-radius: 48px;
+    cursor: pointer;
+}
+
+.avatar-details{
+    position: absolute;
+    bottom: -48px;
+    background-color: #908b8b;
+    padding: 0.4rem;
+    border-radius: 8px;
+}
+
+.avatar-details ul{
+    padding: 4px;
+    width: 120px;
+    height: 12px;
+}
+
+.avatar-details ul li{
+    list-style-type: none;
+    background-color: red;
+    color: #fff;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.avatar-details ul li:hover{
+    background-color: #fff;
+    color: #000;
 }

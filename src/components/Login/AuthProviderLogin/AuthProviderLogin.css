@@ -1,0 +1,21 @@
+.auth-login-container {
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.auth-provider-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    box-shadow: lightgray 0px 1px;
+    border: 1px solid rgb(136, 147, 151);
+    border-radius: 8px;
+    padding-left: 2rem;
+}
+
+.auth-provider-btn:hover {
+    box-shadow: rgb(232, 236, 235) 0px 0px 0px 3px;
+    cursor: pointer;
+}

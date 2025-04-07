@@ -11,7 +11,7 @@
   --topic-page-btn-bg-color: rgb(255 255 255/1);
   --topic-page-btn-color: #000;
   --form-bg-color: rgb(46.32,46.32,46.32);
-  --login-sidebar-bg-color: #374151;
+  --login-sidebar-bg-color: rgb(46.32,46.32,46.32);
   --primary-color: rgb(207, 27, 27);
   transition: 0.3 ease-in-out;
 }
