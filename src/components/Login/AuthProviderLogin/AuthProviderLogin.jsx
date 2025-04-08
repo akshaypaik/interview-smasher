@@ -5,6 +5,7 @@ import { auth, provider } from '../../../utils/firebase/firbaseAuth';
 import { useDispatch } from 'react-redux';
 import { setUserInfo, updateShowLoginSidebar } from '../../../utils/ReduxStore/appSlice';
 import Cookies from 'js-cookie';
+import { useMutation } from '@tanstack/react-query';
 
 const AuthProviderLogin = () => {
 
@@ -22,6 +23,7 @@ const AuthProviderLogin = () => {
             dispatch(updateShowLoginSidebar(false));
             const body = document.body;
             body?.classList.remove('no-scroll');
+            return user;
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -30,10 +32,14 @@ const AuthProviderLogin = () => {
         });
     }
 
+    const { mutate: handleGoogleLoginMutate } = useMutation({
+        mutationFn: handleGoogleLogin
+    });
+
     return (
         <div className='auth-login-container'>
             <h4>Login into your account using</h4>
-            <div className='auth-provider-btn btn-auth-google' onClick={handleGoogleLogin}>
+            <div className='auth-provider-btn btn-auth-google' onClick={handleGoogleLoginMutate}>
                 <svg width="52" height="52" role="img">
                     <title>Google's Logo</title>
                     <g id="Google-Button" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

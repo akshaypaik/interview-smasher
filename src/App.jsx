@@ -17,7 +17,7 @@ function App() {
       }
     }
   });
-  const queryClientFavCompanies = new QueryClient({
+  const queryClientWithoutSlate = new QueryClient({
     defaultOptions: {
       queries: {
         staleTime: 0    // time to refetching the data and not use cache
@@ -60,13 +60,15 @@ function App() {
         },
         {
           path: "login",
-          element: <Suspense><Login /></Suspense>
+          element: <Suspense>
+            <Login />
+          </Suspense>
         },
         {
           path: "favorite-companies",
           element:
             <Suspense>
-              <QueryClientProvider client={queryClientFavCompanies}>
+              <QueryClientProvider client={queryClientWithoutSlate}>
                 <FavoriteCompanies />
               </QueryClientProvider>
             </Suspense>

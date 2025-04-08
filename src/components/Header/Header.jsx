@@ -7,12 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeUser, setUserInfo, toggleSideBar } from '../../utils/ReduxStore/appSlice';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../utils/firebase/firbaseAuth';
-import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const darkMode = useSelector((store) => store.app.darkMode);
 
     const handleToggleSideBar = () => {
@@ -24,16 +22,14 @@ const Header = () => {
             if (user) {
                 const { uid, email, displayName, photoURL } = user;
                 console.log(photoURL);
-                
                 dispatch(setUserInfo({ uid, email, displayName, photoURL }));
-                navigate("/");
+                return user;
             } else {
                 // User is signed out
                 dispatch(removeUser());
-                navigate("/");
+                return null;
             }
         });
-
         return () => {
             authStateUnsubscription();
         }

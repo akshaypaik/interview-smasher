@@ -9,7 +9,7 @@ const Login = () => {
 
     const showLoginSidebar = useSelector((store) => store.app.showLoginSidebar);
     const dispatch = useDispatch();
-const { register, handleSubmit, formState } = useForm();
+    const { register, handleSubmit, formState } = useForm();
     const { errors } = formState;
 
 
