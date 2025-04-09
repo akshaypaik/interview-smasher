@@ -5,17 +5,6 @@
     align-items: center;
 }
 
-.dark-mode-container {
-    background-color: #908b8b;
-    padding: 0.6rem;
-    border-radius: 48px;
-    cursor: pointer;
-}
-
-.dark-mode-container svg {
-    cursor: pointer;
-}
-
 .profile-login-btn {
     padding: 12px 24px;
     border-radius: 8px;

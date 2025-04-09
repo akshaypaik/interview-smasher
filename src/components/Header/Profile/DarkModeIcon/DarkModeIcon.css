@@ -1,0 +1,17 @@
+.dark-mode-icon {
+    background-color: var(--dark-icon-bg-color);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s linear;
+    position: relative;
+    margin-right: 48px;
+}
+
+.dark-mode-icon svg {
+    position: absolute;
+    left: -24px;
+    height: 48px;
+    z-index: 10;
+}
