@@ -31,8 +31,10 @@ const Profile = () => {
     const handleSignOut = () => {
         if (userInfo.authProvider) {
             signOut(auth).then(() => {
+                dispatch(removeUser());
                 navigate("/");
             }).catch((error) => {
+                dispatch(removeUser());
                 console.error(error);
             });
         } else {
