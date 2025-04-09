@@ -55,6 +55,10 @@
     cursor: pointer;
 }
 
+.user-avatar-container svg{
+    cursor: pointer;
+}
+
 .avatar-details {
     position: absolute;
     margin-top: 0.4rem;

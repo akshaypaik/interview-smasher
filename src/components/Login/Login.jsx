@@ -2,9 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Login.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
+import { setUserInfo, updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
 import AuthProviderLogin from './AuthProviderLogin/AuthProviderLogin';
 import Register from '../Register/Register';
+import axios from 'axios';
+import { LOGIN_USER } from '../../utils/constants/apiConstants';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -25,13 +29,30 @@ const Login = () => {
     }, [showLoginSidebar]);
 
 
-    const handleLoginSubmit = (data) => {
-        if (data) {
-            const loginDetails = {
-                email: data.email,
-                password: data.password
+    const handleLoginSubmit = async (loginData) => {
+        if (loginData?.email && loginData?.password) {
+            try {
+                const loginDetails = {
+                    email: loginData.email,
+                    password: loginData.password
+                }
+                const { data } = await axios.post(LOGIN_USER, loginDetails);
+                if (data?.messageModel?.statusCode === 0) {
+                    Cookies.set("is_token", data?.token.toString());
+                    dispatch(updateShowLoginSidebar(false));
+                    const userInfo = {
+                        uid: data.email,
+                        email: data.email, displayName: data.email,
+                        photoURL: data?.profilePhotoURL, authProvider: false
+                    }
+                    dispatch(setUserInfo(userInfo));
+                    toast.success("Logged in");
+                } else {
+                    toast.error(data?.messageModel?.statusMessage);
+                }
+            } catch (error) {
+
             }
-            console.log(loginDetails);
         }
     }
 

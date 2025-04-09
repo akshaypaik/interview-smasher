@@ -4,6 +4,10 @@ export const BASE_URL = "http://localhost:3000";
 
 export const REGISTER_USER = BASE_URL + "/BackendApp/api/user/registerUser";
 
+export const LOGIN_USER = BASE_URL + "/BackendApp/api/user/loginUser";
+
+export const VALIDATE_USER_TOKEN = BASE_URL + "/BackendApp/api/user/validateJsonToken";
+
 // Courses
 
 export const GET_ALL_COURSES = BASE_URL + "/BackendApp/api/courses/getAllCourses";
