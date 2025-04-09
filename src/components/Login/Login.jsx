@@ -11,10 +11,10 @@ const Login = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit, formState } = useForm();
     const { errors } = formState;
+    const body = document.body;
 
 
     useEffect(() => {
-        const body = document.body;
         if (showLoginSidebar) {
             body?.classList.add('no-scroll');
         } else {
