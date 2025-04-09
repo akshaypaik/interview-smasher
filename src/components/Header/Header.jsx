@@ -4,36 +4,19 @@ import Searchbar from './Searchbar/Searchbar';
 import Logo from './Logo/Logo';
 import Profile from './Profile/Profile';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUser, setUserInfo, toggleSideBar } from '../../utils/ReduxStore/appSlice';
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from '../../utils/firebase/firbaseAuth';
+import { toggleSideBar } from '../../utils/ReduxStore/appSlice';
+import useAuthProviderStateChange from '../../utils/custom-hooks/useAuthProviderStateChange';
 
 const Header = () => {
 
     const dispatch = useDispatch();
     const darkMode = useSelector((store) => store.app.darkMode);
 
+    useAuthProviderStateChange();
+
     const handleToggleSideBar = () => {
         dispatch(toggleSideBar());
     }
-
-    useEffect(() => {
-        const authStateUnsubscription = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const { uid, email, displayName, photoURL } = user;
-                console.log(photoURL);
-                dispatch(setUserInfo({ uid, email, displayName, photoURL }));
-                return user;
-            } else {
-                // User is signed out
-                dispatch(removeUser());
-                return null;
-            }
-        });
-        return () => {
-            authStateUnsubscription();
-        }
-    }, []);
 
     return (
         <div className='header-container'>
