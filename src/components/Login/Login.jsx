@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Login.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
 import AuthProviderLogin from './AuthProviderLogin/AuthProviderLogin';
+import Register from '../Register/Register';
 
 const Login = () => {
 
@@ -11,6 +12,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit, formState } = useForm();
     const { errors } = formState;
+    const [showRegister, setShowRegister] = useState(false);
     const body = document.body;
 
 
@@ -44,7 +46,7 @@ const Login = () => {
 
     return (
         <>
-            <div className='login-container'>
+            {!showRegister && <div className='login-container'>
                 <div className='login-header'>
                     <h2>Login</h2>
                     <div onClick={handleLoginClose}>
@@ -81,10 +83,15 @@ const Login = () => {
                             <span className='error-msg'>{errors?.password?.message}</span>}
                     </div>
                     <button onClick={(e) => handleLoginSubmit(e)}>Submit</button>
+                    <div className='register-btn-container'>
+                        <h6>Don't have an account?</h6>
+                        <button className='register-btn' onClick={() => setShowRegister(true)}>Register</button>
+                    </div>
                     <span style={{ textAlign: 'center', fontWeight: '600', fontSize: '1.2rem' }}>OR</span>
                     <AuthProviderLogin />
                 </form>
-            </div>
+            </div>}
+            {showRegister && <Register setShowRegister={setShowRegister} />}
             <div style={{
                 display: `${showLoginSidebar ? 'block' : 'none'}`,
                 opacity: 0.7, top: 0, bottom: 0, left: 0, right: 0, zIndex: 20,

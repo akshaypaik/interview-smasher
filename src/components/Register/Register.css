@@ -1,8 +1,4 @@
-body.no-scroll {
-    overflow: hidden;
-}
-
-.login-container {
+.register-container {
     position: absolute;
     top: 6rem;
     right: 0;
@@ -11,25 +7,22 @@ body.no-scroll {
     width: 480px;
     z-index: 21;
     box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
+    overflow: scroll;
 }
 
-.login-header {
+.register-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
 }
 
-.login-header svg {
+
+.register-header svg {
     cursor: pointer;
 }
 
-.login-header svg:hover {
-    cursor: pointer;
-    fill: red;
-}
-
-.login-form {
+.register-form {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -38,7 +31,7 @@ body.no-scroll {
     font-family: 'Inter';
 }
 
-.login-form input {
+.register-form input {
     padding: 12px 0 12px 18px;
     background-color: var(--bg-color);
     border: 0.5px solid hsla(0, 0%, 53.3%, 0.4);
@@ -46,7 +39,7 @@ body.no-scroll {
     color: var(--text-color);
 }
 
-.login-form button {
+.register-form button {
     padding: 14px 14px;
     border-radius: 8px;
     outline: none;
@@ -57,39 +50,39 @@ body.no-scroll {
     color: rgb(255 255 255/1);
 }
 
-.login-field {
+.register-field {
     display: grid;
     grid-template-rows: 1fr 1fr;
     align-items: center;
 }
 
-.login-form label {
+.register-form label {
     margin-right: 1rem;
 }
 
-.login-form button:hover {
+.register-form button:hover {
     background-color: var(--topic-page-btn-bg-color);
     color: var(--home-bg-color);
 }
 
-.error-msg {
-    color: #b91c1c;
-    font-size: 0.8rem;
-    margin-top: 0.6rem;
-    white-space: wrap;
-    max-width: 280px;
+@media screen and (max-width: 1200px) {
+    .register-form{
+        gap: 12px;
+    }
+    .register-field{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+    }
+    .register-form input {
+        padding: 8px 0 8px 12px;
+    }
+    .register-form label{
+        font-size: 0.8rem;
+    }
 }
 
-.register-btn-container{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.register-btn-container h6{
-    width: 100%;
-}
-
-.register-btn{
-    width: 100%;
+@media screen and (max-width: 768px) {
+    .register-form input {
+        padding: 6px 0 6px 9px;
+    }
 }
