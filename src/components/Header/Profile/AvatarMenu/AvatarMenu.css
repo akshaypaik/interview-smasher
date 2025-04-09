@@ -1,0 +1,38 @@
+
+
+.avatar-details {
+    position: absolute;
+    margin-top: 0.4rem;
+    top: 100%;
+    background-color: var(--avatar-details-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
+}
+
+.avatar-details ul {
+    padding: 0;
+    width: 240px;
+}
+
+.avatar-details ul li {
+    list-style-type: none;
+    color: var(--home-text-color);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    gap: 0.8rem;
+    margin: 0.6rem 0;
+}
+
+.avatar-details ul li:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.avatar-details ul li:hover svg {
+    fill: #000;
+}
+
