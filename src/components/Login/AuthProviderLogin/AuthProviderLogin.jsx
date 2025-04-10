@@ -3,7 +3,7 @@ import './AuthProviderLogin.css';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from '../../../utils/firebase/firbaseAuth';
 import { useDispatch } from 'react-redux';
-import { setUserInfo, updateShowLoginSidebar } from '../../../utils/ReduxStore/appSlice';
+import { setCurrentSidebarTab, setUserInfo, updateShowLoginSidebar } from '../../../utils/ReduxStore/appSlice';
 import Cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
 
@@ -17,12 +17,15 @@ const AuthProviderLogin = () => {
             const token = credential.accessToken;
             const user = result.user;
             const { uid, email, displayName, photoURL, providerData } = user;
-            dispatch(setUserInfo({ uid, email, displayName, photoURL, providerData }));
+            dispatch(setUserInfo({ uid, email, displayName, photoURL, providerData, authProvider: true }));
             Cookies.set('authToken', user?.stsTokenManager?.accessToken,
                 { expires: user?.stsTokenManager?.expirationTime, secure: true });
             dispatch(updateShowLoginSidebar(false));
+            dispatch(setCurrentSidebarTab("home"));
             const body = document.body;
             body?.classList.remove('no-scroll');
+            navigate("/");
+            window.location.reload();
             return user;
         }).catch((error) => {
             const errorCode = error.code;

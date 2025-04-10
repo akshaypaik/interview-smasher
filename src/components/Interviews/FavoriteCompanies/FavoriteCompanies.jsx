@@ -22,7 +22,7 @@ const FavoriteCompanies = () => {
     }
 
     const { data: favoriteCompanies } = useQuery({
-        queryKey: ["favoriteCompanies"],
+        queryKey: ["favoriteCompanies", userInfo],
         queryFn: fetchFavCompanies
     })
 

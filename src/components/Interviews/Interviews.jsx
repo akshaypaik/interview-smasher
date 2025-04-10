@@ -29,7 +29,7 @@ const Interviews = () => {
     };
 
     const { data, error, hasNextPage, fetchNextPage, isLoading, refetch } = useInfiniteQuery({
-        queryKey: ['companies', searchBarQuery],
+        queryKey: ['companies', searchBarQuery, userInfo],
         queryFn: fetchSearchQueryResultsForCompanies,
         getNextPageParam: (lastPage, allPages) => {
             return lastPage.length === 12 ? allPages.length + 1 : undefined;
