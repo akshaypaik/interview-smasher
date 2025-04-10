@@ -14,29 +14,27 @@ const Body = () => {
 
     return (
         <>
-            <Toaster 
-            position='top-center' 
-            gutter={12} 
-            containerStyle={{ margin: '8px' }} 
-            toastOptions={{
-                success: {
-                    duration: 3000
-                },
-                error: {
-                    duration: 5000
-                },
-                style: {
-                    fontSize: '16px',
-                    maxWidth: '500px'
-                }
-            }} />
+            <Toaster
+                position='top-center'
+                gutter={12}
+                containerStyle={{ margin: '8px' }}
+                toastOptions={{
+                    success: {
+                        duration: 3000
+                    },
+                    error: {
+                        duration: 5000
+                    },
+                    style: {
+                        fontSize: '16px',
+                        maxWidth: '500px'
+                    }
+                }} />
             <Header />
             <div className='body-container'>
                 {showSidebar && <Sidebar />}
                 {showLoginSidebar && <Login />}
-                <div className='router-content'>
                 <Outlet />
-                </div>
             </div>
         </>
     )
