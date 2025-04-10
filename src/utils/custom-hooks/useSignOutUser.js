@@ -16,8 +16,8 @@ const useSignOutUser = () => {
         queryClient.invalidateQueries({
             queryKey: ["companies"]
         })
-        window.location.reload();
         navigate("/");
+        window.location.reload();
     }
 }
 

@@ -31,6 +31,7 @@ const AvatarMenu = () => {
             });
         } else {
             signOutUser();
+            navigate("/");
         }
     }
 

@@ -8,7 +8,8 @@ const appSlice = createSlice({
         searchBarQuery: "",
         showLoginSidebar: false,
         userInfo: {},
-        showAvatarDetails: false
+        showAvatarDetails: false,
+        currentSidebarTab: "home"
     },
     reducers: {
         toogleDarkMode: (state, action) => {
@@ -31,6 +32,9 @@ const appSlice = createSlice({
         },
         toggleShowAvatarDetails: (state, action) => {
             state.showAvatarDetails = !state.showAvatarDetails;
+        },
+        setCurrentSidebarTab: (state, action) => {
+            state.currentSidebarTab = action.payload;
         }
     }
 });
@@ -44,5 +48,6 @@ export const {
     updateShowLoginSidebar,
     setUserInfo,
     removeUser,
-    toggleShowAvatarDetails
+    toggleShowAvatarDetails,
+    setCurrentSidebarTab
 } = appSlice.actions;

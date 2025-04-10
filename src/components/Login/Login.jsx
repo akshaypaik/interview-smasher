@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Login.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
+import { setCurrentSidebarTab, setUserInfo, updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
 import AuthProviderLogin from './AuthProviderLogin/AuthProviderLogin';
 import Register from '../Register/Register';
 import axios from 'axios';
@@ -48,6 +48,7 @@ const Login = () => {
                         photoURL: data?.profilePhotoURL, authProvider: false
                     }
                     dispatch(setUserInfo(userInfo));
+                    dispatch(setCurrentSidebarTab("home"));
                     toast.success("Logged in");
                     navigate("/");
                 } else {
