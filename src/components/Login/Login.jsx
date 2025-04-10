@@ -1,26 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Login.css';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentSidebarTab, setUserInfo, updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
-import AuthProviderLogin from './AuthProviderLogin/AuthProviderLogin';
+import { updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
 import Register from '../Register/Register';
-import axios from 'axios';
-import { LOGIN_USER } from '../../utils/constants/apiConstants';
-import Cookies from 'js-cookie';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import LoginForm from './LoginForm/LoginForm';
 
 const Login = () => {
 
     const showLoginSidebar = useSelector((store) => store.app.showLoginSidebar);
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState } = useForm();
-    const { errors } = formState;
     const [showRegister, setShowRegister] = useState(false);
     const body = document.body;
-    const navigate = useNavigate();
-
 
     useEffect(() => {
         if (showLoginSidebar) {
@@ -30,44 +20,9 @@ const Login = () => {
         }
     }, [showLoginSidebar]);
 
-
-    const handleLoginSubmit = async (loginData) => {
-        if (loginData?.email && loginData?.password) {
-            try {
-                const loginDetails = {
-                    email: loginData.email,
-                    password: loginData.password
-                }
-                const { data } = await axios.post(LOGIN_USER, loginDetails);
-                if (data?.messageModel?.statusCode === 0) {
-                    Cookies.set("is_token", data?.token.toString());
-                    dispatch(updateShowLoginSidebar(false));
-                    const userInfo = {
-                        uid: data.email,
-                        email: data.email, displayName: data.email,
-                        photoURL: data?.profilePhotoURL, authProvider: false
-                    }
-                    dispatch(setUserInfo(userInfo));
-                    dispatch(setCurrentSidebarTab("home"));
-                    toast.success("Logged in");
-                    body?.classList.remove('no-scroll');
-                    navigate("/");
-                } else {
-                    toast.error(data?.messageModel?.statusMessage);
-                }
-            } catch (error) {
-
-            }
-        }
-    }
-
     const handleLoginClose = () => {
         dispatch(updateShowLoginSidebar(false));
         body.classList.remove('no-scroll');
-    }
-
-    const handleError = (errors) => {
-        // console.log(errors);
     }
 
     return (
@@ -83,39 +38,7 @@ const Login = () => {
                         </svg>
                     </div>
                 </div>
-                <form className='login-form' onSubmit={handleSubmit(handleLoginSubmit, handleError)}>
-                    <div className='login-field'>
-                        <label htmlFor='email'>Email</label>
-                        <input type='text' placeholder='Email' id='email' {...register("email", {
-                            required: "This field is required",
-                            validate: (value) => {
-                                const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(value);
-                                return isEmailValid || "Email ID is not valid";
-                            }
-                        })} />
-                        {errors?.email?.message &&
-                            <span className='error-msg'>{errors?.email?.message}</span>}
-                    </div>
-                    <div className='login-field'>
-                        <label htmlFor='password'>Password</label>
-                        <input type='password' placeholder='Password' id='password' {...register("password", {
-                            required: "This field is required",
-                            validate: (value) => {
-                                const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(value);
-                                return isPasswordValid || "Password is not valid. Please provide one uppercase, one special character and one number and a minimum of eight characters";
-                            }
-                        })} />
-                        {errors?.password?.message &&
-                            <span className='error-msg'>{errors?.password?.message}</span>}
-                    </div>
-                    <button onClick={(e) => handleLoginSubmit(e)}>Submit</button>
-                    <div className='register-btn-container'>
-                        <h6>Don't have an account?</h6>
-                        <button className='register-btn' onClick={() => setShowRegister(true)}>Register</button>
-                    </div>
-                    <span className='login-or-text'>OR</span>
-                    <AuthProviderLogin />
-                </form>
+                <LoginForm setShowRegister={setShowRegister} />
             </div>}
             {showRegister && <Register setShowRegister={setShowRegister} />}
             <div style={{
