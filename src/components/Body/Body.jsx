@@ -34,7 +34,9 @@ const Body = () => {
             <div className='body-container'>
                 {showSidebar && <Sidebar />}
                 {showLoginSidebar && <Login />}
+                <div className='router-content'>
                 <Outlet />
+                </div>
             </div>
         </>
     )
