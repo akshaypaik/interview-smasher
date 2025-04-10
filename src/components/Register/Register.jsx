@@ -32,10 +32,14 @@ const Register = ({ setShowRegister }) => {
         }
     }
 
+    const handleBackClick = () =>{
+        setShowRegister(false);
+    }
 
     return (
         <>
             <div className='register-container'>
+                <h4 className='register-back-text' onClick={handleBackClick}>{"<"} back</h4>
                 <div className='register-header'>
                     <h2>Register</h2>
                     <div onClick={handleRegisterClose}>

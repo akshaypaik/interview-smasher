@@ -68,13 +68,23 @@
     color: var(--home-bg-color);
 }
 
+.register-back-text:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1600px) {
     .register-container{
         overflow: scroll;
+        top: 0;
+        overflow-x: hidden;
     }
     h2{
-        margin: 0.6rem 0;
+        margin: 1.2rem 0;
         font-size: 1.2rem;
+    }
+    h4{
+        margin: 0.8rem;
     }
     .register-form{
         gap: 0;
@@ -88,6 +98,9 @@
 }
 
 @media screen and (max-width: 768px) {
+    .register-container{
+        overflow: scroll;
+    }
     .register-form {
         gap: 12px;
     }
