@@ -29,7 +29,6 @@ const CompanyCard = ({ info, refetch }) => {
             }
             return;
         }
-        console.log("fav clicked");
         const favCompanyObj = {
             ...info,
             isFavoriteCompany: true,
@@ -37,6 +36,7 @@ const CompanyCard = ({ info, refetch }) => {
                 email: userInfo?.email
             }
         }
+        delete favCompanyObj._id;
         // postFavoriteCompany(favCompanyObj);
         postFavoriteMutate(favCompanyObj);
         setFavoriteCompanyStyle(true);
