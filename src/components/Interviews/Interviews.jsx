@@ -15,10 +15,14 @@ const Interviews = () => {
     const userInfo = useSelector((store) => store.app.userInfo);
     const dispatch = useDispatch();
     const bottomRef = useRef(true);
-    const [emailNotValid, setEmailNotValid] = useState(false);
+    const [emailNotValid, setEmailNotValid] = useState(true);
 
     const fetchSearchQueryResultsForCompanies = async ({ pageParam = 1 }) => {
         try {
+            if (!userInfo?.email) {
+                setEmailNotValid(true);
+                return;
+            }
             const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}&email=${userInfo?.email}&page=${pageParam}`);
             const resultJson = await result.json();
             dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
@@ -32,7 +36,7 @@ const Interviews = () => {
         queryKey: ['companies', searchBarQuery, userInfo],
         queryFn: fetchSearchQueryResultsForCompanies,
         getNextPageParam: (lastPage, allPages) => {
-            return lastPage.length === 12 ? allPages.length + 1 : undefined;
+            return lastPage?.length === 12 ? allPages?.length + 1 : undefined;
         }
     });
 
@@ -66,10 +70,16 @@ const Interviews = () => {
             if (error?.message.includes("Email is not valid")) {
                 setEmailNotValid(true);
             }
-        }else{
-            setEmailNotValid(false);
+        } else {
+            // setEmailNotValid(false);
         }
     }, [error]);
+
+    useEffect(() => {
+        if (userInfo?.email) {
+            setEmailNotValid(false);
+        }
+    }, [userInfo])
 
     return (
         <div className='interview-container'>
@@ -78,7 +88,7 @@ const Interviews = () => {
                 <h3 className='no-result-found-container'><span>Please login to search companies here...</span></h3>
             </div>}
             {isLoading && <LoadingSpinner />}
-            {data?.pages[0].length === 0 && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
+            {data?.pages[0]?.length === 0 && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
             <div className='company-card-main-container'>
                 {data?.pages?.map((pages, index) => {
                     return pages?.map((company) =>
