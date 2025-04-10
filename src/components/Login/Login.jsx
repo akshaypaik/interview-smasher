@@ -9,6 +9,7 @@ import axios from 'axios';
 import { LOGIN_USER } from '../../utils/constants/apiConstants';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -18,6 +19,7 @@ const Login = () => {
     const { errors } = formState;
     const [showRegister, setShowRegister] = useState(false);
     const body = document.body;
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -47,6 +49,7 @@ const Login = () => {
                     }
                     dispatch(setUserInfo(userInfo));
                     toast.success("Logged in");
+                    navigate("/");
                 } else {
                     toast.error(data?.messageModel?.statusMessage);
                 }

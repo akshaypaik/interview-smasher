@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Interviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW } from '../../utils/constants/apiConstants';
@@ -12,21 +12,23 @@ import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 const Interviews = () => {
 
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
+    const userInfo = useSelector((store) => store.app.userInfo);
     const dispatch = useDispatch();
     const bottomRef = useRef(true);
+    const [emailNotValid, setEmailNotValid] = useState(false);
 
     const fetchSearchQueryResultsForCompanies = async ({ pageParam = 1 }) => {
         try {
-            const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}&page=${pageParam}`);
+            const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}&email=${userInfo?.email}&page=${pageParam}`);
             const resultJson = await result.json();
             dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
             return resultJson;
         } catch (error) {
-            return [];
+            throw error;
         }
     };
 
-    const { data, hasNextPage, fetchNextPage, isLoading, refetch } = useInfiniteQuery({
+    const { data, error, hasNextPage, fetchNextPage, isLoading, refetch } = useInfiniteQuery({
         queryKey: ['companies', searchBarQuery],
         queryFn: fetchSearchQueryResultsForCompanies,
         getNextPageParam: (lastPage, allPages) => {
@@ -59,9 +61,22 @@ const Interviews = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (error && error?.message) {
+            if (error?.message.includes("Email is not valid")) {
+                setEmailNotValid(true);
+            }
+        }else{
+            setEmailNotValid(false);
+        }
+    }, [error]);
+
     return (
         <div className='interview-container'>
             <h1>Quick Career Search</h1>
+            {emailNotValid && <div>
+                <h3 className='no-result-found-container'><span>Please login to search companies here...</span></h3>
+            </div>}
             {isLoading && <LoadingSpinner />}
             {data?.pages[0].length === 0 && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
             <div className='company-card-main-container'>

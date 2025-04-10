@@ -6,11 +6,13 @@ import { auth } from '../../../../utils/firebase/firbaseAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removeUser, toogleDarkMode } from '../../../../utils/ReduxStore/appSlice';
+import useSignOutUser from '../../../../utils/custom-hooks/useSignOutUser';
 
 const AvatarMenu = () => {
 
     const darkMode = useSelector((store) => store.app.darkMode);
     const userInfo = useSelector((store) => store.app.userInfo);
+    const signOutUser = useSignOutUser();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,16 +24,13 @@ const AvatarMenu = () => {
     const handleSignOut = () => {
         if (userInfo.authProvider) {
             signOut(auth).then(() => {
-                dispatch(removeUser());
-                navigate("/");
+                signOutUser();
             }).catch((error) => {
                 dispatch(removeUser());
                 console.error(error);
             });
         } else {
-            Cookies.remove("is_token");
-            dispatch(removeUser());
-            navigate("/");
+            signOutUser();
         }
     }
 

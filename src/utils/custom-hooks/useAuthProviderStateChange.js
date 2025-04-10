@@ -18,7 +18,6 @@ const useAuthProviderStateChange = () => {
                 dispatch(setUserInfo({ uid, email, displayName, photoURL, authProvider: true }));
                 return user;
             } else {
-                // User is signed out
                 const token = String(Cookies.get("is_token")) || "";
                 if (token) {
                     const { data } = await axios.get(VALIDATE_USER_TOKEN, {

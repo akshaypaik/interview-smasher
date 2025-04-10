@@ -12,9 +12,10 @@ const FavoriteCompanies = () => {
     const [filteredFavoriteCompanies, setFilteredFavoriteCompanies] = useState([]);
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
     const dispatch = useDispatch();
+    const userInfo = useSelector((store) => store.app.userInfo);
 
     const fetchFavCompanies = async () => {
-        const userEmail = "akshaypaik@gmail.com"
+        const userEmail = userInfo?.email;
         const { data } = await axios.get(`${GET_FAVORITE_COMPANIES_INTERVIEW}${userEmail}`);
         setFilteredFavoriteCompanies(data);
         return data;
@@ -43,8 +44,8 @@ const FavoriteCompanies = () => {
                 <div className='interview-no-result-text'> Please add favorite companies in Interview section...
                 </div>}
             <div className='company-card-main-container'>
-                {filteredFavoriteCompanies?.length > 0 && filteredFavoriteCompanies?.map((company) => 
-                <CompanyCard key={company.companyId} info={company} />)}
+                {filteredFavoriteCompanies?.length > 0 && filteredFavoriteCompanies?.map((company) =>
+                    <CompanyCard key={company.companyId} info={company} />)}
             </div>
         </div>
     )

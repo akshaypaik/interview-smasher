@@ -7,11 +7,13 @@ import likeIcon from "../../../assets/images/icons/like-icon.svg";
 import likeIconFavorite from "../../../assets/images/icons/like-icon-favorite.svg";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const CompanyCard = ({ info, refetch }) => {
 
     const [favoriteCompanyStyle, setFavoriteCompanyStyle] = useState(false);
     const { userRatings } = info;
+    const userInfo = useSelector((store) => store.app.userInfo);
 
     const handleFavoriteClick = (e) => {
         e.preventDefault();
@@ -32,8 +34,7 @@ const CompanyCard = ({ info, refetch }) => {
             ...info,
             isFavoriteCompany: true,
             user: {
-                username: "akshay",
-                email: "akshaypaik@gmail.com"
+                email: userInfo?.email
             }
         }
         // postFavoriteCompany(favCompanyObj);
@@ -57,8 +58,7 @@ const CompanyCard = ({ info, refetch }) => {
         const updatedFavCompanyObj = {
             ...favCompanyObj,
             user: favCompanyObj.user || {
-                username: "akshay",
-                email: "akshaypaik@gmail.com"
+                email: userInfo?.email
             }
         };
         const result = await fetch(`${REMOVE_FAVORITE_COMPANIES_INTERVIEW}`, {
