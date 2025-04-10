@@ -7,7 +7,6 @@
     width: 480px;
     z-index: 21;
     box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
-    overflow: scroll;
 }
 
 .register-header {
@@ -17,6 +16,10 @@
     padding: 0 2rem;
 }
 
+.register-header svg:hover {
+    cursor: pointer;
+    fill: red;
+}
 
 .register-header svg {
     cursor: pointer;
@@ -65,23 +68,43 @@
     color: var(--home-bg-color);
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1600px) {
+    .register-container{
+        overflow: scroll;
+    }
+    h2{
+        margin: 0.6rem 0;
+        font-size: 1.2rem;
+    }
     .register-form{
-        gap: 12px;
+        gap: 0;
     }
-    .register-field{
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr;
-    }
-    .register-form input {
-        padding: 8px 0 8px 12px;
-    }
-    .register-form label{
+    .register-form label {
         font-size: 0.8rem;
+    }
+    .register-form button{
+        margin-top: 0.6rem;
     }
 }
 
 @media screen and (max-width: 768px) {
+    .register-form {
+        gap: 12px;
+    }
+
+    .register-field {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+    }
+
+    .register-form input {
+        padding: 8px 0 8px 12px;
+    }
+
+    .register-form label {
+        font-size: 0.8rem;
+    }
+
     .register-form input {
         padding: 6px 0 6px 9px;
     }
