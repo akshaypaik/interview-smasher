@@ -50,6 +50,7 @@ const Login = () => {
                     dispatch(setUserInfo(userInfo));
                     dispatch(setCurrentSidebarTab("home"));
                     toast.success("Logged in");
+                    body?.classList.remove('no-scroll');
                     navigate("/");
                 } else {
                     toast.error(data?.messageModel?.statusMessage);
