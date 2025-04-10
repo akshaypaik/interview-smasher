@@ -19,3 +19,10 @@
     box-shadow: rgb(232, 236, 235) 0px 0px 0px 3px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1600px) {
+   h4{
+    padding: 0 0.4rem;
+    margin: 0;
+   }
+}

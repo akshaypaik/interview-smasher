@@ -113,7 +113,7 @@ const Login = () => {
                         <h6>Don't have an account?</h6>
                         <button className='register-btn' onClick={() => setShowRegister(true)}>Register</button>
                     </div>
-                    <span style={{ textAlign: 'center', fontWeight: '600', fontSize: '1.2rem' }}>OR</span>
+                    <span className='login-or-text'>OR</span>
                     <AuthProviderLogin />
                 </form>
             </div>}

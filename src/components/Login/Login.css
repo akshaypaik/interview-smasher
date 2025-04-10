@@ -80,16 +80,41 @@ body.no-scroll {
     max-width: 280px;
 }
 
-.register-btn-container{
+.register-btn-container {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.register-btn-container h6{
+.register-btn-container h6 {
     width: 100%;
 }
 
-.register-btn{
+.register-btn {
     width: 100%;
+}
+
+.login-or-text {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 0.8rem;
+}
+
+@media screen and (max-width: 1600px) {
+    .login-header {
+        font-size: 0.8rem;
+    }
+
+    .login-form {
+        gap: 12px;
+    }
+
+    .login-field label {
+        font-size: 0.8rem;
+    }
+
+    .register-btn-container {
+        max-height: 36px;
+    }
 }
