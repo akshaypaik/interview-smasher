@@ -5,6 +5,7 @@ import { setUserInfo } from '../../utils/ReduxStore/appSlice';
 import axios from 'axios';
 import { UPDATE_USER_PROFILE } from '../../utils/constants/apiConstants';
 import toast from 'react-hot-toast';
+import Cookies from "js-cookie";
 
 const UserProfile = () => {
 
@@ -18,6 +19,9 @@ const UserProfile = () => {
         try {
             const { data } = await axios.post(UPDATE_USER_PROFILE, userInfo);
             toast.success(data?.messageModel.statusMessage);
+            if (data?.token) {
+                Cookies.set("is_token", data?.token);
+            }
         } catch (error) {
             toast.error(error);
         }
