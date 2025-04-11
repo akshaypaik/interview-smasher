@@ -19,7 +19,7 @@ const Header = () => {
     }
 
     return (
-        <div className='header-container'>
+        <div className='header-container shadow-xl'>
             <div className='menu-logo-container'>
                 <svg onClick={handleToggleSideBar} xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

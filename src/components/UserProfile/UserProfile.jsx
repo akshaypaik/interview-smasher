@@ -58,30 +58,30 @@ const UserProfile = () => {
                             {userInfo?.authProvider ? <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <input type='text' value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
+                                        <input type='text' maxLength="25" value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
                                             className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' disabled={userInfo?.authProvider} />
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p>Can not edit. You logged in using Auth Provider.</p>
                                     </TooltipContent>
                                 </Tooltip>
-                            </TooltipProvider> : <input type='text' value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
-                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />}
+                            </TooltipProvider> : <input type='text' maxLength="25" value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
+                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' required />}
                         </div>
                         <div className='form-field'>
                             <div>Last Name</div>
                             {userInfo?.authProvider ? <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <input type='text' value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
+                                        <input type='text' maxLength="25" value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
                                             className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' disabled={userInfo?.authProvider} />
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p>Can not edit. You logged in using Auth Provider.</p>
                                     </TooltipContent>
                                 </Tooltip>
-                            </TooltipProvider> : <input type='text' value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
-                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />}
+                            </TooltipProvider> : <input type='text' maxLength="25" value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
+                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' required />}
                         </div>
                         <div className='form-field'>
                             <div>Email</div>
