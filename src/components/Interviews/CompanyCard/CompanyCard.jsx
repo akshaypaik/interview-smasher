@@ -14,6 +14,7 @@ const CompanyCard = ({ info, refetch }) => {
     const [favoriteCompanyStyle, setFavoriteCompanyStyle] = useState(false);
     const { userRatings } = info;
     const userInfo = useSelector((store) => store.app.userInfo);
+    const queryClient = useQueryClient();
 
     const handleFavoriteClick = (e) => {
         e.preventDefault();
@@ -25,7 +26,10 @@ const CompanyCard = ({ info, refetch }) => {
             if (window.refetchQuickCareerCompanies) {
                 window.refetchQuickCareerCompanies(); // Call the refetch function
             } else {
-                refetch();
+                // refetch();
+                queryClient.invalidateQueries({
+                    queryKey: ["favoriteCompanies"]
+                });
             }
             return;
         }
@@ -71,7 +75,6 @@ const CompanyCard = ({ info, refetch }) => {
         const resultJson = await result.json();
     }
 
-    const queryClient = useQueryClient();
     const { mutate: removeFavoriteMutate } = useMutation({
         mutationFn: removeFavoriteCompany,
         onSuccess: () => {
