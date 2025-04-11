@@ -30,6 +30,7 @@ function App() {
   const FavoriteCompanies = lazy(() => import('./components/Interviews/FavoriteCompanies/FavoriteCompanies.jsx'));
   const TopicPage = lazy(() => import('./components/TopicPage/TopicPage.jsx'));
   const CoursePage = lazy(() => import('./components/CoursePage/CoursePage.jsx'));
+  const UserProfile = lazy(() => import("./components/UserProfile/UserProfile.jsx"));
 
   const routes = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ function App() {
                 <FavoriteCompanies />
               </QueryClientProvider>
             </Suspense>
+        },
+        {
+          path: "user-profile",
+          element: <Suspense><UserProfile /></Suspense>
         }
       ]
     }

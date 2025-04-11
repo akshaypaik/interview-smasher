@@ -6,35 +6,44 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { VALIDATE_USER_TOKEN } from "../constants/apiConstants";
+import { useNavigate } from "react-router-dom";
 
 const useAuthProviderStateChange = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const authStateUnsubscription = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const { uid, email, displayName, photoURL } = user;
-                dispatch(setUserInfo({ uid, email, displayName, photoURL, authProvider: true }));
+                const { uid, email, displayName, photoURL, providerData } = user;
+                dispatch(setUserInfo({ uid, email, displayName, photoURL, phoneNumber: providerData[0].phoneNumber, authProvider: true }));
                 return user;
             } else {
                 const token = String(Cookies.get("is_token")) || "";
-                if (token) {
-                    const { data } = await axios.get(VALIDATE_USER_TOKEN, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
+                try {
+                    if (token) {
+                        const { data } = await axios.get(VALIDATE_USER_TOKEN, {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        });
+                        const userInfo = {
+                            uid: data.email,
+                            email: data.email, displayName: data?.firstName + " " + data?.lastName,
+                            photoURL: data?.profilePhotoURL, firstName: data?.firstName,
+                            lastName: data?.lastName, phoneNumber: data?.phoneNumber, authProvider: false
                         }
-                    });
-                    const userInfo = {
-                        uid: data.email,
-                        email: data.email, displayName: data.email,
-                        photoURL: data?.profilePhotoURL, authProvider: false
+                        dispatch(setUserInfo(userInfo));
+                        return userInfo;
+                    } else {
+                        dispatch(removeUser());
+                        navigate("/");
+                        return null;
                     }
-                    dispatch(setUserInfo(userInfo));
-                    return userInfo;
-                } else {
-                    dispatch(removeUser());
-                    return null;
+                } catch (error) {
+                    console.error(error);
+                    navigate("/");
                 }
             }
         });

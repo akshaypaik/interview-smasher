@@ -17,7 +17,7 @@ const AuthProviderLogin = () => {
             const token = credential.accessToken;
             const user = result.user;
             const { uid, email, displayName, photoURL, providerData } = user;
-            dispatch(setUserInfo({ uid, email, displayName, photoURL, providerData, authProvider: true }));
+            dispatch(setUserInfo({ uid, email, displayName, photoURL, providerData, phoneNumber: providerData[0].phoneNumber, authProvider: true }));
             Cookies.set('authToken', user?.stsTokenManager?.accessToken,
                 { expires: user?.stsTokenManager?.expirationTime, secure: true });
             dispatch(updateShowLoginSidebar(false));

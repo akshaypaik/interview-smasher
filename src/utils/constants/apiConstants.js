@@ -8,6 +8,8 @@ export const LOGIN_USER = BASE_URL + "/BackendApp/api/user/loginUser";
 
 export const VALIDATE_USER_TOKEN = BASE_URL + "/BackendApp/api/user/validateJsonToken";
 
+export const UPDATE_USER_PROFILE = BASE_URL + "/BackendApp/api/user/updateUserProfile";
+
 // Courses
 
 export const GET_ALL_COURSES = BASE_URL + "/BackendApp/api/courses/getAllCourses";
@@ -25,6 +27,7 @@ export const GET_TOPIC_COMPLETION_STATUS_USING_TOPIC_NAME = BASE_URL + "/Backend
 export const UPDATE_TOPIC_COMPLETION = BASE_URL + "/BackendApp/api/topics/updateTopicCompletion";
 
 // Interview
+
 export const GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW = BASE_URL + "/BackendApp/api/interview/getInterviewCompaniesSearchResults?searchQuery=";
 
 export const POST_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/postFavoriteCompany";
