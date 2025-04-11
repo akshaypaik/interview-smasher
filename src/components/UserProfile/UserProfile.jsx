@@ -6,6 +6,12 @@ import axios from 'axios';
 import { UPDATE_USER_PROFILE } from '../../utils/constants/apiConstants';
 import toast from 'react-hot-toast';
 import Cookies from "js-cookie";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const UserProfile = () => {
 
@@ -49,30 +55,50 @@ const UserProfile = () => {
                     <form className='flex flex-col gap-4' onSubmit={handleSubmit(saveUserProfile)}>
                         <div className='form-field'>
                             <div>First Name</div>
-                            <input type='text' value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
-                                className='bg-gray-400 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
+                            {userInfo?.authProvider ? <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <input type='text' value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
+                                            className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' disabled={userInfo?.authProvider} />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Can not edit. You logged in using Auth Provider.</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider> : <input type='text' value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
+                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />}
                         </div>
                         <div className='form-field'>
                             <div>Last Name</div>
-                            <input type='text' value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
-                                className='bg-gray-400 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
+                            {userInfo?.authProvider ? <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <input type='text' value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
+                                            className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' disabled={userInfo?.authProvider} />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Can not edit. You logged in using Auth Provider.</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider> : <input type='text' value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
+                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />}
                         </div>
                         <div className='form-field'>
                             <div>Email</div>
                             <input type='text' value={userInfo?.email}
-                                className='bg-gray-400 dark:bg-gray-700 rounded-md p-2 w-72 mt-2 cursor-not-allowed' disabled />
+                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2 cursor-not-allowed' disabled />
                         </div>
                         <div className='form-field'>
                             <div>Phone Number</div>
                             <input type='text' value={userInfo?.phoneNumber}
-                                className='bg-gray-400 dark:bg-gray-700 rounded-md p-2 w-72 mt-2 cursor-not-allowed' disabled />
+                                className='bg-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2 cursor-not-allowed' disabled />
                         </div>
                         <div>
-                            <button
+                            {!userInfo?.authProvider && <button
                                 className='bg-green-400 px-8 py-2 rounded-lg font-bold
                                 hover:cursor-pointer text-white hover:bg-gray-600  dark:hover:bg-white dark:hover:text-black'>
                                 Save
-                            </button>
+                            </button>}
                         </div>
                     </form>
                 </div>
