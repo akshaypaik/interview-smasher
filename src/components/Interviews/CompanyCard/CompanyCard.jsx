@@ -101,7 +101,9 @@ const CompanyCard = ({ info, refetch }) => {
 
     return (
         <a href={info.companyCareerPageURL} target='_blank'>
-            <div className='company-card-container'>
+            <div className='company-card-container 
+                p-16 dark:bg-gray-700 flex flex-col justify-center items-center w-[320px]
+                rounded-xl flex-wrap relative bg-neutral-100 shadow-xl border-1 hover:bg-gray-400 hover:shadow-gray-500'>
                 <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
                     <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
                 </span>

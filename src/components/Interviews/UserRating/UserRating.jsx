@@ -23,7 +23,7 @@ const UserRating = ({ userRatingInfo }) => {
     }
 
     return (
-        <div className='user-rating-container'>
+        <div className='user-rating-container flex items-center'>
             {userRatingInfo.rating}/{userRatingInfo.totalRating}
             <span className='user-rating-count-star'>{stars}</span>
             <span className='half-star-company'>

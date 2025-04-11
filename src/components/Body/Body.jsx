@@ -31,7 +31,7 @@ const Body = () => {
                     }
                 }} />
             <Header />
-            <div className='body-container'>
+            <div className='body-container pt-16'>
                 {showSidebar && <Sidebar />}
                 {showLoginSidebar && <Login />}
                 <Outlet />

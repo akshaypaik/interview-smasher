@@ -4,7 +4,7 @@ body.no-scroll {
 
 .login-container {
     position: absolute;
-    top: 6rem;
+    top: 4rem;
     right: 0;
     background-color: var(--login-sidebar-bg-color);
     height: 100%;

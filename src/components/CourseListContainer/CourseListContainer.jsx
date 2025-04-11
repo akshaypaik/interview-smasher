@@ -33,7 +33,7 @@ const CourseListContainer = () => {
 
     return (
         <>
-            <h1>Pick a course</h1>
+            <h1 className='text-2xl font-bold'>Pick a course</h1>
             <div className='course-list-container'>
                 {/* <CourseCard /> */}
                 {filteredCourseList.map((course) =>

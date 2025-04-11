@@ -41,7 +41,7 @@ const AuthProviderLogin = () => {
 
     return (
         <div className='auth-login-container'>
-            <h4>Login into your account using</h4>
+            <h4 className='login-text'>Login into your account using</h4>
             <div className='auth-provider-btn btn-auth-google' onClick={handleGoogleLoginMutate}>
                 <svg width="52" height="52" role="img">
                     <title>Google's Logo</title>

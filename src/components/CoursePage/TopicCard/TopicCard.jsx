@@ -22,7 +22,7 @@ const TopicCard = ({ topicInfo }) => {
     }, [topicInfo]);
 
     return (
-        <div className='topic-card-container' onClick={handleTopicClick}>
+        <div className='topic-card-container px-16 py-20 bg-gray-700 rounded-xl w-[280px] flex items-center justify-center h-[40px]' onClick={handleTopicClick}>
             {topicInfo?.topicDisplayName}
         </div>
     )

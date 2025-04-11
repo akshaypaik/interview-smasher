@@ -78,7 +78,7 @@ function App() {
   ]);
 
   return (
-    <div className={`app-container ${!darkMode ? 'light-mode' : ''}`}>
+    <div className={`app-container font-[Roboto_Slab] ${darkMode ? 'dark' : 'light-mode'}`}>
       <div className='app-body-container'>
         <RouterProvider router={routes} />
       </div>

@@ -1,5 +1,5 @@
 .topic-card-container{
-    border: 0.5px solid var(--course-card-border-color);
+    /* border: 0.5px solid var(--course-card-border-color);
     padding: 4rem 4rem;
     border-radius: 8px;
     display: flex;
@@ -10,7 +10,7 @@
     flex-wrap: wrap;
     width: 240px;
     background-color: var(--course-card-bg-color);
-    height: 40px;
+    height: 40px; */
 }
 
 .topic-card-container:hover{

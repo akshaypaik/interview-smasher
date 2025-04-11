@@ -1,12 +1,12 @@
 
 
 .avatar-details {
-    position: absolute;
+    /* position: absolute;
     margin-top: 0.4rem;
     top: 100%;
     background-color: var(--avatar-details-bg-color);
     border-radius: 8px;
-    box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4); */
 }
 
 .avatar-details ul {
@@ -28,11 +28,11 @@
 }
 
 .avatar-details ul li:hover {
-    background-color: #fff;
-    color: #000;
+    /* background-color: #fff;
+    color: #000; */
 }
 
 .avatar-details ul li:hover svg {
-    fill: #000;
+    /* fill: #000; */
 }
 

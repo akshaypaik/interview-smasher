@@ -14,7 +14,7 @@
     gap: 12px;
     font-size: 0.8rem;
     letter-spacing: 0.4px;
-    margin: 4px;
+    margin: 12px !important;
     white-space: nowrap;
     padding-left: 18px;
 }

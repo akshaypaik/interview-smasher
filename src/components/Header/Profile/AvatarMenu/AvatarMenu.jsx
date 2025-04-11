@@ -36,9 +36,9 @@ const AvatarMenu = () => {
     }
 
     return (
-        <div className='avatar-details'>
+        <div className='avatar-details absolute mt-2 top-[100%] dark:bg-gray-800 rounded-xl shadow-2xl bg-white border-2'>
             <ul>
-                <li onClick={handleDarkMode}>
+                <li onClick={handleDarkMode} className='hover:bg-gray-500'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         focusable="false" aria-hidden="true" height="24"
                         style={{ display: 'inherit' }} fill={darkMode ? 'white' : 'black'}>
@@ -46,7 +46,7 @@ const AvatarMenu = () => {
                     </svg>
                     Appearance
                 </li>
-                <li onClick={handleSignOut}>
+                <li onClick={handleSignOut} className='hover:bg-gray-500'>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         enableBackground="new 0 0 24 24" height="24"
                         viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true"

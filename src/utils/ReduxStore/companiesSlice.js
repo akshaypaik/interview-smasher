@@ -3,13 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const companiesSlice = createSlice({
     name: "companies",
     initialState: {
-        companiesSearchResultCache: {}
+        companiesSearchResultCache: {},
+        companyFilter: ""
     },
     reducers: {
         updateCompaniesSearchResultCache: (state, action) => {
             const searchQuery = action.payload.searchQuery;
             const searchResult = action.payload.searchResult;
             state.companiesSearchResultCache[searchQuery] = searchResult;
+        },
+        setCompanyFilter: (state, action) => {
+            state.companyFilter = action.payload;
         }
     }
 });
@@ -23,4 +27,4 @@ export { setRefetchQuickCareerCompaniesFunction };
 
 export default companiesSlice.reducer;
 
-export const { updateCompaniesSearchResultCache } = companiesSlice.actions;
+export const { updateCompaniesSearchResultCache, setCompanyFilter } = companiesSlice.actions;

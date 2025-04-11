@@ -29,8 +29,7 @@
 }
 
 .search-bar svg{
-    position: absolute;
-    /* left: 8px; */
+    /* position: absolute;
     right: 0;
     text-align: center;
     border-left: 0.5px solid hsla(0,0%,53.3%,0.4);  
@@ -39,7 +38,7 @@
     cursor: pointer;
     background-color: hsla(0,0%,100%,.08);
     border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px;
+    border-bottom-right-radius: 24px; */
 }
 
 @media screen and (max-width:768px){

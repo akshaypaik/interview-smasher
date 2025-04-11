@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
 import { setRefetchQuickCareerCompaniesFunction, updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
+import CompanyFilter from './CompanyFilter/CompanyFilter';
 
 const Interviews = () => {
 
@@ -16,6 +17,7 @@ const Interviews = () => {
     const dispatch = useDispatch();
     const bottomRef = useRef(true);
     const [emailNotValid, setEmailNotValid] = useState(true);
+    const companyFilter = useSelector((store) => store.companies.companyFilter);
 
     const fetchSearchQueryResultsForCompanies = async ({ pageParam = 1 }) => {
         try {
@@ -79,16 +81,29 @@ const Interviews = () => {
         if (userInfo?.email) {
             setEmailNotValid(false);
         }
-    }, [userInfo])
+    }, [userInfo]);
+
+    useEffect(() => {
+        if (companyFilter === "topRated") {
+
+        } else if (companyFilter === "productBased") {
+
+        } else if (companyFilter === "serviceBased") {
+
+        }
+    }, [companyFilter]);
 
     return (
         <div className='interview-container'>
-            <h1>Quick Career Search</h1>
+            <div className='quick-search-header'>
+                <h1 className='font-bold text-2xl'>Quick Career Search</h1>
+                <CompanyFilter />
+            </div>
             {emailNotValid && <div>
                 <h3 className='no-result-found-container'><span>Please login to search companies here...</span></h3>
             </div>}
             {isLoading && <LoadingSpinner />}
-            {data?.pages[0]?.length === 0 && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
+            {data?.pages[0]?.length === 0 && !isLoading && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
             <div className='company-card-main-container'>
                 {data?.pages?.map((pages, index) => {
                     return pages?.map((company) =>

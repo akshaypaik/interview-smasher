@@ -1,5 +1,5 @@
 .company-card-container {
-    border: 0.5px solid var(--course-card-border-color);
+    /* border: 0.5px solid var(--course-card-border-color);
     padding: 4rem 3rem;
     border-radius: 8px;
     display: flex;
@@ -10,15 +10,15 @@
     flex-wrap: wrap;
     width: 240px;
     background-color: var(--course-card-bg-color);
-    position: relative;
+    position: relative; */
 }
 
 .company-card-container:hover {
     transform: scale(1.1, 1.1);
     cursor: pointer;
-    transition: 0.1s ease-in-out;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-    background-color: var(--course-card-hover-bg-color);
+    transition: 0.2s ease-in-out;
+    /* box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); */
+    /* background-color: var(--course-card-hover-bg-color); */
     color: var(--course-card-hover-text-color);
     font-weight: 600;
 }
