@@ -377,8 +377,6 @@ const TrendingNews = () => {
         queryFn: fetchLatestNews
     });
 
-    console.log("data news api: ", data);
-
     return (
         <div className='m-8 w-full h-full'>
             {userInfo?.email && <>
