@@ -9,6 +9,7 @@ import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
+import quickFilterOptions from "../../utils/constants/json/quickFilterOptions.json";
 
 const Interviews = () => {
 
@@ -17,26 +18,8 @@ const Interviews = () => {
     const dispatch = useDispatch();
     const bottomRef = useRef(true);
     const [emailNotValid, setEmailNotValid] = useState(true);
-    // const companyFilter = useSelector((store) => store.companies.companyFilter);
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [companyFilter, setCompanyFilter] = useState("");
-    const quickFilterOptions = [
-        {
-            id: "0",
-            name: "topRated",
-            displayName: "Top Rated"
-        },
-        {
-            id: "1",
-            name: "productBased",
-            displayName: "Product Based"
-        },
-        {
-            id: "2",
-            name: "serviceBased",
-            displayName: "Service Based"
-        }
-    ]
 
     useEffect(() => {
         console.log("slidder changed: ", enableQuickFilter);
@@ -126,16 +109,6 @@ const Interviews = () => {
         }
     }, [userInfo]);
 
-    useEffect(() => {
-        if (companyFilter === "topRated") {
-
-        } else if (companyFilter === "productBased") {
-
-        } else if (companyFilter === "serviceBased") {
-
-        }
-    }, [companyFilter]);
-
     return (
         <div className='interview-container lg:m-8 md:m-8'>
             <div className='quick-search-header'>
@@ -143,7 +116,7 @@ const Interviews = () => {
                 {/* <CompanyFilter /> */}
                 {/* <SlidderToggle slidderName="Product Based" /> */}
                 <div className='flex gap-4'>
-                    {quickFilterOptions.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
+                    {quickFilterOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
                         enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
                 </div>
             </div>
