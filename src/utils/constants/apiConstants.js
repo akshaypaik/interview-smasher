@@ -30,6 +30,8 @@ export const UPDATE_TOPIC_COMPLETION = BASE_URL + "/BackendApp/api/topics/update
 
 export const GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW = BASE_URL + "/BackendApp/api/interview/getInterviewCompaniesSearchResults?searchQuery=";
 
+export const GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW_QUICK_FILTER = BASE_URL + "/BackendApp/api/interview/getInterviewCompaniesSearchResultsForQuickFilter?searchQuery=";
+
 export const POST_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/postFavoriteCompany";
 
 export const GET_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/getFavoriteCompanies?email=";

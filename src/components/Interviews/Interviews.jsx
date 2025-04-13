@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Interviews.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW } from '../../utils/constants/apiConstants';
+import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW, GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW_QUICK_FILTER } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
 import { setRefetchQuickCareerCompaniesFunction, updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
-import CompanyFilter from './CompanyFilter/CompanyFilter';
+import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 
 const Interviews = () => {
 
@@ -17,9 +17,52 @@ const Interviews = () => {
     const dispatch = useDispatch();
     const bottomRef = useRef(true);
     const [emailNotValid, setEmailNotValid] = useState(true);
-    const companyFilter = useSelector((store) => store.companies.companyFilter);
+    // const companyFilter = useSelector((store) => store.companies.companyFilter);
+    const [enableQuickFilter, setEnableQuickFilter] = useState({});
+    const [companyFilter, setCompanyFilter] = useState("");
+    const quickFilterOptions = [
+        {
+            id: "0",
+            name: "topRated",
+            displayName: "Top Rated"
+        },
+        {
+            id: "1",
+            name: "productBased",
+            displayName: "Product Based"
+        },
+        {
+            id: "2",
+            name: "serviceBased",
+            displayName: "Service Based"
+        }
+    ]
+
+    useEffect(() => {
+        console.log("slidder changed: ", enableQuickFilter);
+        let trueFound = false;
+        Object.keys(enableQuickFilter).forEach(key => {
+            if (enableQuickFilter[key] === true) {
+                trueFound = true;
+                setCompanyFilter(quickFilterOptions[key].name);
+            }
+        })
+        if (!trueFound) {
+            setCompanyFilter("");
+        }
+    }, [enableQuickFilter]);
 
     const fetchSearchQueryResultsForCompanies = async ({ pageParam = 1 }) => {
+
+        if (companyFilter != "") {
+            const result = await
+                fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW_QUICK_FILTER}${searchBarQuery}
+                &email=${userInfo?.email}&page=${pageParam}&quickFilter=${companyFilter}`);
+            const resultJson = await result.json();
+            dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
+            return resultJson;
+        }
+
         try {
             if (!userInfo?.email) {
                 setEmailNotValid(true);
@@ -35,7 +78,7 @@ const Interviews = () => {
     };
 
     const { data, error, hasNextPage, fetchNextPage, isLoading, refetch } = useInfiniteQuery({
-        queryKey: ['companies', searchBarQuery, userInfo],
+        queryKey: ['companies', searchBarQuery, userInfo, companyFilter],
         queryFn: fetchSearchQueryResultsForCompanies,
         getNextPageParam: (lastPage, allPages) => {
             return lastPage?.length === 12 ? allPages?.length + 1 : undefined;
@@ -94,10 +137,15 @@ const Interviews = () => {
     }, [companyFilter]);
 
     return (
-        <div className='interview-container'>
+        <div className='interview-container lg:m-8 md:m-8'>
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Search</h1>
-                <CompanyFilter />
+                {/* <CompanyFilter /> */}
+                {/* <SlidderToggle slidderName="Product Based" /> */}
+                <div className='flex gap-4'>
+                    {quickFilterOptions.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
+                        enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
+                </div>
             </div>
             {emailNotValid && <div>
                 <h3 className='no-result-found-container'><span>Please login to search companies here...</span></h3>

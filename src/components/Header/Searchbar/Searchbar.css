@@ -43,7 +43,7 @@
 
 @media screen and (max-width:768px){
     .search-bar input{
-        width: 120px;
+        width: 240px;
     }
 }
 
@@ -55,6 +55,6 @@
 
 @media screen and (max-width:576px){
     .search-bar input{
-        width: 120px;
+        width: 240px;
     }
 }
