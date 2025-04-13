@@ -17,6 +17,13 @@ function App() {
       }
     }
   });
+  const queryClientWithSlate = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 500 * 1000    // time to refetching the data and not use cache
+      }
+    }
+  });
   const queryClientWithoutSlate = new QueryClient({
     defaultOptions: {
       queries: {
@@ -31,6 +38,7 @@ function App() {
   const TopicPage = lazy(() => import('./components/TopicPage/TopicPage.jsx'));
   const CoursePage = lazy(() => import('./components/CoursePage/CoursePage.jsx'));
   const UserProfile = lazy(() => import("./components/UserProfile/UserProfile.jsx"));
+  const TrendingNews = lazy(() => import("./components/TrendingNews/TrendingNews.jsx"));
 
   const routes = createBrowserRouter([
     {
@@ -76,7 +84,16 @@ function App() {
         },
         {
           path: "user-profile",
-          element: <Suspense><UserProfile /></Suspense>
+          element: <Suspense> <UserProfile /> </Suspense>
+        },
+        {
+          path: "trending-news",
+          element: <Suspense>
+            <QueryClientProvider client={queryClientWithSlate}>
+              <ReactQueryDevtools initialIsOpen={false} />
+              <TrendingNews />
+            </QueryClientProvider>
+          </Suspense>
         }
       ]
     }

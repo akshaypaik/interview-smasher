@@ -39,3 +39,9 @@
     justify-content: space-between;
     margin-right: 6rem;
 }
+
+@media screen and (max-width:768px){
+    .quick-search-header{
+        flex-direction: column;
+    }
+}

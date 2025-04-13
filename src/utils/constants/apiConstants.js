@@ -37,3 +37,8 @@ export const POST_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/int
 export const GET_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/getFavoriteCompanies?email=";
 
 export const REMOVE_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/removeFavoriteCompany";
+
+
+// External APIs
+
+export const NEWS_API_LATEST = "https://newsdata.io/api/1/latest?apikey=";
