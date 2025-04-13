@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
     name: "app",
     initialState: {
-        darkMode: true,
+        darkMode: localStorage.getItem("darkMode") === "true",
         showSidebar: true,
         searchBarQuery: "",
         showLoginSidebar: false,
@@ -13,6 +13,7 @@ const appSlice = createSlice({
     },
     reducers: {
         toogleDarkMode: (state, action) => {
+            localStorage.setItem("darkMode", !state.darkMode);
             state.darkMode = !state.darkMode;
         },
         toggleSideBar: (state, action) => {
