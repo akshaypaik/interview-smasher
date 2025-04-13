@@ -113,8 +113,6 @@ const Interviews = () => {
         <div className='interview-container lg:m-8 md:m-8'>
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Search</h1>
-                {/* <CompanyFilter /> */}
-                {/* <SlidderToggle slidderName="Product Based" /> */}
                 <div className='flex gap-4'>
                     {quickFilterOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
                         enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}

@@ -3,6 +3,7 @@ import './Searchbar.css';
 import SearchResultContainer from './SearchResultContainer/SearchResultContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSearchBarQuery } from '../../../utils/ReduxStore/appSlice';
+import { FaX } from "react-icons/fa6";
 
 const Searchbar = () => {
 
@@ -17,6 +18,11 @@ const Searchbar = () => {
     dispatch(updateSearchBarQuery(event.target.value));
   }
 
+  const clearSearchQuery = () => {
+    setSearchQuery("");
+    dispatch(updateSearchBarQuery(""));
+  }
+
   useEffect(() => {
     setSearchQuery(searchBarQueryReduxState);
   }, [searchBarQueryReduxState]);
@@ -28,7 +34,12 @@ const Searchbar = () => {
           value={searchQuery}
           onChange={(e) => handleQuerySearch(e)}
           onBlur={() => setSearchResults([])} className='h-[36px]' />
-        <svg className='absolute h-[36px] w-[42px] right-0 text-center border-l-2 px-2 cursor-pointer rounded-r-[24px] bg-[#aaa] dark:bg-gray-700'
+        {searchQuery != "" && <div className='absolute right-12 top-2 cursor-pointer' onClick={clearSearchQuery}>
+          <FaX />
+        </div>}
+        <svg
+          className='absolute h-[36px] w-[42px] right-0 text-center border-l-2 px-2 cursor-pointer rounded-r-[24px] 
+        bg-[#aaa] dark:bg-gray-700'
           xmlns="http://www.w3.org/2000/svg" fill={darkMode ? 'white' : 'black'}
           viewBox="0 0 24 24" focusable="false" aria-hidden="true"
           style={{ display: 'inherit' }}>
