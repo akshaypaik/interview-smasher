@@ -15,7 +15,7 @@
 .search-bar input{
     /* padding: 9px; */
     padding: 9px 0 9px 18px;
-    background-color: var(--bg-color);
+    /* background-color: var(--bg-color); */
     border: 0.5px solid hsla(0,0%,53.3%,0.4);
     border-radius: 24px;
     color: var(--text-color);
