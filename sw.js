@@ -21,28 +21,31 @@ this.addEventListener("activate", (event) => {
 // fetching files from cache storage
 this.addEventListener("fetch", (event) => {
     if (navigator.onLine) {
-        const fetchRequest = event.request.clone();
-        return fetch(fetchRequest).then((response) => {
-            if (!response || response.status !== 200 || response.type !== 'basic') {
+        event.respondWith(
+            fetch(event.request.clone()).then((response) => {
+                if (!response || response.status !== 200 || response.type !== 'basic') {
+                    return response;
+                }
+
+                const responseToCache = response.clone();
+
+                caches.open(apiCache).then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+
                 return response;
-            }
-
-            const responseToCache = response.clone();
-
-            caches.open(apiCache).then((cache) => {
-                cache.put(event.request, responseToCache);
-            });
-
-            return response;
-        })
+            })
+        );
     } else {
         event.respondWith(
             caches.match(event.request).then((response) => {
                 if (response) {
                     return response;
                 }
+                // Optionally, return a fallback response if not in cache
+                return fetch(event.request);
             })
-        )
+        );
     }
 });
 
