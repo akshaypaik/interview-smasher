@@ -78,7 +78,7 @@ const CompanyCard = ({ info, refetch }) => {
     const { mutate: removeFavoriteMutate } = useMutation({
         mutationFn: removeFavoriteCompany,
         onSuccess: () => {
-            toast.success("Favorite removed!");
+            toast.error("Favorite removed!");
             queryClient.invalidateQueries({
                 queryKey: ["favoriteCompanies"]
             });
