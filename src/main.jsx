@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { Provider } from 'react-redux'
 import appStore from './utils/ReduxStore/appStore.js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import swDev from '../swDev.js'
 
 const queryClientWithoutSlate = new QueryClient({
   defaultOptions: {
@@ -22,4 +23,6 @@ createRoot(document.getElementById('root')).render(
     </QueryClientProvider>
     {/* </StrictMode> */}
   </Provider>
-)
+);
+
+swDev();
