@@ -110,7 +110,7 @@ const Interviews = () => {
     }, [userInfo]);
 
     return (
-        <div className='interview-container lg:m-8 md:m-8'>
+        <div className='interview-container lg:m-8 md:m-8'> 
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Search</h1>
                 <div className='flex gap-4'>

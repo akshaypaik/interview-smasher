@@ -18,7 +18,7 @@ const CourseCard = ({ info }) => {
       :
       'disabled-course-card py-16 px-20 rounded-xl flex flex-col justify-center items-center flex-wrap w-[320px] relative dark:bg-gray-700 opacity-50 bg-blue-100'}`}
       onClick={handleCourseClick}>
-      <img src={info.courseIconURL} alt='course-icon' />
+      <img src={info.courseIconURL} alt='course-icon' loading='lazy' />
       <div>
         {info.name}
 
