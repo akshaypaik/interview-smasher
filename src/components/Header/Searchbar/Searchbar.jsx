@@ -34,7 +34,7 @@ const Searchbar = () => {
           value={searchQuery}
           onChange={(e) => handleQuerySearch(e)}
           onBlur={() => setSearchResults([])} className='h-[36px] bg-gray-100 dark:bg-gray-800' />
-        {searchQuery != "" && <div className='absolute right-12 top-2 cursor-pointer' onClick={clearSearchQuery}>
+        {searchQuery != "" && <div className='absolute right-11 top-0.5 cursor-pointer hover:bg-[#aaa] dark:hover:bg-gray-500 p-2 hover:rounded-2xl' onClick={clearSearchQuery}>
           <FaX />
         </div>}
         <svg
