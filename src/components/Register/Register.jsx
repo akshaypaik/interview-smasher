@@ -36,6 +36,10 @@ const Register = ({ setShowRegister }) => {
         setShowRegister(false);
     }
 
+    const checkEmailAlreadyExists = () => {
+        console.log("checkEmailAlreadyExists");
+    }
+
     return (
         <>
             <div className='register-container'>
@@ -72,6 +76,7 @@ const Register = ({ setShowRegister }) => {
                         <input type='text' placeholder='Email' id='email' {...register("email", {
                             required: "This field is required",
                             validate: (value) => {
+                                const isEmailExist = checkEmailAlreadyExists();
                                 const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(value);
                                 return isEmailValid || "Email ID is not valid";
                             }

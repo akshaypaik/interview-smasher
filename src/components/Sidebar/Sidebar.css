@@ -1,4 +1,4 @@
-.sidebar-container{
+.sidebar-container {
     border-right: 0.5px solid hsla(0, 0%, 53.3%, 0.4);
 }
 
@@ -24,7 +24,8 @@
 }
 
 .sidebar-ul li:hover {
-    background-color: var(--sidarbar-hover-bg-color);
+    background-color: oklch(50.5% 0.213 27.518);
+    color: #fff;
     cursor: pointer;
     border-radius: 8px;
 }
@@ -42,22 +43,26 @@ hr {
 }
 
 .selected-tab {
-    background-color: var(--sidarbar-hover-bg-color);
+    background-color: oklch(50.5% 0.213 27.518);
+    color: #fff;
     cursor: pointer;
     border-radius: 8px;
+    font-weight: 600;
 }
 
 a {
     all: unset;
 }
 
-@media screen and (max-width:586px){
-    .sidebar-ul li span{
+@media screen and (max-width:586px) {
+    .sidebar-ul li span {
         display: none;
     }
-    h4{
+
+    h4 {
         font-size: 0.8rem;
     }
+
     .sidebar-container ul {
         padding-left: 12px;
     }

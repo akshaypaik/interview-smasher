@@ -34,8 +34,8 @@ const SlidderToggle = ({ slidderInfo, enableQuickFilter, setEnableQuickFilter })
     }
 
     return (
-        <div className="flex items-center space-x-2 cursor-pointer">
-            <Switch id={slidderInfo.name} className="cursor-pointer" checked={isChecked} onCheckedChange={(e) => handleCheckedChange(e)} />
+        <div className={`flex items-center space-x-2 cursor-pointer ${isChecked ? 'bg-red-700 p-2 rounded-xl text-white' : ''} `}>
+            <Switch id={slidderInfo.name} className={`cursor-pointer ${isChecked ? 'bg-red-700' : ''}`} checked={isChecked} onCheckedChange={(e) => handleCheckedChange(e)} />
             <Label htmlFor={slidderInfo.name} className="cursor-pointer">{slidderInfo?.displayName}</Label>
         </div>
     )

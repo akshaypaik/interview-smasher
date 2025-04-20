@@ -111,7 +111,7 @@ const CompanyCard = ({ info, refetch }) => {
                     <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
                 </span>
                 <img src={info.companyIconURL} alt='company-icon' loading='lazy' className='h-6 lg:h-[60px] md:h-[60px]' />
-                <span className='company-name'> {info?.displayName}</span>
+                <span className='company-name whitespace-nowrap'> {info?.displayName}</span>
                 <span className='user-star-company'>
                     <UserRating userRatingInfo={userRatings} />
                 </span>

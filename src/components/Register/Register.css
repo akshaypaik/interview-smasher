@@ -73,7 +73,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 2400px) {
     .register-container{
         overflow: scroll;
         top: 0;

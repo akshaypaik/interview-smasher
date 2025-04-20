@@ -25,4 +25,5 @@ createRoot(document.getElementById('root')).render(
   </Provider>
 );
 
+// service worker
 swDev();
