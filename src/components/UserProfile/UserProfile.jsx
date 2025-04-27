@@ -79,7 +79,8 @@ const UserProfile = () => {
 
     useEffect(() => {
         if (userInfo?.profilePicURL) {
-            setUserProfilePicURL(userInfo?.profilePicURL);
+            const profilePicURL = `${userInfo.profilePicURL}?t=${new Date().getTime()}`;
+            setUserProfilePicURL(profilePicURL);
         }
     }, [userInfo]);
 
