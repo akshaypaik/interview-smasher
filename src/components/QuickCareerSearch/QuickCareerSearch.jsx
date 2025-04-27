@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './Interviews.css';
+import './QuickCareerSearch.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW, GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW_QUICK_FILTER } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
 import { setRefetchQuickCareerCompaniesFunction, updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 import quickFilterOptions from "../../utils/constants/json/quickFilterOptions.json";
 
-const Interviews = () => {
+const QuickCareerSearch = () => {
 
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
     const userInfo = useSelector((store) => store.app.userInfo);
@@ -137,4 +137,4 @@ const Interviews = () => {
     )
 }
 
-export default Interviews
+export default QuickCareerSearch

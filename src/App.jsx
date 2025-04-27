@@ -32,9 +32,9 @@ function App() {
     }
   });
 
-  const Interviews = lazy(() => import('./components/Interviews/Interviews.jsx'));
+  const QuickCareerSearch = lazy(() => import('./components/QuickCareerSearch/QuickCareerSearch.jsx'));
   const Login = lazy(() => import('./components/Login/Login.jsx'));
-  const FavoriteCompanies = lazy(() => import('./components/Interviews/FavoriteCompanies/FavoriteCompanies.jsx'));
+  const FavoriteCompanies = lazy(() => import('./components/QuickCareerSearch/FavoriteCompanies/FavoriteCompanies.jsx'));
   const TopicPage = lazy(() => import('./components/TopicPage/TopicPage.jsx'));
   const CoursePage = lazy(() => import('./components/CoursePage/CoursePage.jsx'));
   const UserProfile = lazy(() => import("./components/UserProfile/UserProfile.jsx"));
@@ -58,12 +58,12 @@ function App() {
           element: <Suspense><TopicPage /></Suspense>
         },
         {
-          path: "interviews",
+          path: "quickcareersearch",
           element:
             <Suspense>
               <QueryClientProvider client={queryClientQuickCareerCompanies}>
                 <ReactQueryDevtools initialIsOpen={false} />
-                <Interviews />
+                <QuickCareerSearch />
               </QueryClientProvider>
             </Suspense>
         },
