@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../utils/ReduxStore/appSlice';
 import axios from 'axios';
-import { UPDATE_USER_PROFILE } from '../../utils/constants/apiConstants';
+import { UPDATE_USER_PROFILE, UPDATE_USER_PROFILE_PICTURE } from '../../utils/constants/apiConstants';
 import toast from 'react-hot-toast';
 import Cookies from "js-cookie";
 import {
@@ -12,16 +12,18 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { FaPencil } from 'react-icons/fa6';
 
 const UserProfile = () => {
 
     const userInfo = useSelector((store) => store.app.userInfo);
+    const [showEditProfilePic, setShowEditProfilePic] = useState(false);
+    const userProfilePicInput = useRef(null);
 
     const { handleSubmit } = useForm();
     const dispatch = useDispatch();
 
     const saveUserProfile = async () => {
-        console.log("clicked");
         try {
             const { data } = await axios.post(UPDATE_USER_PROFILE, userInfo);
             toast.success(data?.messageModel.statusMessage);
@@ -40,19 +42,66 @@ const UserProfile = () => {
         dispatch(setUserInfo(userInfoObj));
     }
 
+    const onEditProfilePicClick = () => {
+        userProfilePicInput.current?.click();
+    }
+
+    const handleUserImageChange = async (event) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const modifiedFile = new File([file], userInfo?.email, {
+                type: file.type,
+            });
+            const formData = new FormData();
+            formData.append("file", modifiedFile); 
+            formData.append("email", userInfo?.email);
+            try {
+                const { data } = await axios.post(UPDATE_USER_PROFILE_PICTURE, formData);
+                toast.success(data?.messageModel.statusMessage);
+                if (data?.token) {
+                    Cookies.set("is_token", data?.token);
+                }
+            } catch (error) {
+                toast.error(error);
+            }
+        }
+    };
+
     return (
         <div className='w-full h-screen m-8'>
             <h1 className='font-bold text-2xl'>Profile</h1>
             <div className='flex'>
-                <div className='m-12 flex flex-col justify-center items-center gap-4 w-24'>
-                    {userInfo?.photoURL ? <img src={userInfo?.photoURL} alt='user-photo' className='rounded-full h-24 w-24' />
-                        : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                        </svg>}
+                <div className='m-12 flex flex-col justify-center items-center gap-4 bg-gray-200 dark:bg-gray-800 h-48 w-68 rounded-2xl'>
+                    <div className='w-24 h-24 flex justify-center items-center 
+                    dark:bg-gray-500 bg-gray-300 rounded-[50%] hover:cursor-pointer'
+                        onMouseEnter={() => setShowEditProfilePic(true)}
+                        onMouseLeave={() => setShowEditProfilePic(false)}
+                        onClick={onEditProfilePicClick}>
+                        {showEditProfilePic ?
+                            <div className='cursor-pointer'>
+                                <FaPencil />
+
+                            </div> :
+                            <div>
+                                {userInfo?.photoURL ? <img src={userInfo?.photoURL} alt='user-photo' className='rounded-full h-24 w-24' />
+                                    : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                                    </svg>}
+                            </div>}
+                    </div>
                     <div>{userInfo?.displayName}</div>
                 </div>
                 <div className='m-12'>
-                    <form className='flex flex-col gap-4' onSubmit={handleSubmit(saveUserProfile)}>
+                    <form className='flex flex-col gap-4' onSubmit={handleSubmit(saveUserProfile)} encType='multipart/form-data'>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            name='userProfilePic'
+                            id='userProfilePic'
+                            ref={userProfilePicInput}
+                            onChange={handleUserImageChange}
+                            className="hidden"
+                        />
                         <div className='form-field'>
                             <div>First Name</div>
                             {userInfo?.authProvider ? <TooltipProvider>

@@ -10,6 +10,8 @@ export const VALIDATE_USER_TOKEN = BASE_URL + "/BackendApp/api/user/validateJson
 
 export const UPDATE_USER_PROFILE = BASE_URL + "/BackendApp/api/user/updateUserProfile";
 
+export const UPDATE_USER_PROFILE_PICTURE = BASE_URL + "/BackendApp/api/user/updateUserProfilePicture";
+
 // Courses
 
 export const GET_ALL_COURSES = BASE_URL + "/BackendApp/api/courses/getAllCourses";
