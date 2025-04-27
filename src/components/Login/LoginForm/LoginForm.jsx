@@ -32,7 +32,8 @@ const LoginForm = ({ setShowRegister }) => {
                         uid: data.email,
                         email: data.email, displayName: data?.firstName + " " + data?.lastName,
                         photoURL: data?.profilePhotoURL, firstName: data?.firstName, 
-                        lastName: data?.lastName, phoneNumber: data?.phoneNumber, authProvider: false
+                        lastName: data?.lastName, phoneNumber: data?.phoneNumber, authProvider: false,
+                        profilePicURL: data?.profilePicURL
                     }
                     dispatch(setUserInfo(userInfo));
                     dispatch(setCurrentSidebarTab("home"));

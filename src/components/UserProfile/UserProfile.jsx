@@ -55,6 +55,11 @@ const UserProfile = () => {
             const formData = new FormData();
             formData.append("file", modifiedFile); 
             formData.append("email", userInfo?.email);
+            formData.append("authProvider", userInfo?.authProvider);
+            formData.append("displayName", userInfo?.displayName);
+            formData.append("firstName", userInfo?.firstName);
+            formData.append("lastName", userInfo?.lastName);
+            formData.append("phoneNumber", userInfo?.phoneNumber);
             try {
                 const { data } = await axios.post(UPDATE_USER_PROFILE_PICTURE, formData);
                 toast.success(data?.messageModel.statusMessage);
