@@ -17,7 +17,7 @@ const useAuthProviderStateChange = () => {
         const authStateUnsubscription = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const { uid, email, displayName, photoURL, providerData } = user;
-                dispatch(setUserInfo({ uid, email, displayName, photoURL, phoneNumber: providerData[0].phoneNumber, authProvider: true }));
+                dispatch(setUserInfo({ uid, email, displayName, profilePicURL: photoURL, phoneNumber: providerData[0].phoneNumber, authProvider: true }));
                 return user;
             } else {
                 const token = String(Cookies.get("is_token")) || "";
