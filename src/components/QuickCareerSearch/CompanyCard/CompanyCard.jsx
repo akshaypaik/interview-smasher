@@ -173,7 +173,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
                     </div>
                 </a>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            {!info?.isApplied && <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Did you apply to any role at {info?.displayName}?</AlertDialogTitle>
                     <AlertDialogDescription>
@@ -184,7 +184,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
                     <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
                     <AlertDialogAction className="cursor-pointer" onClick={handleApplied}>Applied</AlertDialogAction>
                 </AlertDialogFooter>
-            </AlertDialogContent>
+            </AlertDialogContent>}
         </AlertDialog>
 
     )
