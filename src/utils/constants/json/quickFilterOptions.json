@@ -13,5 +13,10 @@
         "id": "2",
         "name": "serviceBased",
         "displayName": "Service Based"
+    },
+    {
+        "id": "3",
+        "name": "appliedCompanies",
+        "displayName": "Applied"
     }
 ]
