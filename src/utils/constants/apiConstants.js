@@ -40,6 +40,10 @@ export const GET_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/inte
 
 export const REMOVE_FAVORITE_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/removeFavoriteCompany";
 
+export const POST_APPLIED_COMPANY = BASE_URL + "/BackendApp/api/interview/postAppliedCompany";
+
+export const GET_APPLIED_COMPANY = BASE_URL + "/BackendApp/api/interview/getAppliedCompany";
+
 
 // External APIs
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CompanyCard.css';
-import { POST_FAVORITE_COMPANIES_INTERVIEW, REMOVE_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
+import { POST_APPLIED_COMPANY, POST_FAVORITE_COMPANIES_INTERVIEW, REMOVE_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
 import UserRating from '../UserRating/UserRating';
 import StarIcon from '../../Shared/StarIcon/StarIcon';
 import likeIcon from "../../../assets/images/icons/like-icon.svg";
@@ -8,13 +8,27 @@ import likeIconFavorite from "../../../assets/images/icons/like-icon-favorite.sv
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import axios from 'axios';
 
-const CompanyCard = ({ info, refetch }) => {
+const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
 
     const [favoriteCompanyStyle, setFavoriteCompanyStyle] = useState(false);
     const { userRatings } = info;
     const userInfo = useSelector((store) => store.app.userInfo);
     const queryClient = useQueryClient();
+    const [appliedCompany, setAppliedCompany] = useState(false);
+
 
     const handleFavoriteClick = (e) => {
         e.preventDefault();
@@ -75,6 +89,27 @@ const CompanyCard = ({ info, refetch }) => {
         const resultJson = await result.json();
     }
 
+    const handleApplied = () => {
+        const appliedCompany = {
+            ...info,
+            isApplied: true,
+            user: {
+                email: userInfo?.email
+            }
+        }
+        delete appliedCompany._id;
+        postAppliedCompany(appliedCompany);
+    }
+
+    const postAppliedCompany = (appliedCompany) =>{ 
+        try{
+            const { data } = axios.post(POST_APPLIED_COMPANY, appliedCompany);
+            setAppliedCompany(true);
+        }catch(error){
+            toast.error(error);
+        }
+    }
+
     const { mutate: removeFavoriteMutate } = useMutation({
         mutationFn: removeFavoriteCompany,
         onSuccess: () => {
@@ -100,23 +135,58 @@ const CompanyCard = ({ info, refetch }) => {
 
     useEffect(() => {
         setFavoriteCompanyStyle(info.isFavoriteCompany);
+        setAppliedCompany(info.isApplied);
     }, []);
 
+    const { mutate: postAppliedMutate } = useMutation({
+        mutationFn: postAppliedCompany,
+        onSuccess: () => {
+            toast.success(`${info?.displayName || "Company"} marked as applied!`);
+        },
+        onError: () => {
+            toast.error("Failed updating applied status!");
+        }
+    });
+
     return (
-        <a href={info.companyCareerPageURL} target='_blank'>
-            <div className='company-card-container 
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <a href={info.companyCareerPageURL} target='_blank'>
+                    <div className='company-card-container 
                 p-16 dark:bg-gray-700 flex flex-col justify-center items-center w-[240px] lg:w-[320px] md:w-[320px]
                 rounded-xl flex-wrap relative bg-neutral-100 shadow-xl border-1 hover:bg-gray-400 dark:hover:shadow-gray-700 hover:shadow-gray-500'>
-                <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
-                    <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
-                </span>
-                <img src={info.companyIconURL} alt='company-icon' loading='lazy' className='h-6 lg:h-[60px] md:h-[60px]' />
-                <span className='company-name whitespace-nowrap'> {info?.displayName}</span>
-                <span className='user-star-company'>
-                    <UserRating userRatingInfo={userRatings} />
-                </span>
-            </div>
-        </a>
+                        {appliedCompany && <span className='applied-company'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16"
+                                fill="currentColor" className="mercado-match" width="16" height="16" focusable="false">
+                                <path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm-.6 11L4.25 8.85 5.6 7.51 7.1 9l2.63-4H12z"></path>
+                            </svg>
+                            Applied
+                        </span>}
+                        <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
+                            <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
+                        </span>
+                        <img src={info.companyIconURL} alt='company-icon' loading='lazy' className='h-6 lg:h-[60px] md:h-[60px]' />
+                        <span className='company-name whitespace-nowrap'> {info?.displayName}</span>
+                        <span className='user-star-company'>
+                            <UserRating userRatingInfo={userRatings} />
+                        </span>
+                    </div>
+                </a>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Did you apply to any role at {info?.displayName}?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        If yes, please select 'Applied'. {info?.displayName} will be marked as 'Applied'.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
+                    <AlertDialogAction className="cursor-pointer" onClick={handleApplied}>Applied</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+
     )
 }
 

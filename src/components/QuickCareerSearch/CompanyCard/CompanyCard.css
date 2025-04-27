@@ -46,3 +46,16 @@
     bottom: 12px;
     right: 16px;
 }
+
+.applied-company{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    color: #37c898;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 12px;
+    padding-top: 6px;
+}
