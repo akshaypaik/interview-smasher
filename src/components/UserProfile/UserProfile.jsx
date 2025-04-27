@@ -13,6 +13,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { FaPencil } from 'react-icons/fa6';
+import { USER_PROFILE_PIC_BACKEND_DIRECTORY } from '../../utils/constants/constants';
 
 const UserProfile = () => {
 
@@ -99,7 +100,7 @@ const UserProfile = () => {
                             <div>
                                 {userProfilePicURL != "" ?
                                     <img src={userInfo?.authProvider ? userInfo?.photoURL :
-                                        `http://localhost:3000/uploads/user-profile-pictures/${userProfilePicURL}`} alt='user-photo'
+                                        `${USER_PROFILE_PIC_BACKEND_DIRECTORY}${userProfilePicURL}`} alt='user-photo'
                                         className='rounded-full h-24 w-24' />
                                     : 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

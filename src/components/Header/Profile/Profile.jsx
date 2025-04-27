@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleShowAvatarDetails, updateShowLoginSidebar } from '../../../utils/ReduxStore/appSlice';
 import AvatarMenu from './AvatarMenu/AvatarMenu';
 import DarkModeIcon from './DarkModeIcon/DarkModeIcon';
+import { USER_PROFILE_PIC_BACKEND_DIRECTORY } from '../../../utils/constants/constants';
 
 const Profile = () => {
 
@@ -34,7 +35,7 @@ const Profile = () => {
                         onClick={handleAvatarClick} />
                     :
                     userInfo?.profilePicURL ?
-                        <img src={`http://localhost:3000/uploads/user-profile-pictures/${userInfo?.profilePicURL}`} alt='user-avatar'
+                        <img src={`${USER_PROFILE_PIC_BACKEND_DIRECTORY}${userInfo?.profilePicURL}`} alt='user-avatar'
                             onClick={handleAvatarClick} />
                         :
                         <svg onClick={handleAvatarClick} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
