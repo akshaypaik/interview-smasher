@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CompanyCard.css';
-import { POST_APPLIED_COMPANY, POST_FAVORITE_COMPANIES_INTERVIEW, REMOVE_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
+import { POST_APPLIED_COMPANY, POST_FAVORITE_COMPANIES_INTERVIEW, REMOVE_APPLIED_COMPANIES_INTERVIEW, REMOVE_FAVORITE_COMPANIES_INTERVIEW } from '../../../utils/constants/apiConstants';
 import UserRating from '../UserRating/UserRating';
 import StarIcon from '../../Shared/StarIcon/StarIcon';
 import likeIcon from "../../../assets/images/icons/like-icon.svg";
@@ -20,6 +20,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import axios from 'axios';
+import { FaCircleXmark } from 'react-icons/fa6';
 
 const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
 
@@ -28,6 +29,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
     const userInfo = useSelector((store) => store.app.userInfo);
     const queryClient = useQueryClient();
     const [appliedCompany, setAppliedCompany] = useState(false);
+    const [showRemoveApplied, setShowRemoveApplied] = useState(false);
 
 
     const handleFavoriteClick = (e) => {
@@ -98,14 +100,14 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
             }
         }
         delete appliedCompany._id;
-        postAppliedCompany(appliedCompany);
+        postAppliedMutate(appliedCompany);
     }
 
-    const postAppliedCompany = (appliedCompany) =>{ 
-        try{
+    const postAppliedCompany = (appliedCompany) => {
+        try {
             const { data } = axios.post(POST_APPLIED_COMPANY, appliedCompany);
             setAppliedCompany(true);
-        }catch(error){
+        } catch (error) {
             toast.error(error);
         }
     }
@@ -142,9 +144,48 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         mutationFn: postAppliedCompany,
         onSuccess: () => {
             toast.success(`${info?.displayName || "Company"} marked as applied!`);
+            queryClient.invalidateQueries({
+                queryKey: ["companies"]
+            });
         },
         onError: () => {
             toast.error("Failed updating applied status!");
+        }
+    });
+
+    const handleRemoveApplied = (e) => {
+        e.preventDefault();
+        removeAppliedMutate(info);
+        setAppliedCompany(false);
+    }
+
+    const removeAppliedCompany = async (appliedCompanyObj) => {
+        const updatedAppliedCompanyObj = {
+            ...appliedCompanyObj,
+            user: appliedCompanyObj.user || {
+                email: userInfo?.email
+            }
+        };
+        const result = await fetch(`${REMOVE_APPLIED_COMPANIES_INTERVIEW}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedAppliedCompanyObj)
+        })
+        const resultJson = await result.json();
+    }
+
+    const { mutate: removeAppliedMutate } = useMutation({
+        mutationFn: removeAppliedCompany,
+        onSuccess: () => {
+            toast.error("Applied label removed!");
+            queryClient.invalidateQueries({
+                queryKey: ["companies"]
+            });
+        },
+        onError: () => {
+            toast.error("Applied label removal failed!");
         }
     });
 
@@ -152,15 +193,27 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <a href={info.companyCareerPageURL} target='_blank'>
-                    <div className='company-card-container 
-                p-16 dark:bg-gray-700 flex flex-col justify-center items-center w-[240px] lg:w-[320px] md:w-[320px]
-                rounded-xl flex-wrap relative bg-neutral-100 shadow-xl border-1 hover:bg-gray-400 dark:hover:shadow-gray-700 hover:shadow-gray-500'>
-                        {appliedCompany && <span className='applied-company'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16"
-                                fill="currentColor" className="mercado-match" width="16" height="16" focusable="false">
-                                <path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm-.6 11L4.25 8.85 5.6 7.51 7.1 9l2.63-4H12z"></path>
-                            </svg>
-                            Applied
+                    <div className={`company-card-container 
+                    p-16  flex flex-col justify-center items-center w-[240px] lg:w-[320px] md:w-[320px]
+                    rounded-xl flex-wrap relative  shadow-xl border-1 hover:bg-gray-600 
+                    dark:hover:shadow-gray-700 dark:hover:bg-gray-700 hover:shadow-gray-500 
+                    ${appliedCompany ? 'bg-green-100 dark:bg-green-900' : 'dark:bg-gray-700 bg-neutral-100'} `}>
+                        {appliedCompany && <span className='applied-company'
+                            onMouseEnter={() => setShowRemoveApplied(true)}
+                            onMouseLeave={() => setShowRemoveApplied(false)}>
+                            {!showRemoveApplied ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16"
+                                    fill="currentColor" className="mercado-match" width="16" height="16" focusable="false">
+                                    <path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm-.6 11L4.25 8.85 5.6 7.51 7.1 9l2.63-4H12z"></path>
+                                </svg> :
+                                <FaCircleXmark className='text-red-500' />}
+                            {showRemoveApplied ?
+                                <span className='text-red-500' onClick={(e) => handleRemoveApplied(e)}>
+                                    Remove Applied
+                                </span> :
+                                <span>
+                                    Applied
+                                </span>}
                         </span>}
                         <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
                             <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />

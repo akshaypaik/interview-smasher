@@ -44,6 +44,8 @@ export const POST_APPLIED_COMPANY = BASE_URL + "/BackendApp/api/interview/postAp
 
 export const GET_APPLIED_COMPANY = BASE_URL + "/BackendApp/api/interview/getAppliedCompany";
 
+export const REMOVE_APPLIED_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/removeAppliedCompany";
+
 
 // External APIs
 
