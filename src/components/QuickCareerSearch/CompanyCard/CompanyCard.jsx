@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import axios from 'axios';
 import { FaCircleXmark } from 'react-icons/fa6';
+import { motion } from 'framer-motion';
 
 const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
 
@@ -194,39 +195,46 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <a href={info.companyCareerPageURL} target='_blank'>
-                    <div className={`company-card-container 
+                <motion.div
+                    className="text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}>
+                    <a href={info.companyCareerPageURL} target='_blank'>
+                        <div className={`company-card-container 
                     p-16  flex flex-col justify-center items-center w-[240px] lg:w-[320px] md:w-[320px]
                     rounded-xl flex-wrap relative  shadow-xl border-1 hover:bg-gray-600 
                     dark:hover:shadow-gray-700 dark:hover:bg-gray-700 hover:shadow-gray-500 
                     ${appliedCompany ? 'bg-green-100 dark:bg-green-900' : 'dark:bg-gray-700 bg-neutral-100'} `}>
-                        {appliedCompany && <span className='applied-company'
-                            onMouseEnter={() => setShowRemoveApplied(true)}
-                            onMouseLeave={() => setShowRemoveApplied(false)}>
-                            {!showRemoveApplied ?
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16"
-                                    fill="currentColor" className="mercado-match" width="16" height="16" focusable="false">
-                                    <path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm-.6 11L4.25 8.85 5.6 7.51 7.1 9l2.63-4H12z"></path>
-                                </svg> :
-                                <FaCircleXmark className='text-red-500' />}
-                            {showRemoveApplied ?
-                                <span className='text-red-500' onClick={(e) => handleRemoveApplied(e)}>
-                                    Remove Applied
-                                </span> :
-                                <span>
-                                    Applied
-                                </span>}
-                        </span>}
-                        <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
-                            <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
-                        </span>
-                        <img src={info.companyIconURL} alt='company-icon' loading='lazy' className='h-6 lg:h-[60px] md:h-[60px]' />
-                        <span className='company-name whitespace-nowrap'> {info?.displayName}</span>
-                        <span className='user-star-company'>
-                            <UserRating userRatingInfo={userRatings} />
-                        </span>
-                    </div>
-                </a>
+                            {appliedCompany && <span className='applied-company'
+                                onMouseEnter={() => setShowRemoveApplied(true)}
+                                onMouseLeave={() => setShowRemoveApplied(false)}>
+                                {!showRemoveApplied ?
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16"
+                                        fill="currentColor" className="mercado-match" width="16" height="16" focusable="false">
+                                        <path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm-.6 11L4.25 8.85 5.6 7.51 7.1 9l2.63-4H12z"></path>
+                                    </svg> :
+                                    <FaCircleXmark className='text-red-500' />}
+                                {showRemoveApplied ?
+                                    <span className='text-red-500' onClick={(e) => handleRemoveApplied(e)}>
+                                        Remove Applied
+                                    </span> :
+                                    <span>
+                                        Applied
+                                    </span>}
+                            </span>}
+                            <span className='star-company' onClick={(e) => handleFavoriteClick(e)}>
+                                <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
+                            </span>
+                            <img src={info.companyIconURL} alt='company-icon' loading='lazy' className='h-6 lg:h-[60px] md:h-[60px]' />
+                            <span className='company-name whitespace-nowrap'> {info?.displayName}</span>
+                            <span className='user-star-company'>
+                                <UserRating userRatingInfo={userRatings} />
+                            </span>
+                        </div>
+                    </a>
+                </motion.div>
             </AlertDialogTrigger>
             {!info?.isApplied && <AlertDialogContent>
                 <AlertDialogHeader>
