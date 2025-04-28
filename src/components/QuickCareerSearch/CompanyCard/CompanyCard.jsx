@@ -116,6 +116,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         mutationFn: removeFavoriteCompany,
         onSuccess: () => {
             toast.error("Favorite removed!");
+            setAppliedCompany(false);
             queryClient.invalidateQueries({
                 queryKey: ["favoriteCompanies"]
             });
@@ -138,12 +139,13 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
     useEffect(() => {
         setFavoriteCompanyStyle(info.isFavoriteCompany);
         setAppliedCompany(info.isApplied);
-    }, []);
+    }, [info.isFavoriteCompany, info.isApplied]);
 
     const { mutate: postAppliedMutate } = useMutation({
         mutationFn: postAppliedCompany,
         onSuccess: () => {
             toast.success(`${info?.displayName || "Company"} marked as applied!`);
+            setAppliedCompany(true);
             queryClient.invalidateQueries({
                 queryKey: ["companies"]
             });
