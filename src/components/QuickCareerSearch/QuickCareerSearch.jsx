@@ -10,6 +10,7 @@ import _ from 'lodash';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
 import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 import quickFilterOptions from "../../utils/constants/json/quickFilterOptions.json";
+import toast from 'react-hot-toast';
 
 const QuickCareerSearch = () => {
 
@@ -20,6 +21,7 @@ const QuickCareerSearch = () => {
     const [emailNotValid, setEmailNotValid] = useState(true);
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [companyFilter, setCompanyFilter] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         console.log("slidder changed: ", enableQuickFilter);
@@ -52,6 +54,12 @@ const QuickCareerSearch = () => {
                 return;
             }
             const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}&email=${userInfo?.email}&page=${pageParam}`);
+            if(result.status != 200){
+                setErrorMessage(`${result.statusText}. please try after some time!`);
+                toast.error(`${result.statusText}. please try after some time!`);
+            }else{
+                setErrorMessage("");
+            }
             const resultJson = await result.json();
             dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
             return resultJson;
@@ -97,6 +105,8 @@ const QuickCareerSearch = () => {
         if (error && error?.message) {
             if (error?.message.includes("Email is not valid")) {
                 setEmailNotValid(true);
+            }else{
+                setErrorMessage(error?.message);
             }
         } else {
             // setEmailNotValid(false);
@@ -124,13 +134,13 @@ const QuickCareerSearch = () => {
             {isLoading && <LoadingSpinner />}
             {data?.pages[0]?.length === 0 && !isLoading && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
             <div className='company-card-main-container'>
-                {data?.pages?.map((pages, index) => {
+                {errorMessage === "" ? data?.pages?.map((pages, index) => {
                     return pages?.map((company) =>
                         <CompanyCard
                             key={company.companyId}
                             info={company}
                             refetch={refetch} />)
-                })}
+                }) : <div className='text-4xl font-bold text-red-700'> {errorMessage} </div>}
             </div>
             {bottomRef.current && hasNextPage && <LoadingSpinner />}
         </div>
