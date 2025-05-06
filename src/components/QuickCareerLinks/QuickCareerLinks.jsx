@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './QuickCareerLinks.css';
 import { AgGridReact } from 'ag-grid-react';
 import {
@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
+import { GET_QUICK_CAREER_JOB_LINK, POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -98,6 +98,9 @@ const QuickCareerLinks = () => {
         if (params?.value === "Applied") {
             style.backgroundColor = "#38ef7d";
         }
+        if(params?.value === "Save Only"){
+            style.backgroundColor = "#00B4DB";
+        }
         return style;
     }
 
@@ -123,11 +126,26 @@ const QuickCareerLinks = () => {
                 reset();
                 toast.success("Job details added.");
                 setDialogOpen(false);
+                getJobLinkDetails();
             } catch (error) {
                 toast.error("Job details adding failed. Please try again later.");
             }
         }
     }
+
+    const getJobLinkDetails = async () => {
+        try {
+            const userEmail = userInfo?.email;
+            const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
+            setRowData(data);
+        } catch (error) {
+            toast.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getJobLinkDetails();
+    }, []);
 
     return (
         <div className='lg:m-2 md:m-2 w-4/5'>

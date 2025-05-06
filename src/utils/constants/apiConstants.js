@@ -50,6 +50,8 @@ export const REMOVE_APPLIED_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/in
 
 export const POST_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-career/postQuickCareerJobLink";
 
+export const GET_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-career/getQuickCareerJobLink?email=";
+
 
 // External APIs
 
