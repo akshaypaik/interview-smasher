@@ -22,26 +22,7 @@ import { useSelector } from 'react-redux';
 const QuickCareerLinks = () => {
 
     // Row Data: The data to be displayed.
-    const [rowData, setRowData] = useState([
-        {
-            company: "Harman", jobRole: "Senior Angular Developer", location: "Bangalore",
-            jobID: "R-42643-2025",
-            jobLink: "https://jobsearch.harman.com/en_US/careers/JobDetail/Senior-Angular-Developer/25916",
-            jobStatus: "Yet to Apply"
-        },
-        {
-            company: "Oracle", jobRole: "Senior User Experience Developer", location: "Bangalore",
-            jobID: "282654",
-            jobLink: "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/282654?utm_medium=jobboard&utm_source=LinkedIn",
-            jobStatus: "Yet to Apply"
-        },
-        {
-            company: "Google", jobRole: "Senior Software Developer", location: "Bangalore",
-            jobID: "2563541",
-            jobLink: "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/282654?utm_medium=jobboard&utm_source=LinkedIn",
-            jobStatus: "Applied"
-        }
-    ]);
+    const [rowData, setRowData] = useState([]);
 
     const openJobLink = (params) => {
         if (!params.data.jobLink) {
@@ -98,7 +79,7 @@ const QuickCareerLinks = () => {
         if (params?.value === "Applied") {
             style.backgroundColor = "#38ef7d";
         }
-        if(params?.value === "Save Only"){
+        if (params?.value === "Save Only") {
             style.backgroundColor = "#00B4DB";
         }
         return style;
