@@ -1,0 +1,117 @@
+[
+    {
+        "id": "0",
+        "name": "bengaluru",
+        "displayName": "Bengaluru"
+    },
+    {
+        "id": "1",
+        "name": "mumbai",
+        "displayName": "Mumbai"
+    },
+    {
+        "id": "2",
+        "name": "delhi",
+        "displayName": "Delhi"
+    },
+    {
+        "id": "3",
+        "name": "hyderabad",
+        "displayName": "Hyderabad"
+    },
+    {
+        "id": "4",
+        "name": "pune",
+        "displayName": "Pune"
+    },
+    {
+        "id": "5",
+        "name": "ahmedabad",
+        "displayName": "Ahmedabad"
+    },
+    {
+        "id": "6",
+        "name": "mysore",
+        "displayName": "Mysore"
+    },
+    {
+        "id": "7",
+        "name": "kolkata",
+        "displayName": "Kolkata"
+    },
+    {
+        "id": "8",
+        "name": "chennai",
+        "displayName": "Chennai"
+    },
+    {
+        "id": "9",
+        "name": "kochi",
+        "displayName": "Kochi"
+    },
+    {
+        "id": "10",
+        "name": "noida",
+        "displayName": "Noida"
+    },
+    {
+        "id": "11",
+        "name": "chandigarh",
+        "displayName": "Chandigarh"
+    },
+    {
+        "id": "12",
+        "name": "gurugram",
+        "displayName": "Gurugram"
+    },
+    {
+        "id": "13",
+        "name": "indore",
+        "displayName": "Indore"
+    },
+    {
+        "id": "14",
+        "name": "bhubaneswar",
+        "displayName": "Bhubaneswar"
+    },
+    {
+        "id": "15",
+        "name": "jaipur",
+        "displayName": "Jaipur"
+    },
+    {
+        "id": "16",
+        "name": "mangaluru",
+        "displayName": "Mangaluru"
+    },
+    {
+        "id": "17",
+        "name": "lucknow",
+        "displayName": "Lucknow"
+    },
+    {
+        "id": "18",
+        "name": "nagpur",
+        "displayName": "Nagpur"
+    },
+    {
+        "id": "19",
+        "name": "bhopal",
+        "displayName": "Bhopal"
+    },
+    {
+        "id": "20",
+        "name": "patna",
+        "displayName": "Patna"
+    },
+    {
+        "id": "21",
+        "name": "visakhapatnam",
+        "displayName": "Visakhapatnam"
+    },
+    {
+        "id": "23",
+        "name": "ranchi",
+        "displayName": "Ranchi"
+    }
+]

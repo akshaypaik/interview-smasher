@@ -20,6 +20,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
 import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJobLinkRoles.json';
+import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
+import QuickCareerLinksDropDowns from './QuickCareerLinksDropDowns';
 
 const QuickCareerLinks = () => {
 
@@ -61,8 +63,11 @@ const QuickCareerLinks = () => {
         filter: true
     });
     const [dialogOpen, setDialogOpen] = useState(false);
+
     const [roleText, setRoleText] = useState("");
     const [filteredRoles, setFilteredRoles] = useState([]);
+    const [locationText, setLocationText] = useState("");
+    const [filteredLocations, setFilteredLocations] = useState([]);
 
     const gridRef = useRef(null);
     const { register, handleSubmit, formState, reset } = useForm();
@@ -136,6 +141,7 @@ const QuickCareerLinks = () => {
     }, []);
 
     const onRoleTextChange = (event) => {
+        setFilteredLocations([]);
         const roleTextValue = event.target.value;
         setRoleText(roleTextValue);
         const filterRoles = quickCareerJobLinkRoles.filter((role) => role.displayName?.toLocaleLowerCase().includes(roleTextValue.toLocaleLowerCase()));
@@ -146,6 +152,21 @@ const QuickCareerLinks = () => {
         console.log(role);
         setRoleText(role?.displayName);
         setFilteredRoles([]);
+    }
+
+    const onLocationTextChange = (event) => {
+        setFilteredRoles([]);
+        const locationTextValue = event.target.value;
+        setLocationText(locationTextValue);
+        const filterLocations = quickCareerJobLinkLocations.filter((location) => location.displayName?.toLocaleLowerCase().includes(locationTextValue.toLocaleLowerCase()));
+        setFilteredLocations(filterLocations);
+    }
+
+
+    const onLocationSelect = (location) => {
+        console.log(location);
+        setLocationText(location?.displayName);
+        setFilteredLocations([]);
     }
 
     return (
@@ -207,28 +228,22 @@ const QuickCareerLinks = () => {
                                             required: "This field is required"
                                         })} value={roleText} onChange={(e) => onRoleTextChange(e)} />
                                     {filteredRoles.length > 0 &&
-                                        <div className='absolute top-18 bg-gray-300 max-h-36 overflow-y-scroll 
-                                        w-full rounded-xl'>
-                                            {filteredRoles.map((role) => {
-                                                return <div onClick={() => onRoleSelect(role)}
-                                                    className='p-2 hover:cursor-pointer hover:bg-gray-800 
-                                                    hover:text-white w-full'
-                                                    key={role.id}>
-                                                    {role.displayName}
-                                                </div>
-                                            })}
-                                        </div>}
+                                        <QuickCareerLinksDropDowns filteredRecords={filteredRoles} onDropdownSelect={onRoleSelect} />}
                                     {errors?.jobRole?.message &&
                                         <div className='error-msg'>{errors?.jobRole?.message}</div>}
                                 </div>
-                                <Label htmlFor="jobLocation" className="text-right">
-                                    Location
-                                </Label>
-                                <Input id="jobLocation" placeholder="Job Location" className="col-span-3" {...register("jobLocation", {
-                                    required: "This field is required"
-                                })} />
-                                {errors?.jobLocation?.message &&
-                                    <div className='error-msg'>{errors?.jobLocation?.message}</div>}
+                                <div className='flex flex-col gap-4 relative'>
+                                    <Label htmlFor="jobLocation" className="text-right">
+                                        Location
+                                    </Label>
+                                    <Input id="jobLocation" placeholder="Job Location" className="col-span-3" {...register("jobLocation", {
+                                        required: "This field is required"
+                                    })} value={locationText} onChange={(e) => onLocationTextChange(e)} />
+                                    {filteredLocations.length > 0 &&
+                                        <QuickCareerLinksDropDowns filteredRecords={filteredLocations} onDropdownSelect={onLocationSelect} />}
+                                    {errors?.jobLocation?.message &&
+                                        <div className='error-msg'>{errors?.jobLocation?.message}</div>}
+                                </div>
                                 <Label htmlFor="jobID" className="text-right">
                                     Job ID
                                 </Label>

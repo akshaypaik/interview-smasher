@@ -11,13 +11,13 @@
     },
     {
         "id": "2",
-        "name": "seniorSoftwareEnginner",
-        "displayName": "Senior Software Enginner"
+        "name": "seniorSoftwareEngineer",
+        "displayName": "Senior Software Engineer"
     },
     {
         "id": "3",
-        "name": "softwareEnginner",
-        "displayName": "Software Enginner"
+        "name": "softwareEngineer",
+        "displayName": "Software Engineer"
     },
     {
         "id": "4",
