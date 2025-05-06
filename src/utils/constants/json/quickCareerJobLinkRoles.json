@@ -22,7 +22,7 @@
     {
         "id": "4",
         "name": "reactjsDeveloper",
-        "displayName": "Reactjs Developer"
+        "displayName": "React.js Developer"
     },
     {
         "id": "5",
@@ -71,8 +71,8 @@
     },
     {
         "id": "14",
-        "name": "principleStaffSoftwareEngineer",
-        "displayName": "Principle Staff Software Engineer"
+        "name": "principalStaffSoftwareEngineer",
+        "displayName": "Principal Staff Software Engineer"
     },
     {
         "id": "15",
@@ -118,5 +118,125 @@
         "id": "23",
         "name": "others",
         "displayName": "Others"
+    },
+    {
+        "id": "23",
+        "name": "leadSoftwareEngineer",
+        "displayName": "Lead Software Engineer"
+    },
+    {
+        "id": "24",
+        "name": "softwareArchitect",
+        "displayName": "Software Architect"
+    },
+    {
+        "id": "25",
+        "name": "seniorSoftwareArchitect",
+        "displayName": "Senior Software Architect"
+    },
+    {
+        "id": "26",
+        "name": "testEngineer",
+        "displayName": "Test Engineer"
+    },
+    {
+        "id": "27",
+        "name": "testArchitect",
+        "displayName": "Test Architect"
+    },
+    {
+        "id": "28",
+        "name": "qaEngineer",
+        "displayName": "QA Engineer"
+    },
+    {
+        "id": "29",
+        "name": "director",
+        "displayName": "Director"
+    },
+    {
+        "id": "30",
+        "name": "leadership",
+        "displayName": "Leadership"
+    },
+    {
+        "id": "31",
+        "name": "teamLead",
+        "displayName": "Team Lead"
+    },
+    {
+        "id": "32",
+        "name": "scrumMaster",
+        "displayName": "Scrum Master"
+    },
+    {
+        "id": "33",
+        "name": "scrumMasterFacilitator",
+        "displayName": "Scrum Master Facilitator"
+    },
+    {
+        "id": "34",
+        "name": "typescriptDeveloper",
+        "displayName": "Typescript Developer"
+    },
+    {
+        "id": "34",
+        "name": "nodejsDeveloper",
+        "displayName": "Node.js Developer"
+    },
+    {
+        "id": "35",
+        "name": "seniorUIEngineer",
+        "displayName": "Senior UI Engineer"
+    },
+    {
+        "id": "36",
+        "name": "leadAngularDeveloper",
+        "displayName": "Lead Angular Developer"
+    },
+    {
+        "id": "37",
+        "name": "leadReactDeveloper",
+        "displayName": "Lead React Developer"
+    },
+    {
+        "id": "38",
+        "name": "angularDeveloper",
+        "displayName": "Angular Developer"
+    },
+    {
+        "id": "39",
+        "name": "devops",
+        "displayName": "Devops"
+    },
+    {
+        "id": "40",
+        "name": "awsEngineer",
+        "displayName": "AWS Engineer"
+    },
+    {
+        "id": "41",
+        "name": "systemEngineer",
+        "displayName": "System Engineer"
+    },
+    {
+        "id": "42",
+        "name": "networkEngineer",
+        "displayName": "Network Engineer"
+    },
+    {
+        "id": "43",
+        "name": "databaseAdministrator",
+        "displayName": "Database Administrator"
+    },
+    {
+        "id": "44",
+        "name": "mernStack",
+        "displayName": "MERN Stack"
+    },
+    {
+        "id": "45",
+        "name": "meanStack",
+        "displayName": "MEAN Stack"
     }
 ]
