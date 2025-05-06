@@ -85,7 +85,7 @@ const QuickCareerLinks = () => {
     }, []);
 
     const setStylesForStatus = (params) => {
-        const style = { textAlign: 'center' };
+        const style = { textAlign: 'center', borderRadius: '8px' };
         if (params?.value === "Yet to Apply") {
             style.backgroundColor = "#f5af19";
         }
