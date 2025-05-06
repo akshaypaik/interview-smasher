@@ -55,7 +55,7 @@ const QuickCareerLinks = () => {
     const [colDefs, setColDefs] = useState([
         { headerName: "Company", field: "company", minWidth: 240 },
         { headerName: "Role", field: "jobRole", minWidth: 240 },
-        { headerName: "Location", field: "location", minWidth: 200 },
+        { headerName: "Location", field: "jobLocation", minWidth: 200 },
         { headerName: "Job ID", field: "jobID", minWidth: 200 },
         {
             headerName: "Job Link", field: "jobLink", minWidth: 300,
