@@ -1,6 +1,23 @@
 import React, { useCallback, useRef, useState } from 'react';
 import './QuickCareerLinks.css';
 import { AgGridReact } from 'ag-grid-react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const QuickCareerLinks = () => {
 
@@ -59,9 +76,12 @@ const QuickCareerLinks = () => {
         flex: 1,
         minWidth: 100,
         filter: true
-    })
+    });
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const gridRef = useRef(null);
+    const { register, handleSubmit, formState, reset } = useForm();
+    const userInfo = useSelector((store) => store.app.userInfo);
 
     const onFilterTextBoxChanged = useCallback(() => {
         gridRef.current.api.setGridOption(
@@ -81,15 +101,43 @@ const QuickCareerLinks = () => {
         return style;
     }
 
+    const handleSaveEvent = () => {
+        setDialogOpen(false);
+    }
+
+    const onAddClick = () => {
+        setDialogOpen(true);
+    }
+
+    const handleJobDetailsSubmit = async (formData) => {
+        if (formData) {
+            const modifiedFormData = {
+                ...formData,
+                user: {
+                    email: userInfo?.email,
+                    phoneNumber: userInfo?.phoneNumber
+                }
+            }
+            try {
+                const { data } = await axios.post(POST_QUICK_CAREER_JOB_LINK, modifiedFormData);
+                reset();
+                toast.success("Job details added.");
+                setDialogOpen(false);
+            } catch (error) {
+                toast.error("Job details adding failed. Please try again later.");
+            }
+        }
+    }
+
     return (
-        <div className='lg:m-8 md:m-8 w-full'>
+        <div className='lg:m-2 md:m-2 w-4/5'>
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Links</h1>
                 <div className='flex gap-4'>
                 </div>
             </div>
             <div>
-                <div className='my-2 mx-6 flex justify-between'>
+                <div className='my-4 mx-6 flex justify-between'>
                     <input
                         type="text"
                         id="filter-text-box"
@@ -99,7 +147,7 @@ const QuickCareerLinks = () => {
                     />
                     <div>
                         <button className='bg-green-700 rounded-xl py-2 px-8 cursor-pointer hover:bg-white 
-                        add-btn text-white'>
+                        add-btn text-white' onClick={onAddClick}>
                             Add
                         </button>
                     </div>
@@ -112,6 +160,64 @@ const QuickCareerLinks = () => {
                         defaultColDef={defaultColDef}
                     />
                 </div>
+                <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
+                    <DialogContent className="w-full">
+                        <DialogHeader>
+                            <DialogTitle>Add Link</DialogTitle>
+                            <DialogDescription>
+                                Enter details for your job details.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <form className="grid gap-4 py-4" onSubmit={handleSubmit(handleJobDetailsSubmit)}>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="company" className="text-right">
+                                    Company
+                                </Label>
+                                <Input id="company" placeholder="Company" className="col-span-3" {...register("company", {
+                                    required: "This field is required"
+                                })} />
+                                <Label htmlFor="jobRole" className="text-right">
+                                    Role
+                                </Label>
+                                <Input id="jobRole" placeholder="Job Role" className="col-span-3" {...register("jobRole", {
+                                    required: "This field is required"
+                                })} />
+                                <Label htmlFor="jobLocation" className="text-right">
+                                    Location
+                                </Label>
+                                <Input id="jobLocation" placeholder="Job Location" className="col-span-3" {...register("jobLocation", {
+                                    required: "This field is required"
+                                })} />
+                                <Label htmlFor="jobID" className="text-right">
+                                    Job ID
+                                </Label>
+                                <Input id="jobID" placeholder="Job ID" className="col-span-3" {...register("jobID", {
+                                    required: "This field is required"
+                                })} />
+                                <Label htmlFor="jobLink" className="text-right">
+                                    Job Link
+                                </Label>
+                                <Input id="jobLink" placeholder="Link" className="col-span-3" {...register("jobLink", {
+                                    required: "This field is required"
+                                })} />
+                                <Label htmlFor="jobStatus" className="text-right">
+                                    Status
+                                </Label>
+                                <select id='jobStatus' className='w-[240px] hover:cursor-pointer border-2 rounded-xl px-2 py-2'
+                                    {...register("jobStatus", {
+                                        required: "This field is required"
+                                    })}>
+                                    <option>Applied</option>
+                                    <option>Yet to Apply</option>
+                                    <option>Save Only</option>
+                                </select>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit" className="hover:cursor-pointer">Save Job</Button>
+                            </DialogFooter>
+                        </form>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     )
