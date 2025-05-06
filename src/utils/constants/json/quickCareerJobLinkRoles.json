@@ -1,0 +1,107 @@
+[
+    {
+        "id": "0",
+        "name": "webDeveloper",
+        "displayName": "Web Developer"
+    },
+    {
+        "id": "1",
+        "name": "seniorAngularDeveloper",
+        "displayName": "Senior Angular Developer"
+    },
+    {
+        "id": "2",
+        "name": "seniorSoftwareEnginner",
+        "displayName": "Senior Software Enginner"
+    },
+    {
+        "id": "3",
+        "name": "softwareEnginner",
+        "displayName": "Software Enginner"
+    },
+    {
+        "id": "4",
+        "name": "reactjsDeveloper",
+        "displayName": "Reactjs Developer"
+    },
+    {
+        "id": "5",
+        "name": "seniorReactDeveloper",
+        "displayName": "Senior React Developer"
+    },
+    {
+        "id": "6",
+        "name": "applicationDeveloper",
+        "displayName": "Application Developer"
+    },
+    {
+        "id": "7",
+        "name": "backendDeveloper",
+        "displayName": "Backend Developer"
+    },
+    {
+        "id": "8",
+        "name": "javaDeveloper",
+        "displayName": "Java Developer"
+    },
+    {
+        "id": "9",
+        "name": "sde1",
+        "displayName": "SDE 1"
+    },
+    {
+        "id": "10",
+        "name": "sde2",
+        "displayName": "SDE 2"
+    },
+    {
+        "id": "11",
+        "name": "sde3",
+        "displayName": "SDE 3"
+    },
+    {
+        "id": "12",
+        "name": "aiEngineer",
+        "displayName": "AI Engineer"
+    },
+    {
+        "id": "13",
+        "name": "staffSoftwareEngineer",
+        "displayName": "Staff Software Engineer"
+    },
+    {
+        "id": "14",
+        "name": "principleStaffSoftwareEngineer",
+        "displayName": "Principle Staff Software Engineer"
+    },
+    {
+        "id": "15",
+        "name": "frontendDeveloper",
+        "displayName": "Frontend Developer"
+    },
+    {
+        "id": "16",
+        "name": "uiDeveloper",
+        "displayName": "UI Developer"
+    },
+    {
+        "id": "17",
+        "name": "uxDeveloper",
+        "displayName": "UX Developer"
+    },
+    {
+        "id": "18",
+        "name": "fullStackDeveloper",
+        "displayName": "Full Stack Developer"
+    },
+    {
+        "id": "19",
+        "name": "pythonDeveloper",
+        "displayName": "Python Developer"
+    },
+    {
+        "id": "20",
+        "name": "javascriptDeveloper",
+        "displayName": "Javascript Developer"
+    }
+]

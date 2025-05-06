@@ -19,6 +19,7 @@ import { GET_QUICK_CAREER_JOB_LINK, POST_QUICK_CAREER_JOB_LINK } from '../../uti
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
+import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJobLinkRoles.json';
 
 const QuickCareerLinks = () => {
 
@@ -60,6 +61,8 @@ const QuickCareerLinks = () => {
         filter: true
     });
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [roleText, setRoleText] = useState("");
+    const [filteredRoles, setFilteredRoles] = useState([]);
 
     const gridRef = useRef(null);
     const { register, handleSubmit, formState, reset } = useForm();
@@ -99,12 +102,14 @@ const QuickCareerLinks = () => {
         if (formData) {
             const modifiedFormData = {
                 ...formData,
+                jobRole: roleText,
                 user: {
                     email: userInfo?.email,
                     phoneNumber: userInfo?.phoneNumber
                 }
             }
             try {
+                console.log("modifiedFormData: ", modifiedFormData);
                 const { data } = await axios.post(POST_QUICK_CAREER_JOB_LINK, modifiedFormData);
                 reset();
                 toast.success("Job details added.");
@@ -129,6 +134,19 @@ const QuickCareerLinks = () => {
     useEffect(() => {
         getJobLinkDetails();
     }, []);
+
+    const onRoleTextChange = (event) => {
+        const roleTextValue = event.target.value;
+        setRoleText(roleTextValue);
+        const filterRoles = quickCareerJobLinkRoles.filter((role) => role.displayName?.toLocaleLowerCase().includes(roleTextValue.toLocaleLowerCase()));
+        setFilteredRoles(filterRoles);
+    }
+
+    const onRoleSelect = (role) => {
+        console.log(role);
+        setRoleText(role?.displayName);
+        setFilteredRoles([]);
+    }
 
     return (
         <div className='lg:m-2 md:m-2 w-4/5'>
@@ -180,14 +198,29 @@ const QuickCareerLinks = () => {
                                 })} />
                                 {errors?.company?.message &&
                                     <div className='error-msg'>{errors?.company?.message}</div>}
-                                <Label htmlFor="jobRole" className="text-right">
-                                    Role
-                                </Label>
-                                <Input id="jobRole" placeholder="Job Role" className="col-span-3" {...register("jobRole", {
-                                    required: "This field is required"
-                                })} />
-                                {errors?.jobRole?.message &&
-                                    <div className='error-msg'>{errors?.jobRole?.message}</div>}
+                                <div className='flex flex-col gap-4 relative'>
+                                    <Label htmlFor="jobRole" className="text-right">
+                                        Role
+                                    </Label>
+                                    <Input type='text' id="jobRole"
+                                        placeholder="Job Role" className="col-span-3" {...register("jobRole", {
+                                            required: "This field is required"
+                                        })} value={roleText} onChange={(e) => onRoleTextChange(e)} />
+                                    {filteredRoles.length > 0 &&
+                                        <div className='absolute top-18 bg-gray-300 max-h-36 overflow-y-scroll 
+                                        w-full rounded-xl'>
+                                            {filteredRoles.map((role) => {
+                                                return <div onClick={() => onRoleSelect(role)}
+                                                    className='p-2 hover:cursor-pointer hover:bg-gray-800 
+                                                    hover:text-white w-full'
+                                                    key={role.id}>
+                                                    {role.displayName}
+                                                </div>
+                                            })}
+                                        </div>}
+                                    {errors?.jobRole?.message &&
+                                        <div className='error-msg'>{errors?.jobRole?.message}</div>}
+                                </div>
                                 <Label htmlFor="jobLocation" className="text-right">
                                     Location
                                 </Label>
@@ -224,7 +257,7 @@ const QuickCareerLinks = () => {
                                         required: "This field is required"
                                     })}>
                                     {quickCareerJobLinkStatus.map((status) => {
-                                        return <option>{status.displayName}</option>
+                                        return <option key={status.id}>{status.displayName}</option>
                                     })}
                                 </select>
                             </div>
