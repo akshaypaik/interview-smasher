@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import { GET_QUICK_CAREER_JOB_LINK, POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
 
 const QuickCareerLinks = () => {
 
@@ -206,9 +207,9 @@ const QuickCareerLinks = () => {
                                     {...register("jobStatus", {
                                         required: "This field is required"
                                     })}>
-                                    <option>Applied</option>
-                                    <option>Yet to Apply</option>
-                                    <option>Save Only</option>
+                                    {quickCareerJobLinkStatus.map((status) => {
+                                        return <option>{status.displayName}</option>
+                                    })}
                                 </select>
                             </div>
                             <DialogFooter>

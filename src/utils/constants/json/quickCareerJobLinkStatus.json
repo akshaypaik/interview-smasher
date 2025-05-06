@@ -1,0 +1,17 @@
+[
+    {
+        "id": "0",
+        "name": "applied",
+        "displayName": "Applied"
+    },
+    {
+        "id": "1",
+        "name": "yetToApply",
+        "displayName": "Yet to Apply"
+    },
+    {
+        "id": "2",
+        "name": "saveOnly",
+        "displayName": "Save Only"
+    }
+]
