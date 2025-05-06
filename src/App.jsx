@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
 
 function App() {
 
@@ -31,6 +32,9 @@ function App() {
       }
     }
   });
+
+  //ag grid react
+  ModuleRegistry.registerModules([AllCommunityModule]);
 
   const QuickCareerSearch = lazy(() => import('./components/QuickCareerSearch/QuickCareerSearch.jsx'));
   const Login = lazy(() => import('./components/Login/Login.jsx'));
