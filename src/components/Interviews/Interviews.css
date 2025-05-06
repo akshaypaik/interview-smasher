@@ -1,0 +1,4 @@
+.MuiPickersPopper-root {
+    z-index: 1300 !important;
+    /* Ensure it is above the dialog */
+}
