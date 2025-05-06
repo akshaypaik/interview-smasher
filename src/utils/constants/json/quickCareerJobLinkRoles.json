@@ -238,5 +238,45 @@
         "id": "45",
         "name": "meanStack",
         "displayName": "MEAN Stack"
+    },
+    {
+        "id": "46",
+        "name": "seniorBackendDeveloper",
+        "displayName": "Senior Backend Developer"
+    },
+    {
+        "id": "47",
+        "name": "mlEngineer",
+        "displayName": "ML Engineer"
+    },
+    {
+        "id": "48",
+        "name": "supportEngineer",
+        "displayName": "Support Engineer"
+    },
+    {
+        "id": "49",
+        "name": "l2Support",
+        "displayName": "L2 Support"
+    },
+    {
+        "id": "50",
+        "name": "solutionArchitect",
+        "displayName": "Solution Architect"
+    },
+    {
+        "id": "51",
+        "name": "seniorQAEngineer",
+        "displayName": "Senior QA Engineer"
+    },
+    {
+        "id": "52",
+        "name": "qualityEngineer",
+        "displayName": "Quality Engineer"
+    },
+    {
+        "id": "53",
+        "name": "javaFullStackDeveloper",
+        "displayName": "Java FullStack Developer"
     }
 ]
