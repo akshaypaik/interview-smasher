@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { GET_QUICK_CAREER_JOB_LINK, POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
+import { GET_QUICK_CAREER_JOB_LINK, GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW, POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
@@ -64,6 +64,9 @@ const QuickCareerLinks = () => {
     });
     const [dialogOpen, setDialogOpen] = useState(false);
 
+    const [companyText, setCompanyText] = useState("");
+    const [filteredCompany, setFilteredCompany] = useState([]);
+    const [quickCareerJobLinkCompanies, setQuickCareerJobLinkCompanies] = useState([]);
     const [roleText, setRoleText] = useState("");
     const [filteredRoles, setFilteredRoles] = useState([]);
     const [locationText, setLocationText] = useState("");
@@ -107,7 +110,9 @@ const QuickCareerLinks = () => {
         if (formData) {
             const modifiedFormData = {
                 ...formData,
+                company: companyText,
                 jobRole: roleText,
+                jobLocation: locationText,
                 user: {
                     email: userInfo?.email,
                     phoneNumber: userInfo?.phoneNumber
@@ -140,12 +145,46 @@ const QuickCareerLinks = () => {
         getJobLinkDetails();
     }, []);
 
+    const getQuickCareerJobLinkCompanies = async (companyTextValue) => {
+        try {
+            const { data } = await axios.get(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${companyTextValue}&email=${userInfo?.email}`);
+            const modifiedData = data.map((item) => {
+                return {
+                    id: item._id,
+                    name: item.name,
+                    displayName: item.displayName
+                }
+            });
+            setQuickCareerJobLinkCompanies(modifiedData);
+        } catch (error) {
+            toast.error(error);
+        }
+    }
+
+    const onCompanyTextChange = async (event) => {
+        setFilteredLocations([]);
+        setFilteredRoles([]);
+        const companyTextValue = event.target.value;
+        setCompanyText(companyTextValue);
+        await getQuickCareerJobLinkCompanies(companyTextValue);
+    }
+
+    const onCompanySelect = (company) => {
+        setCompanyText(company?.displayName);
+        setFilteredCompany([]);
+    }
+
     const onRoleTextChange = (event) => {
         setFilteredLocations([]);
+        setFilteredCompany([]);
         const roleTextValue = event.target.value;
         setRoleText(roleTextValue);
-        const filterRoles = quickCareerJobLinkRoles.filter((role) => role.displayName?.toLocaleLowerCase().includes(roleTextValue.toLocaleLowerCase()));
-        setFilteredRoles(filterRoles);
+        if (roleTextValue != "") {
+            const filterRoles = quickCareerJobLinkRoles.filter((role) => role.displayName?.toLocaleLowerCase().includes(roleTextValue.toLocaleLowerCase()));
+            setFilteredRoles(filterRoles);
+        } else {
+            setFilteredRoles([]);
+        }
     }
 
     const onRoleSelect = (role) => {
@@ -156,18 +195,31 @@ const QuickCareerLinks = () => {
 
     const onLocationTextChange = (event) => {
         setFilteredRoles([]);
+        setFilteredCompany([]);
         const locationTextValue = event.target.value;
         setLocationText(locationTextValue);
-        const filterLocations = quickCareerJobLinkLocations.filter((location) => location.displayName?.toLocaleLowerCase().includes(locationTextValue.toLocaleLowerCase()));
-        setFilteredLocations(filterLocations);
+        if (locationTextValue != "") {
+            const filterLocations = quickCareerJobLinkLocations.filter((location) => location.displayName?.toLocaleLowerCase().includes(locationTextValue.toLocaleLowerCase()));
+            setFilteredLocations(filterLocations);
+        } else {
+            setFilteredLocations([]);
+        }
     }
-
 
     const onLocationSelect = (location) => {
         console.log(location);
         setLocationText(location?.displayName);
         setFilteredLocations([]);
     }
+
+    useEffect(() => {
+        if (companyText != "") {
+            const filterCompanies = quickCareerJobLinkCompanies.filter((company) => company.displayName?.toLocaleLowerCase().includes(companyText.toLocaleLowerCase()));
+            setFilteredCompany(filterCompanies);
+        } else {
+            setFilteredCompany([]);
+        }
+    }, [quickCareerJobLinkCompanies]);
 
     return (
         <div className='lg:m-2 md:m-2 w-4/5'>
@@ -211,14 +263,18 @@ const QuickCareerLinks = () => {
                         </DialogHeader>
                         <form className="grid gap-4 py-4" onSubmit={handleSubmit(handleJobDetailsSubmit)}>
                             <div className="flex flex-col gap-4">
-                                <Label htmlFor="company" className="text-right">
-                                    Company
-                                </Label>
-                                <Input id="company" placeholder="Company" className="col-span-3" {...register("company", {
-                                    required: "This field is required"
-                                })} />
-                                {errors?.company?.message &&
-                                    <div className='error-msg'>{errors?.company?.message}</div>}
+                                <div className='flex flex-col gap-4 relative'>
+                                    <Label htmlFor="company" className="text-right">
+                                        Company
+                                    </Label>
+                                    <Input id="company" placeholder="Company" className="col-span-3" {...register("company", {
+                                        required: "This field is required"
+                                    })} value={companyText} onChange={(e) => onCompanyTextChange(e)} />
+                                    {filteredCompany.length > 0 &&
+                                        <QuickCareerLinksDropDowns filteredRecords={filteredCompany} onDropdownSelect={onCompanySelect} />}
+                                    {errors?.company?.message &&
+                                        <div className='error-msg'>{errors?.company?.message}</div>}
+                                </div>
                                 <div className='flex flex-col gap-4 relative'>
                                     <Label htmlFor="jobRole" className="text-right">
                                         Role
