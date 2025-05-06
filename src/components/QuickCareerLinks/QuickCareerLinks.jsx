@@ -155,6 +155,11 @@ const QuickCareerLinks = () => {
                     displayName: item.displayName
                 }
             });
+            modifiedData.push({
+                id: 1,
+                name: "others",
+                displayName: "Others"
+            });
             setQuickCareerJobLinkCompanies(modifiedData);
         } catch (error) {
             toast.error(error);
