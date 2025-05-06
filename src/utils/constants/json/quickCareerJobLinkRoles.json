@@ -103,5 +103,20 @@
         "id": "20",
         "name": "javascriptDeveloper",
         "displayName": "Javascript Developer"
+    },
+    {
+        "id": "21",
+        "name": "developer",
+        "displayName": "Developer"
+    },
+    {
+        "id": "22",
+        "name": "engineer",
+        "displayName": "Engineer"
+    },
+    {
+        "id": "23",
+        "name": "others",
+        "displayName": "Others"
     }
 ]

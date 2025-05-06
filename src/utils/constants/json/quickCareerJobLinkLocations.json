@@ -113,5 +113,10 @@
         "id": "23",
         "name": "ranchi",
         "displayName": "Ranchi"
+    },
+    {
+        "id": "24",
+        "name": "others",
+        "displayName": "Others"
     }
 ]
