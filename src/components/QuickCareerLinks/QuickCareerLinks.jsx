@@ -63,6 +63,7 @@ const QuickCareerLinks = () => {
 
     const gridRef = useRef(null);
     const { register, handleSubmit, formState, reset } = useForm();
+    const { errors } = formState;
     const userInfo = useSelector((store) => store.app.userInfo);
 
     const onFilterTextBoxChanged = useCallback(() => {
@@ -161,7 +162,8 @@ const QuickCareerLinks = () => {
                     />
                 </div>
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
-                    <DialogContent className="w-full">
+                    <DialogContent className="joblink-dialog w-full max-h-[600px] sm:max-h-[600px] md:max-h-[600px] lg:max-h-[800px] 
+                    overflow-y-scroll">
                         <DialogHeader>
                             <DialogTitle>Add Link</DialogTitle>
                             <DialogDescription>
@@ -169,37 +171,51 @@ const QuickCareerLinks = () => {
                             </DialogDescription>
                         </DialogHeader>
                         <form className="grid gap-4 py-4" onSubmit={handleSubmit(handleJobDetailsSubmit)}>
-                            <div className="grid grid-cols-4 items-center gap-4">
+                            <div className="flex flex-col gap-4">
                                 <Label htmlFor="company" className="text-right">
                                     Company
                                 </Label>
                                 <Input id="company" placeholder="Company" className="col-span-3" {...register("company", {
                                     required: "This field is required"
                                 })} />
+                                {errors?.company?.message &&
+                                    <div className='error-msg'>{errors?.company?.message}</div>}
                                 <Label htmlFor="jobRole" className="text-right">
                                     Role
                                 </Label>
                                 <Input id="jobRole" placeholder="Job Role" className="col-span-3" {...register("jobRole", {
                                     required: "This field is required"
                                 })} />
+                                {errors?.jobRole?.message &&
+                                    <div className='error-msg'>{errors?.jobRole?.message}</div>}
                                 <Label htmlFor="jobLocation" className="text-right">
                                     Location
                                 </Label>
                                 <Input id="jobLocation" placeholder="Job Location" className="col-span-3" {...register("jobLocation", {
                                     required: "This field is required"
                                 })} />
+                                {errors?.jobLocation?.message &&
+                                    <div className='error-msg'>{errors?.jobLocation?.message}</div>}
                                 <Label htmlFor="jobID" className="text-right">
                                     Job ID
                                 </Label>
                                 <Input id="jobID" placeholder="Job ID" className="col-span-3" {...register("jobID", {
                                     required: "This field is required"
                                 })} />
+                                {errors?.jobID?.message &&
+                                    <div className='error-msg'>{errors?.jobID?.message}</div>}
                                 <Label htmlFor="jobLink" className="text-right">
                                     Job Link
                                 </Label>
                                 <Input id="jobLink" placeholder="Link" className="col-span-3" {...register("jobLink", {
-                                    required: "This field is required"
+                                    required: "This field is required",
+                                    validate: (value) => {
+                                        const isValidLink = /^https:\/\/.+/.test(value);
+                                        return isValidLink || "Please provide a valid link starting with https://";
+                                    }
                                 })} />
+                                {errors?.jobLink?.message &&
+                                    <div className='error-msg'>{errors?.jobLink?.message}</div>}
                                 <Label htmlFor="jobStatus" className="text-right">
                                     Status
                                 </Label>
