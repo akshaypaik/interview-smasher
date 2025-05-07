@@ -24,10 +24,29 @@ import quickCareerJobLinkLocations from './../../utils/constants/json/quickCaree
 import QuickCareerLinksDropDowns from './QuickCareerLinksDropDowns';
 import { getDateFormatted } from '../../utils/helper';
 import { themeQuartz } from "ag-grid-community";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function IconComponent({ info }) {
     return <span className='flex gap-2'>
-        {info.companyIconURL ? <img src={info.companyIconURL} alt='company-icon' className='h-8' /> : info.displayName}
+        {/* {info.companyIconURL ? <img src={info.companyIconURL} alt='company-icon' className='h-8' /> : info.displayName} */}
+
+        {info.companyIconURL ?
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <img src={info.companyIconURL} alt='company-icon' className='h-8' />
+                </TooltipTrigger>
+                <TooltipContent side="right" align="center">
+                    {info.displayName}
+                </TooltipContent>
+            </Tooltip>
+            :
+            info.displayName
+        }
     </span>
 }
 
