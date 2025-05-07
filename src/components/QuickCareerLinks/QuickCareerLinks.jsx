@@ -119,6 +119,7 @@ const QuickCareerLinks = () => {
         minWidth: 100,
         filter: true
     });
+    const [loading, setLoading] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const [companyText, setCompanyText] = useState("");
@@ -192,14 +193,17 @@ const QuickCareerLinks = () => {
 
     const getJobLinkDetails = async () => {
         try {
+            setLoading(true);
             const userEmail = userInfo?.email;
             const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
             data.map((entry) => {
                 return entry.createdOn = getDateFormatted(entry.createdOn);
             })
             setRowData(data);
+            setLoading(false);
         } catch (error) {
             toast.error(error);
+            setLoading(false);
         }
     }
 
@@ -324,6 +328,7 @@ const QuickCareerLinks = () => {
                         pagination={pagination}
                         paginationPageSize={paginationPageSize}
                         paginationPageSizeSelector={paginationPageSizeSelector}
+                        loading={loading}
                     />
                 </div>
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
