@@ -25,6 +25,13 @@ import QuickCareerLinksDropDowns from './QuickCareerLinksDropDowns';
 import { getDateFormatted } from '../../utils/helper';
 import { themeQuartz } from "ag-grid-community";
 
+function IconComponent({ info }) {
+    return <span className='flex gap-2'>
+        <img src={info.companyIconURL} alt='company-icon' className='h-8 w-24' />
+        {info.displayName}
+    </span>
+}
+
 const QuickCareerLinks = () => {
 
     // Row Data: The data to be displayed.
@@ -40,16 +47,26 @@ const QuickCareerLinks = () => {
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = useState([
-        { headerName: "Company", field: "company", minWidth: 240 },
+        {
+            headerName: "Company", field: "company", minWidth: 240,
+            cellRenderer: "iconComponent",
+            cellRendererParams: (params) => ({
+                info: {
+                    companyIconURL: params.data.companyIconURL,
+                    displayName: params.data.company,
+                },
+            })
+        },
         { headerName: "Role", field: "jobRole", minWidth: 240 },
         { headerName: "Location", field: "jobLocation", minWidth: 200 },
-        { headerName: "Job ID", field: "jobID", minWidth: 200,
+        {
+            headerName: "Job ID", field: "jobID", minWidth: 200,
             cellStyle: params => {
-                if(params?.value){
+                if (params?.value) {
                     return { fontWeight: 600 }
                 }
             }
-         },
+        },
         {
             headerName: "Job Link", field: "jobLink", minWidth: 300,
             onCellClicked: openJobLink.bind(this),
@@ -281,6 +298,9 @@ const QuickCareerLinks = () => {
                         columnDefs={colDefs}
                         defaultColDef={defaultColDef}
                         theme={theme}
+                        components={{
+                            iconComponent: IconComponent
+                        }}
                     />
                 </div>
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
