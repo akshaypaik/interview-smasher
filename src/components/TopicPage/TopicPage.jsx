@@ -17,7 +17,6 @@ const TopicPage = () => {
     const fetchTopicDetailsUsingTopicName = async () => {
         const result = await fetch(`${GET_TOPIC_DETIALS_USING_TOPIC_NAME}${topicName}`);
         const resultJson = await result.json();
-        console.log("resultJson: ", resultJson);
         setTopicsInfoState(resultJson[0]);
         setCurrentCourseId(resultJson[0].courseId);
     }

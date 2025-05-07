@@ -24,7 +24,6 @@ const QuickCareerSearch = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        console.log("slidder changed: ", enableQuickFilter);
         let trueFound = false;
         Object.keys(enableQuickFilter).forEach(key => {
             if (enableQuickFilter[key] === true) {

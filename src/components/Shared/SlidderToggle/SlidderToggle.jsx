@@ -29,7 +29,6 @@ const SlidderToggle = ({ slidderInfo, enableQuickFilter, setEnableQuickFilter })
         };
 
         setEnableQuickFilter((prev) => updateEnableQuickFilter(prev));
-        console.log(enableQuickFilter);
 
     }
 

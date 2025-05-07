@@ -200,7 +200,6 @@ const QuickCareerLinks = () => {
                 createdOn: new Date(date).toISOString()
             }
             try {
-                console.log("modifiedFormData: ", modifiedFormData);
                 const { data } = await axios.post(POST_QUICK_CAREER_JOB_LINK, modifiedFormData);
                 reset();
                 toast.success("Job details added.");
@@ -295,7 +294,6 @@ const QuickCareerLinks = () => {
     }
 
     const onRoleSelect = (role) => {
-        console.log(role);
         setRoleText(role?.displayName);
         setFilteredRoles([]);
     }
@@ -314,7 +312,6 @@ const QuickCareerLinks = () => {
     }
 
     const onLocationSelect = (location) => {
-        console.log(location);
         setLocationText(location?.displayName);
         setFilteredLocations([]);
     }
