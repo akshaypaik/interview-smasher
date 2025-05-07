@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { GET_QUICK_CAREER_JOB_LINK, GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW, POST_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
+import { GET_QUICK_CAREER_JOB_LINK, GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW, POST_QUICK_CAREER_JOB_LINK, PUT_QUICK_CAREER_JOB_LINK_STATUS_APPLIED } from '../../utils/constants/apiConstants';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
@@ -32,6 +32,17 @@ import {
 } from "@/components/ui/tooltip";
 import quickFilterCareerLinkOptions from "../../utils/constants/json/quickFilterCareerLinkOptions.json"
 import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function IconComponent({ info }) {
     return <span className='flex gap-2'>
@@ -59,11 +70,15 @@ const QuickCareerLinks = () => {
     const [filteredRowData, setFilteredRowData] = useState([]);
 
     const openJobLink = (params) => {
+        setNavJobLinkCompany(params.data);
         if (!params.data.jobLink) {
             return null;
         }
         const url = params.data.jobLink;
         window.open(url, "_blank");
+        if(params.data.jobStatus != "Applied"){
+            setAlertDialogOpen(true);
+        }
     }
 
     // Column Definitions: Defines the columns to be displayed.
@@ -124,6 +139,7 @@ const QuickCareerLinks = () => {
     });
     const [loading, setLoading] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [alertDialogOpen, setAlertDialogOpen] = useState(false);
 
     const [companyText, setCompanyText] = useState("");
     const [filteredCompany, setFilteredCompany] = useState([]);
@@ -133,6 +149,7 @@ const QuickCareerLinks = () => {
     const [locationText, setLocationText] = useState("");
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
+    const [navJobLinkCompany, setNavJobLinkCompany] = useState("");
 
     const gridRef = useRef(null);
     const { register, handleSubmit, formState, reset } = useForm();
@@ -311,6 +328,21 @@ const QuickCareerLinks = () => {
         }
     }, [quickCareerJobLinkCompanies]);
 
+    const handleApplied = async() => {
+        try{
+            const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS_APPLIED, navJobLinkCompany);
+            getJobLinkDetails();
+            setAlertDialogOpen(false);
+        }catch(error){
+            toast.error(error);
+            setAlertDialogOpen(false);
+        }
+    }
+
+    const handleAlertCancel = () => {
+        setAlertDialogOpen(false);
+    }
+
     return (
         <div className='m-2 lg:m-8 md:m-4 w-4/5'>
             <div className='quick-search-header'>
@@ -329,7 +361,7 @@ const QuickCareerLinks = () => {
                     />
                     <div className='flex gap-8'>
                         {quickFilterCareerLinkOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
-                                                enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
+                            enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
                         <button className='bg-green-700 rounded-xl py-2 px-16 font-bold cursor-pointer hover:bg-white 
                         add-btn text-white' onClick={onAddClick}>
                             Add
@@ -438,6 +470,23 @@ const QuickCareerLinks = () => {
                         </form>
                     </DialogContent>
                 </Dialog>
+
+                <AlertDialog open={alertDialogOpen}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Did you apply to {navJobLinkCompany.jobRole} at {navJobLinkCompany.company}?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                If yes, please select 'Applied'. {navJobLinkCompany.company} will be marked as 'Applied'.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel className="cursor-pointer" onClick={handleAlertCancel}>Cancel</AlertDialogCancel>
+                            <AlertDialogAction className="cursor-pointer" onClick={handleApplied}>Applied</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+
+                </AlertDialog>
+
             </div>
         </div>
     )
