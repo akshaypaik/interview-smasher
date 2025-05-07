@@ -22,6 +22,7 @@ import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJo
 import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJobLinkRoles.json';
 import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
 import QuickCareerLinksDropDowns from './QuickCareerLinksDropDowns';
+import { getDateFormatted } from '../../utils/helper';
 
 const QuickCareerLinks = () => {
 
@@ -54,6 +55,9 @@ const QuickCareerLinks = () => {
         {
             headerName: "Status", field: "jobStatus", minWidth: 200,
             cellStyle: params => setStylesForStatus(params)
+        },
+        {
+            headerName: "Created On", field: "createdOn", minWidth: 200,
         }
     ]);
 
@@ -107,6 +111,7 @@ const QuickCareerLinks = () => {
     }
 
     const handleJobDetailsSubmit = async (formData) => {
+        const date = Date.now();
         if (formData) {
             const modifiedFormData = {
                 ...formData,
@@ -116,7 +121,8 @@ const QuickCareerLinks = () => {
                 user: {
                     email: userInfo?.email,
                     phoneNumber: userInfo?.phoneNumber
-                }
+                },
+                createdOn: new Date(date).toISOString()
             }
             try {
                 console.log("modifiedFormData: ", modifiedFormData);
@@ -135,6 +141,9 @@ const QuickCareerLinks = () => {
         try {
             const userEmail = userInfo?.email;
             const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
+            data.map((entry) => {
+                return entry.createdOn = getDateFormatted(entry.createdOn);
+            })
             setRowData(data);
         } catch (error) {
             toast.error(error);
