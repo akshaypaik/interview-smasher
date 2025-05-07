@@ -27,8 +27,7 @@ import { themeQuartz } from "ag-grid-community";
 
 function IconComponent({ info }) {
     return <span className='flex gap-2'>
-        {info.companyIconURL && <img src={info.companyIconURL} alt='company-icon' className='h-8 w-24' />}
-        {info.displayName}
+        {info.companyIconURL ? <img src={info.companyIconURL} alt='company-icon' className='h-8' /> : info.displayName}
     </span>
 }
 
