@@ -120,11 +120,6 @@
         "displayName": "Others"
     },
     {
-        "id": "23",
-        "name": "leadSoftwareEngineer",
-        "displayName": "Lead Software Engineer"
-    },
-    {
         "id": "24",
         "name": "softwareArchitect",
         "displayName": "Software Architect"
@@ -278,5 +273,10 @@
         "id": "53",
         "name": "javaFullStackDeveloper",
         "displayName": "Java FullStack Developer"
+    },
+    {
+        "id": "54",
+        "name": "leadSoftwareEngineer",
+        "displayName": "Lead Software Engineer"
     }
 ]
