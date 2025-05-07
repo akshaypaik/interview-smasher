@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './QuickCareerLinks.css';
 import { AgGridReact } from 'ag-grid-react';
 import {
@@ -23,6 +23,7 @@ import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJob
 import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
 import QuickCareerLinksDropDowns from './QuickCareerLinksDropDowns';
 import { getDateFormatted } from '../../utils/helper';
+import { themeQuartz } from "ag-grid-community";
 
 const QuickCareerLinks = () => {
 
@@ -42,7 +43,13 @@ const QuickCareerLinks = () => {
         { headerName: "Company", field: "company", minWidth: 240 },
         { headerName: "Role", field: "jobRole", minWidth: 240 },
         { headerName: "Location", field: "jobLocation", minWidth: 200 },
-        { headerName: "Job ID", field: "jobID", minWidth: 200 },
+        { headerName: "Job ID", field: "jobID", minWidth: 200,
+            cellStyle: params => {
+                if(params?.value){
+                    return { fontWeight: 600 }
+                }
+            }
+         },
         {
             headerName: "Job Link", field: "jobLink", minWidth: 300,
             onCellClicked: openJobLink.bind(this),
@@ -60,6 +67,15 @@ const QuickCareerLinks = () => {
             headerName: "Created On", field: "createdOn", minWidth: 200,
         }
     ]);
+
+    const myTheme = themeQuartz.withParams({
+        fontFamily: 'Roboto Slab',
+        headerFontFamily: "Rubik",
+        cellFontFamily: "Roboto Slab",
+    });
+    const theme = useMemo(() => {
+        return myTheme;
+    }, []);
 
     const [defaultColDef, setDefaultColDef] = useState({
         flex: 1,
@@ -236,7 +252,7 @@ const QuickCareerLinks = () => {
     }, [quickCareerJobLinkCompanies]);
 
     return (
-        <div className='lg:m-2 md:m-2 w-4/5'>
+        <div className='m-2 lg:m-8 md:m-4 w-4/5'>
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Links</h1>
                 <div className='flex gap-4'>
@@ -252,7 +268,7 @@ const QuickCareerLinks = () => {
                         onInput={onFilterTextBoxChanged}
                     />
                     <div>
-                        <button className='bg-green-700 rounded-xl py-2 px-8 cursor-pointer hover:bg-white 
+                        <button className='bg-green-700 rounded-xl py-2 px-16 font-bold cursor-pointer hover:bg-white 
                         add-btn text-white' onClick={onAddClick}>
                             Add
                         </button>
@@ -264,6 +280,7 @@ const QuickCareerLinks = () => {
                         rowData={rowData}
                         columnDefs={colDefs}
                         defaultColDef={defaultColDef}
+                        theme={theme}
                     />
                 </div>
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
