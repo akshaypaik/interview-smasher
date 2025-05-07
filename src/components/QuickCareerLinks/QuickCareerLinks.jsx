@@ -30,6 +30,8 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import quickFilterCareerLinkOptions from "../../utils/constants/json/quickFilterCareerLinkOptions.json"
+import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 
 function IconComponent({ info }) {
     return <span className='flex gap-2'>
@@ -54,6 +56,7 @@ const QuickCareerLinks = () => {
 
     // Row Data: The data to be displayed.
     const [rowData, setRowData] = useState([]);
+    const [filteredRowData, setFilteredRowData] = useState([]);
 
     const openJobLink = (params) => {
         if (!params.data.jobLink) {
@@ -129,6 +132,7 @@ const QuickCareerLinks = () => {
     const [filteredRoles, setFilteredRoles] = useState([]);
     const [locationText, setLocationText] = useState("");
     const [filteredLocations, setFilteredLocations] = useState([]);
+    const [enableQuickFilter, setEnableQuickFilter] = useState({});
 
     const gridRef = useRef(null);
     const { register, handleSubmit, formState, reset } = useForm();
@@ -200,6 +204,7 @@ const QuickCareerLinks = () => {
                 return entry.createdOn = getDateFormatted(entry.createdOn);
             })
             setRowData(data);
+            setFilteredRowData(data);
             setLoading(false);
         } catch (error) {
             toast.error(error);
@@ -210,6 +215,20 @@ const QuickCareerLinks = () => {
     useEffect(() => {
         getJobLinkDetails();
     }, []);
+
+    useEffect(() => {
+        let trueFound = false;
+        Object.keys(enableQuickFilter).forEach(key => {
+            if (enableQuickFilter[key] === true) {
+                trueFound = true;
+                const updatedData = rowData.filter((item) => item.jobStatus === quickFilterCareerLinkOptions[key].displayName);
+                setFilteredRowData(updatedData);
+            }
+        })
+        if (!trueFound) {
+            setFilteredRowData(rowData);
+        }
+    }, [enableQuickFilter]);
 
     const getQuickCareerJobLinkCompanies = async (companyTextValue) => {
         try {
@@ -308,7 +327,9 @@ const QuickCareerLinks = () => {
                         className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-1/4'
                         onInput={onFilterTextBoxChanged}
                     />
-                    <div>
+                    <div className='flex gap-8'>
+                        {quickFilterCareerLinkOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
+                                                enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
                         <button className='bg-green-700 rounded-xl py-2 px-16 font-bold cursor-pointer hover:bg-white 
                         add-btn text-white' onClick={onAddClick}>
                             Add
@@ -318,7 +339,7 @@ const QuickCareerLinks = () => {
                 <div style={{ height: '70vh', width: '100%', margin: '24px' }}>
                     <AgGridReact
                         ref={gridRef}
-                        rowData={rowData}
+                        rowData={filteredRowData}
                         columnDefs={colDefs}
                         defaultColDef={defaultColDef}
                         theme={theme}
