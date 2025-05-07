@@ -111,7 +111,9 @@ const QuickCareerLinks = () => {
     const theme = useMemo(() => {
         return myTheme;
     }, []);
-
+    const pagination = true;
+    const paginationPageSize = 10;
+    const paginationPageSizeSelector = [10, 25, 50, 100];
     const [defaultColDef, setDefaultColDef] = useState({
         flex: 1,
         minWidth: 100,
@@ -319,6 +321,9 @@ const QuickCareerLinks = () => {
                         components={{
                             iconComponent: IconComponent
                         }}
+                        pagination={pagination}
+                        paginationPageSize={paginationPageSize}
+                        paginationPageSizeSelector={paginationPageSizeSelector}
                     />
                 </div>
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
