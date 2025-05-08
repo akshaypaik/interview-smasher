@@ -97,7 +97,8 @@ const QuickCareerLinks = () => {
                 if (params?.value) {
                     return {
                         color: '#337ab7', textDecoration: 'underline', cursor: 'pointer', textUnderlineOffset: '4px',
-                        display: 'flex', alignItems: 'center'
+                        display: 'flex', alignItems: 'center', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                        overflow: 'hidden', maxWidth: 240
                     }
                 }
             }

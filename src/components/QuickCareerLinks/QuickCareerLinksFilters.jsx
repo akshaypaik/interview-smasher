@@ -71,7 +71,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
     }
 
     return (
-        <div className='filter-container w-84 bg-neutral-100 p-4 rounded-xl shadow-2xl border-2 dark:bg-gray-700 max-h-[70vh] overflow-y-scroll'>
+        <div className='filter-container w-72 bg-neutral-100 p-4 rounded-xl shadow-2xl border-2 
+        dark:bg-gray-700 max-h-[70vh] overflow-y-scroll'>
             <div>
                 <QuickCareerLinksFilterSection sectionName="STATUS" filterEntries={quickFilterCareerLinkOptions}
                     category="jobStatus"
