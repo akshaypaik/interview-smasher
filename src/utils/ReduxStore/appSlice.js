@@ -19,6 +19,9 @@ const appSlice = createSlice({
         toggleSideBar: (state, action) => {
             state.showSidebar = !state.showSidebar;
         },
+        hideSideBar: (state, action) => {
+            state.showSidebar = false;
+        },
         updateSearchBarQuery: (state, action) => {
             state.searchBarQuery = action.payload;
         },
@@ -45,6 +48,7 @@ export default appSlice.reducer;
 export const {
     toogleDarkMode,
     toggleSideBar,
+    hideSideBar,
     updateSearchBarQuery,
     updateShowLoginSidebar,
     setUserInfo,

@@ -2,7 +2,7 @@ import React from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentSidebarTab } from '../../utils/ReduxStore/appSlice';
+import { hideSideBar, setCurrentSidebarTab } from '../../utils/ReduxStore/appSlice';
 // import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
@@ -12,6 +12,9 @@ const Sidebar = () => {
     const dispatch = useDispatch();
 
     const handleSidebarTabClick = (tabName) => {
+        if(tabName === "quickCareerLinks"){
+            dispatch(hideSideBar());
+        }
         dispatch(setCurrentSidebarTab(tabName));
     }
 

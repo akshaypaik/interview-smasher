@@ -133,7 +133,7 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                 reset();
                 toast.success("Job details added.");
                 setDialogOpen(false);
-                getJobLinkDetails();
+                getJobLinkDetails(true);
                 setFilteredCompany([]);
                 setFilteredLocations([]);
                 setFilteredRoles([]);

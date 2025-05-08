@@ -12,10 +12,16 @@
     .joblink-dialog{
         max-height: 800px;
     }
+    .filter-container{
+        max-height: 80vh;
+    }
 }
 
 @media screen and (max-width: 1600px){
     .joblink-dialog{
         max-height: 680px;
+    }
+    .filter-container{
+        max-height: 70vh;
     }
 }

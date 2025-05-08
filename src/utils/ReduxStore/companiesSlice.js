@@ -4,7 +4,8 @@ const companiesSlice = createSlice({
     name: "companies",
     initialState: {
         companiesSearchResultCache: {},
-        companyFilter: ""
+        companyFilter: "",
+        quickCareerLinkFilters: []
     },
     reducers: {
         updateCompaniesSearchResultCache: (state, action) => {
@@ -14,6 +15,16 @@ const companiesSlice = createSlice({
         },
         setCompanyFilter: (state, action) => {
             state.companyFilter = action.payload;
+        },
+        updateQuickCareerLinkFilters: (state, action) => {
+            const index = state.quickCareerLinkFilters.findIndex((item) => item.category === action.payload.category &&
+                item.filter === action.payload.filter);
+            if (index == -1) {
+                state.quickCareerLinkFilters.push(action.payload);
+            } else {
+                state.quickCareerLinkFilters = state.quickCareerLinkFilters.filter((item) => item.category != action.payload.category ||
+                    item.filter != action.payload.filter);
+            }
         }
     }
 });
@@ -27,4 +38,4 @@ export { setRefetchQuickCareerCompaniesFunction };
 
 export default companiesSlice.reducer;
 
-export const { updateCompaniesSearchResultCache, setCompanyFilter } = companiesSlice.actions;
+export const { updateCompaniesSearchResultCache, setCompanyFilter, updateQuickCareerLinkFilters } = companiesSlice.actions;

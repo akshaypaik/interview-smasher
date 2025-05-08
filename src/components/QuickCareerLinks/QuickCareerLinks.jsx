@@ -25,6 +25,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import QuickCareerLinksAddDialog from './QuickCareerLinksAddDialog';
+import QuickCareerLinksFilters from './QuickCareerLinksFilters';
 
 function IconComponent({ info }) {
     return <span className='flex gap-2'>
@@ -51,6 +52,9 @@ const QuickCareerLinks = () => {
     const [rowData, setRowData] = useState([]);
     const [filteredRowData, setFilteredRowData] = useState([]);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [resetQuickFilterRolesAndLocations, setResetQuickFilterRolesAndLocations] = useState(false);
+
+    const quickCareerLinkFilters = useSelector((store) => store.companies.quickCareerLinkFilters);
 
     const openJobLink = (params) => {
         setNavJobLinkCompany(params.data);
@@ -59,7 +63,7 @@ const QuickCareerLinks = () => {
         }
         const url = params.data.jobLink;
         window.open(url, "_blank");
-        if(params.data.jobStatus != "Applied"){
+        if (params.data.jobStatus != "Applied") {
             setAlertDialogOpen(true);
         }
     }
@@ -154,7 +158,7 @@ const QuickCareerLinks = () => {
         setDialogOpen(true);
     }
 
-    const getJobLinkDetails = async () => {
+    const getJobLinkDetails = async (isAdded) => {
         try {
             setLoading(true);
             const userEmail = userInfo?.email;
@@ -165,6 +169,11 @@ const QuickCareerLinks = () => {
             setRowData(data);
             setFilteredRowData(data);
             setLoading(false);
+            if (isAdded) {
+                setResetQuickFilterRolesAndLocations(true);
+            } else {
+                setResetQuickFilterRolesAndLocations(false);
+            }
         } catch (error) {
             toast.error(error);
             setLoading(false);
@@ -189,12 +198,33 @@ const QuickCareerLinks = () => {
         }
     }, [enableQuickFilter]);
 
-    const handleApplied = async() => {
-        try{
+    useEffect(() => {
+        if (quickCareerLinkFilters.length > 0) {
+            const groupedFilters = quickCareerLinkFilters.reduce((acc, curr) => {
+                if (!acc[curr.category]) {
+                    acc[curr.category] = new Set();
+                }
+                acc[curr.category].add(curr.filter);
+                return acc;
+            }, {});
+
+            const updatedData = rowData.filter(item => {
+                return Object.entries(groupedFilters).every(([key, valueSet]) => {
+                    return valueSet.has(item[key]);
+                });
+            });
+            setFilteredRowData(updatedData);
+        } else {
+            setFilteredRowData(rowData);
+        }
+    }, [quickCareerLinkFilters]);
+
+    const handleApplied = async () => {
+        try {
             const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS_APPLIED, navJobLinkCompany);
             getJobLinkDetails();
             setAlertDialogOpen(false);
-        }catch(error){
+        } catch (error) {
             toast.error(error);
             setAlertDialogOpen(false);
         }
@@ -205,46 +235,52 @@ const QuickCareerLinks = () => {
     }
 
     return (
-        <div className='m-2 lg:m-8 md:m-4 w-4/5'>
+        <div className='m-2 lg:m-8 md:m-4 w-full'>
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Links</h1>
                 <div className='flex gap-4'>
                 </div>
             </div>
             <div>
-                <div className='my-4 mx-6 flex justify-between'>
+                <div className='my-4 flex justify-between'>
                     <input
                         type="text"
                         id="filter-text-box"
                         placeholder="Search Filter..."
-                        className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-1/4'
+                        className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-2/4'
                         onInput={onFilterTextBoxChanged}
                     />
                     <div className='flex gap-8'>
-                        {quickFilterCareerLinkOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
-                            enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
+                        {/* {quickFilterCareerLinkOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
+                            enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)} */}
                         <button className='bg-green-700 rounded-xl py-2 px-16 font-bold cursor-pointer hover:bg-white 
                         add-btn text-white' onClick={onAddClick}>
                             Add
                         </button>
                     </div>
                 </div>
-                <div style={{ height: '70vh', width: '100%', margin: '24px' }}>
-                    <AgGridReact
-                        ref={gridRef}
-                        rowData={filteredRowData}
-                        columnDefs={colDefs}
-                        defaultColDef={defaultColDef}
-                        theme={theme}
-                        components={{
-                            iconComponent: IconComponent
-                        }}
-                        pagination={pagination}
-                        paginationPageSize={paginationPageSize}
-                        paginationPageSizeSelector={paginationPageSizeSelector}
-                        loading={loading}
-                    />
+                <div className='flex gap-4'>
+                    <QuickCareerLinksFilters info={filteredRowData}
+                        resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
+                        setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />
+                    <div style={{ height: '70vh', flexGrow: 1 }}>
+                        <AgGridReact
+                            ref={gridRef}
+                            rowData={filteredRowData}
+                            columnDefs={colDefs}
+                            defaultColDef={defaultColDef}
+                            theme={theme}
+                            components={{
+                                iconComponent: IconComponent
+                            }}
+                            pagination={pagination}
+                            paginationPageSize={paginationPageSize}
+                            paginationPageSizeSelector={paginationPageSizeSelector}
+                            loading={loading}
+                        />
+                    </div>
                 </div>
+
                 <QuickCareerLinksAddDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} getJobLinkDetails={getJobLinkDetails} />
 
                 <AlertDialog open={alertDialogOpen}>
