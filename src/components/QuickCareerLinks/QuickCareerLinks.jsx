@@ -86,7 +86,7 @@ const QuickCareerLinks = () => {
             headerName: "Job ID", field: "jobID", minWidth: 200,
             cellStyle: params => {
                 if (params?.value) {
-                    return { fontWeight: 600 }
+                    return { fontWeight: 600, display: 'flex', alignItems: 'center' }
                 }
             }
         },
@@ -95,7 +95,10 @@ const QuickCareerLinks = () => {
             onCellClicked: openJobLink.bind(this),
             cellStyle: params => {
                 if (params?.value) {
-                    return { color: '#337ab7', textDecoration: 'underline', cursor: 'pointer', textUnderlineOffset: '4px' }
+                    return {
+                        color: '#337ab7', textDecoration: 'underline', cursor: 'pointer', textUnderlineOffset: '4px',
+                        display: 'flex', alignItems: 'center'
+                    }
                 }
             }
         },
@@ -122,9 +125,14 @@ const QuickCareerLinks = () => {
     const [defaultColDef, setDefaultColDef] = useState({
         flex: 1,
         minWidth: 100,
-        filter: true
+        filter: true,
+        cellStyle: (params) => ({
+            display: "flex",
+            alignItems: "center"
+        })
     });
     const [loading, setLoading] = useState(false);
+    const rowHeight = 60;
     const [alertDialogOpen, setAlertDialogOpen] = useState(false);
 
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
@@ -141,7 +149,10 @@ const QuickCareerLinks = () => {
     }, []);
 
     const setStylesForStatus = (params) => {
-        const style = { textAlign: 'center', borderRadius: '8px' };
+        const style = {
+            textAlign: 'center', borderRadius: '8px', display: 'flex', alignItems: 'center',
+            justifyContent: 'center'
+        };
         if (params?.value === "Yet to Apply") {
             style.backgroundColor = "#f5af19";
         }
@@ -247,7 +258,7 @@ const QuickCareerLinks = () => {
                         type="text"
                         id="filter-text-box"
                         placeholder="Search Filter..."
-                        className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-2/4'
+                        className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-2/4 cursor-pointer'
                         onInput={onFilterTextBoxChanged}
                     />
                     <div className='flex gap-8'>
@@ -277,6 +288,7 @@ const QuickCareerLinks = () => {
                             paginationPageSize={paginationPageSize}
                             paginationPageSizeSelector={paginationPageSizeSelector}
                             loading={loading}
+                            rowHeight={rowHeight}
                         />
                     </div>
                 </div>
