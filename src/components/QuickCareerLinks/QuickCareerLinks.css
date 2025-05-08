@@ -8,6 +8,10 @@
     max-width: 100%;
 }
 
+.count-filter{
+    color: #737685;
+}
+
 @media screen and (max-width: 2400px){
     .joblink-dialog{
         max-height: 800px;
