@@ -278,5 +278,35 @@
         "id": "54",
         "name": "leadSoftwareEngineer",
         "displayName": "Lead Software Engineer"
+    },
+    {
+        "id": "55",
+        "name": "talentAcquisition",
+        "displayName": "Talent Acquisition"
+    },
+    {
+        "id": "56",
+        "name": "recruiter",
+        "displayName": "Recruiter"
+    },
+    {
+        "id": "57",
+        "name": "seniorRecruiter",
+        "displayName": "Senior Recruiter"
+    },
+    {
+        "id": "58",
+        "name": "talentSpecialist",
+        "displayName": "Talent Specialist"
+    },
+    {
+        "id": "59",
+        "name": "hr",
+        "displayName": "HR"
+    },
+    {
+        "id": "60",
+        "name": "finance",
+        "displayName": "Finance"
     }
 ]
