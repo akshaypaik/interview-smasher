@@ -68,6 +68,9 @@ const Sidebar = () => {
                     <li className={`${activeTab === "quickCareerLinks" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("quickCareerLinks")}>
                         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg" style={{ height: '24px' }}><path fill="none" d="M0 0h24v24H0"></path><path d="M8 11h8v2H8zm12.1 1H22c0-2.76-2.24-5-5-5h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1zM3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM19 12h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
                         <span>Quick Career Links</span>
+                        <span className='text-xs font-semibold text-white bg-amber-600 px-2 py-0.5 rounded-full animate-bounce'>
+                            New
+                        </span>
                     </li>
                 </Link>
                 <hr />
@@ -106,6 +109,9 @@ const Sidebar = () => {
                     <li className={`${activeTab === "interview" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("interview")}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true" style={{ display: 'inherit', height: '100%' }}><path clipRule="evenodd" d="m14 2-1.5.886-5.195 3.07C4.637 7.533 3 10.401 3 13.5c0 4.694 3.806 8.5 8.5 8.5s8.5-3.806 8.5-8.5V1l-1.5 1-3 2L14 5V2ZM8.068 7.248l4.432-2.62v3.175l2.332-1.555L18.5 3.803V13.5c0 3.866-3.134 7-7 7s-7-3.134-7-7c0-2.568 1.357-4.946 3.568-6.252ZM9 15c0-1.226.693-2.346 1.789-2.894L15 10v5c0 1.657-1.343 3-3 3s-3-1.343-3-3Z" fillRule="evenodd"></path></svg>
                         <span>Upcoming</span>
+                        <span className='text-xs font-semibold text-white bg-amber-600 px-2 py-0.5 rounded-full animate-bounce'>
+                            New
+                        </span>
                     </li>
                 </Link>
                 <Link to={"/interview"} className='router-link'>
