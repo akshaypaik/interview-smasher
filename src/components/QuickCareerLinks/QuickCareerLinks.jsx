@@ -272,7 +272,7 @@ const QuickCareerLinks = () => {
                     </div>
                 </div>
                 <div className='flex gap-4'>
-                    {filteredRowData.length > 0 && <QuickCareerLinksFilters info={filteredRowData}
+                    {rowData.length > 0 && <QuickCareerLinksFilters info={filteredRowData}
                         resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
                         setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />}
                     <div style={{ height: '70vh', flexGrow: 1 }}>
