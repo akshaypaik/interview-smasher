@@ -79,16 +79,16 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     handleQuickCareerLinkClick={handleQuickCareerLinkClick} />
             </div>
             <div>
-                <QuickCareerLinksFilterSection sectionName="LOCATION" filterEntries={locations} category="jobLocation"
-                    handleQuickCareerLinkClick={handleQuickCareerLinkClick} />
+                {locations.length > 0 && <QuickCareerLinksFilterSection sectionName="LOCATION" filterEntries={locations} category="jobLocation"
+                    handleQuickCareerLinkClick={handleQuickCareerLinkClick} />}
             </div>
             <div>
-                <QuickCareerLinksFilterSection sectionName="ROLES" filterEntries={roles} category="jobRole"
-                    handleQuickCareerLinkClick={handleQuickCareerLinkClick} />
+                {roles.length > 0 && <QuickCareerLinksFilterSection sectionName="ROLES" filterEntries={roles} category="jobRole"
+                    handleQuickCareerLinkClick={handleQuickCareerLinkClick} />}
             </div>
             <div>
-                <QuickCareerLinksFilterSection sectionName="COMPANIES" filterEntries={companies} category="company"
-                    handleQuickCareerLinkClick={handleQuickCareerLinkClick} />
+                {companies.length > 0 && <QuickCareerLinksFilterSection sectionName="COMPANIES" filterEntries={companies} category="company"
+                    handleQuickCareerLinkClick={handleQuickCareerLinkClick} />}
             </div>
         </div>
     )

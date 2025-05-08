@@ -272,9 +272,9 @@ const QuickCareerLinks = () => {
                     </div>
                 </div>
                 <div className='flex gap-4'>
-                    <QuickCareerLinksFilters info={filteredRowData}
+                    {filteredRowData.length > 0 && <QuickCareerLinksFilters info={filteredRowData}
                         resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
-                        setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />
+                        setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />}
                     <div style={{ height: '70vh', flexGrow: 1 }}>
                         <AgGridReact
                             ref={gridRef}
