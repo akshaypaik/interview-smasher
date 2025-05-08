@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,13 +10,23 @@ const Sidebar = () => {
     const activeTab = useSelector((store) => store.app.currentSidebarTab);
     const darkMode = useSelector((store) => store.app.darkMode);
     const dispatch = useDispatch();
+    const userInfo = useSelector((store) => store.app.userInfo);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     const handleSidebarTabClick = (tabName) => {
-        if(tabName === "quickCareerLinks"){
+        if (tabName === "quickCareerLinks") {
             dispatch(hideSideBar());
         }
         dispatch(setCurrentSidebarTab(tabName));
     }
+
+    useEffect(() => {
+        if (userInfo?.email) {
+            setIsUserLoggedIn(true);
+        } else {
+            setIsUserLoggedIn(false);
+        }
+    }, [userInfo]);
 
     return (
         <div className='sidebar-container'>
@@ -31,7 +41,7 @@ const Sidebar = () => {
                 <hr />
             </ul>
 
-            <ul className='sidebar-ul'>
+            {isUserLoggedIn && <ul className='sidebar-ul'>
                 <h4 className='text-lg font-bold m-2'>
                     <span></span>You
                     <svg xmlns="http://www.w3.org/2000/svg" fill={darkMode ? 'white' : 'black'} height="16" viewBox="0 0 16 16" width="16" focusable="false" aria-hidden="true" style={{ display: 'inherit', height: '100%' }}><path d="M4.97 12.65 9.62 8 4.97 3.35l.71-.71L11.03 8l-5.35 5.35-.71-.7z"></path></svg>
@@ -61,7 +71,7 @@ const Sidebar = () => {
                     </li>
                 </Link>
                 <hr />
-            </ul>
+            </ul>}
 
             <ul className='sidebar-ul'>
                 <h4 className='text-lg font-bold m-2'>
@@ -69,7 +79,7 @@ const Sidebar = () => {
                 </h4>
                 <Link to={"/quickcareersearch"} className='router-link'>
                     <li className={`${activeTab === "interviews" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("interviews")}>
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="24" width="24" enableBackground="new 0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.6 16.8h4.8v1.8H9.6z" fill="none"></path><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4ZM4 16V6h16v10.01L4 16Zm5.097-6.047c0-1.027.836-1.864 1.864-1.864 1.027 0 1.864.837 1.864 1.864a1.867 1.867 0 0 1-1.864 1.864 1.867 1.867 0 0 1-1.864-1.864Zm7.032 4.236-2.482-2.482a3.19 3.19 0 0 0 .527-1.754A3.216 3.216 0 0 0 10.96 6.74a3.217 3.217 0 0 0-3.214 3.213 3.218 3.218 0 0 0 3.214 3.214 3.19 3.19 0 0 0 1.724-.51l2.489 2.487.955-.955Z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="24" width="24" enableBackground="new 0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.6 16.8h4.8v1.8H9.6z" fill="none"></path><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4ZM4 16V6h16v10.01L4 16Zm5.097-6.047c0-1.027.836-1.864 1.864-1.864 1.027 0 1.864.837 1.864 1.864a1.867 1.867 0 0 1-1.864 1.864 1.867 1.867 0 0 1-1.864-1.864Zm7.032 4.236-2.482-2.482a3.19 3.19 0 0 0 .527-1.754A3.216 3.216 0 0 0 10.96 6.74a3.217 3.217 0 0 0-3.214 3.213 3.218 3.218 0 0 0 3.214 3.214 3.19 3.19 0 0 0 1.724-.51l2.489 2.487.955-.955Z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
                         <span>Quick Career Search</span>
                     </li>
                 </Link>
@@ -88,7 +98,7 @@ const Sidebar = () => {
                 <hr />
             </ul>
 
-            <ul className='sidebar-ul'>
+            {isUserLoggedIn && <ul className='sidebar-ul'>
                 <h4 className='text-lg font-bold m-2'>
                     Interview
                 </h4>
@@ -105,7 +115,7 @@ const Sidebar = () => {
                     </li>
                 </Link>
                 <hr />
-            </ul>
+            </ul>}
 
         </div>
     )
