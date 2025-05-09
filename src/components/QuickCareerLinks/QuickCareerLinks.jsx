@@ -171,7 +171,8 @@ const QuickCareerLinks = () => {
     }
 
     const getJobLinkDetails = async (isAdded) => {
-        try {
+        if(userInfo?.email){
+            try {
             setLoading(true);
             const userEmail = userInfo?.email;
             const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
@@ -190,11 +191,12 @@ const QuickCareerLinks = () => {
             toast.error(error);
             setLoading(false);
         }
+        }
     }
 
     useEffect(() => {
         getJobLinkDetails();
-    }, []);
+    }, [userInfo]);
 
     useEffect(() => {
         let trueFound = false;
