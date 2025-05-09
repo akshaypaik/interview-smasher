@@ -12,6 +12,14 @@
     color: #737685;
 }
 
+.clear-filter-text{
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 2400px){
     .joblink-dialog{
         max-height: 800px;
