@@ -22,6 +22,9 @@ const appSlice = createSlice({
         hideSideBar: (state, action) => {
             state.showSidebar = false;
         },
+        openSideBar: (state,action) => {
+            state.showSidebar = true;
+        },
         updateSearchBarQuery: (state, action) => {
             state.searchBarQuery = action.payload;
         },
@@ -49,6 +52,7 @@ export const {
     toogleDarkMode,
     toggleSideBar,
     hideSideBar,
+    openSideBar,
     updateSearchBarQuery,
     updateShowLoginSidebar,
     setUserInfo,
