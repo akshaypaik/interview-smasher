@@ -25,6 +25,9 @@ const companiesSlice = createSlice({
                 state.quickCareerLinkFilters = state.quickCareerLinkFilters.filter((item) => item.category != action.payload.category ||
                     item.filter != action.payload.filter);
             }
+        },
+        clearQuickCareerLinkFilters: (state, action) => {
+            state.quickCareerLinkFilters = [];
         }
     }
 });
@@ -38,4 +41,6 @@ export { setRefetchQuickCareerCompaniesFunction };
 
 export default companiesSlice.reducer;
 
-export const { updateCompaniesSearchResultCache, setCompanyFilter, updateQuickCareerLinkFilters } = companiesSlice.actions;
+export const { updateCompaniesSearchResultCache, setCompanyFilter, updateQuickCareerLinkFilters,
+    clearQuickCareerLinkFilters
+} = companiesSlice.actions;
