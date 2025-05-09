@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Register.css';
 import { updateShowLoginSidebar } from '../../utils/ReduxStore/appSlice';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { REGISTER_USER } from '../../utils/constants/apiConstants';
+import { CHECK_EMAIL_EXISTS, REGISTER_USER } from '../../utils/constants/apiConstants';
 import toast from 'react-hot-toast';
+import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 
 const Register = ({ setShowRegister }) => {
 
     const body = document.body;
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState, reset } = useForm();
+    const { register, handleSubmit, formState, reset, setError, clearErrors } = useForm({
+        mode: 'onChange'
+    });
     const { errors } = formState;
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleRegisterClose = () => {
         dispatch(updateShowLoginSidebar(false));
@@ -32,12 +36,30 @@ const Register = ({ setShowRegister }) => {
         }
     }
 
-    const handleBackClick = () =>{
+    const handleBackClick = () => {
         setShowRegister(false);
     }
 
-    const checkEmailAlreadyExists = () => {
-        console.log("checkEmailAlreadyExists");
+    const checkEmailField = async (value) => {
+        const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(value);
+        if (!isEmailValid) {
+            return "Email ID is not valid";
+        }
+
+        try {
+            setIsLoading(true);
+            const { data } = await axios.get(`${CHECK_EMAIL_EXISTS}${value}`);
+            if (data?.data?.emailFound) {
+                setIsLoading(false);
+                return "Email already exists";
+            }
+        } catch (error) {
+            console.error("Error checking email:", error);
+            setIsLoading(false);
+            return "Error validating email";
+        }
+        setIsLoading(false);
+        return true;
     }
 
     return (
@@ -73,14 +95,13 @@ const Register = ({ setShowRegister }) => {
                     </div>
                     <div className='register-field'>
                         <label htmlFor='email'>Email</label>
-                        <input type='text' placeholder='Email' id='email' {...register("email", {
-                            required: "This field is required",
-                            validate: (value) => {
-                                const isEmailExist = checkEmailAlreadyExists();
-                                const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(value);
-                                return isEmailValid || "Email ID is not valid";
-                            }
-                        })} />
+                        <div className='loading-field relative'>
+                            <input type='text' placeholder='Email' id='email' {...register("email", {
+                                required: "This field is required",
+                                validate: (value) => checkEmailField(value)
+                            })} />
+                            {isLoading && <span className='max-w-4 absolute right-2 bottom-2'><LoadingSpinner width={30} /></span>}
+                        </div>
                         {errors?.email?.message &&
                             <span className='error-msg'>{errors?.email?.message}</span>}
                     </div>

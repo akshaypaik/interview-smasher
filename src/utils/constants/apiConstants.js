@@ -12,6 +12,8 @@ export const UPDATE_USER_PROFILE = BASE_URL + "/BackendApp/api/user/updateUserPr
 
 export const UPDATE_USER_PROFILE_PICTURE = BASE_URL + "/BackendApp/api/user/updateUserProfilePicture";
 
+export const CHECK_EMAIL_EXISTS = BASE_URL + "/BackendApp/api/user/checkEmailExists?email="
+
 // Courses
 
 export const GET_ALL_COURSES = BASE_URL + "/BackendApp/api/courses/getAllCourses";
