@@ -5,7 +5,7 @@ import CompanyCard from '../CompanyCard/CompanyCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSearchBarQuery } from '../../../utils/ReduxStore/appSlice';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const FavoriteCompanies = () => {
 
@@ -13,6 +13,7 @@ const FavoriteCompanies = () => {
     const searchBarQuery = useSelector((store) => store.app.searchBarQuery);
     const dispatch = useDispatch();
     const userInfo = useSelector((store) => store.app.userInfo);
+    const queryClient = useQueryClient();
 
     const fetchFavCompanies = async () => {
         const userEmail = userInfo?.email;
@@ -29,6 +30,7 @@ const FavoriteCompanies = () => {
     useEffect(() => {
         return () => {
             dispatch(updateSearchBarQuery(""));
+            queryClient.invalidateQueries(["companies", "favoriteCompanies"]);
         }
     }, []);
 

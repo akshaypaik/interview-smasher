@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW, GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW_QUICK_FILTER } from '../../utils/constants/apiConstants';
 import CompanyCard from './CompanyCard/CompanyCard';
 import { setRefetchQuickCareerCompaniesFunction, updateCompaniesSearchResultCache } from '../../utils/ReduxStore/companiesSlice';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../Shared/LoadingSpinner/LoadingSpinner';
 import _ from 'lodash';
 import { updateSearchBarQuery } from '../../utils/ReduxStore/appSlice';
@@ -22,12 +22,14 @@ const QuickCareerSearch = () => {
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [companyFilter, setCompanyFilter] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         let trueFound = false;
         Object.keys(enableQuickFilter).forEach(key => {
             if (enableQuickFilter[key] === true) {
                 trueFound = true;
+                 queryClient.invalidateQueries(['companies', searchBarQuery, userInfo, quickFilterOptions[key].name]);
                 setCompanyFilter(quickFilterOptions[key].name);
             }
         })

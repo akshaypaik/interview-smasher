@@ -144,9 +144,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         onSuccess: () => {
             toast.success(`${info?.displayName || "Company"} marked as applied!`);
             setAppliedCompany(true);
-            queryClient.invalidateQueries({
-                queryKey: ["companies"]
-            });
+            queryClient.invalidateQueries("companies");
         },
         onError: () => {
             toast.error("Failed updating applied status!");
@@ -180,9 +178,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         mutationFn: removeAppliedCompany,
         onSuccess: () => {
             toast.error("Applied label removed!");
-            queryClient.invalidateQueries({
-                queryKey: ["companies"]
-            });
+            queryClient.invalidateQueries("companies");
         },
         onError: () => {
             toast.error("Applied label removal failed!");
