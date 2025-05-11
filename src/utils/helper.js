@@ -12,4 +12,9 @@ const getDateFormatted = (dateStr) => {
     return formattedDate;
 }
 
-export { getDateFormatted };
+const getUTCTimeNow = () => {
+    const date = Date.now();
+    return new Date(date).toISOString();
+}
+
+export { getDateFormatted, getUTCTimeNow };

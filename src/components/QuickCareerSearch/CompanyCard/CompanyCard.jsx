@@ -22,6 +22,7 @@ import {
 import axios from 'axios';
 import { FaCircleXmark } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
+import { getUTCTimeNow } from '../../../utils/helper';
 
 const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
 
@@ -51,6 +52,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         const favCompanyObj = {
             ...info,
             isFavoriteCompany: true,
+            favUpdatedOn: getUTCTimeNow(),
             user: {
                 email: userInfo?.email
             }

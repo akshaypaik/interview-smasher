@@ -18,6 +18,9 @@ const FavoriteCompanies = () => {
     const fetchFavCompanies = async () => {
         const userEmail = userInfo?.email;
         const { data } = await axios.get(`${GET_FAVORITE_COMPANIES_INTERVIEW}${userEmail}`);
+        data.sort((a, b) => {
+            return new Date(b?.favUpdatedOn) - new Date(a?.favUpdatedOn);
+        });
         setFilteredFavoriteCompanies(data);
         return data;
     }
