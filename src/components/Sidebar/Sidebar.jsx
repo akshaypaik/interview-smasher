@@ -14,7 +14,7 @@ const Sidebar = () => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     const handleSidebarTabClick = (tabName) => {
-        if (tabName === "quickCareerLinks") {
+        if (tabName === "quickcareerlinks") {
             dispatch(hideSideBar());
         }
         dispatch(setCurrentSidebarTab(tabName));
@@ -59,13 +59,13 @@ const Sidebar = () => {
                     <span>Watch Later</span>
                 </li> */}
                 <Link to={"/favorite-companies"}>
-                    <li className={`${activeTab === "favoriteCompanies" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("favoriteCompanies")}>
+                    <li className={`${activeTab === "favorite-companies" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("favorite-companies")}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true" style={{ display: 'inherit', height: '100%' }}><path clipRule="evenodd" d="M14.813 5.018 14.41 6.5 14 8h5.192c.826 0 1.609.376 2.125 1.022.711.888.794 2.125.209 3.101L21 13l.165.413c.519 1.296.324 2.769-.514 3.885l-.151.202v.5c0 1.657-1.343 3-3 3H5c-1.105 0-2-.895-2-2v-8c0-1.105.895-2 2-2h2v.282c0-.834.26-1.647.745-2.325L12 1l1.1.472c1.376.59 2.107 2.103 1.713 3.546ZM7 10.5H5c-.276 0-.5.224-.5.5v8c0 .276.224.5.5.5h2v-9Zm10.5 9h-9V9.282c0-.521.163-1.03.466-1.453l3.553-4.975c.682.298 1.043 1.051.847 1.77l-.813 2.981c-.123.451-.029.934.255 1.305.284.372.725.59 1.192.59h5.192c.37 0 .722.169.954.459.32.399.357.954.094 1.393l-.526.876c-.241.402-.28.894-.107 1.33l.165.412c.324.81.203 1.73-.32 2.428l-.152.202c-.195.26-.3.575-.3.9v.5c0 .828-.672 1.5-1.5 1.5Z" fillRule="evenodd"></path></svg>
                         <span>Favorite Companies</span>
                     </li>
                 </Link>
                 <Link to={"/quickcareerlinks"}>
-                    <li className={`${activeTab === "quickCareerLinks" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("quickCareerLinks")}>
+                    <li className={`${activeTab === "quickcareerlinks" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("quickcareerlinks")}>
                         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg" style={{ height: '24px' }}><path fill="none" d="M0 0h24v24H0"></path><path d="M8 11h8v2H8zm12.1 1H22c0-2.76-2.24-5-5-5h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1zM3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM19 12h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
                         <span>Quick Career Links</span>
                         <span className='text-xs font-semibold text-white bg-amber-600 px-2 py-0.5 rounded-full animate-bounce'>
@@ -81,13 +81,13 @@ const Sidebar = () => {
                     Explore
                 </h4>
                 <Link to={"/quickcareersearch"} className='router-link'>
-                    <li className={`${activeTab === "interviews" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("interviews")}>
+                    <li className={`${activeTab === "quickcareersearch" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("quickcareersearch")}>
                         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="24" width="24" enableBackground="new 0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.6 16.8h4.8v1.8H9.6z" fill="none"></path><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4ZM4 16V6h16v10.01L4 16Zm5.097-6.047c0-1.027.836-1.864 1.864-1.864 1.027 0 1.864.837 1.864 1.864a1.867 1.867 0 0 1-1.864 1.864 1.867 1.867 0 0 1-1.864-1.864Zm7.032 4.236-2.482-2.482a3.19 3.19 0 0 0 .527-1.754A3.216 3.216 0 0 0 10.96 6.74a3.217 3.217 0 0 0-3.214 3.213 3.218 3.218 0 0 0 3.214 3.214 3.19 3.19 0 0 0 1.724-.51l2.489 2.487.955-.955Z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
                         <span>Quick Career Search</span>
                     </li>
                 </Link>
                 <Link to={"/trending-news"} className='router-link'>
-                    <li className={`${activeTab === "trendingNews" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("trendingNews")}>
+                    <li className={`${activeTab === "trending-news" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("trending-news")}>
                         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="m22 3-1.67 1.67L18.67 3 17 4.67 15.33 3l-1.66 1.67L12 3l-1.67 1.67L8.67 3 7 4.67 5.33 3 3.67 4.67 2 3v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V3zM11 19H4v-6h7v6zm9 0h-7v-2h7v2zm0-4h-7v-2h7v2zm0-4H4V8h16v3z"></path></svg>
                         <span>Trending News</span>
                     </li>

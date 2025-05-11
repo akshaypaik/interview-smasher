@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firbaseAuth";
-import { removeUser, setUserInfo } from "../ReduxStore/appSlice";
+import { removeUser, setCurrentSidebarTab, setUserInfo } from "../ReduxStore/appSlice";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -36,6 +36,9 @@ const useAuthProviderStateChange = () => {
                             profilePicURL: data?.profilePicURL
                         }
                         dispatch(setUserInfo(userInfo));
+
+                        setCurrentActiveTab();
+
                         return userInfo;
                     } else {
                         dispatch(removeUser());
@@ -52,6 +55,17 @@ const useAuthProviderStateChange = () => {
             authStateUnsubscription();
         }
     }, []);
+
+    const setCurrentActiveTab = () => {
+        // setting active sidebar tab
+        const url = window.location.href;
+        const path = new URL(url).pathname.replace("/", ""); // Removes the leading "/"
+        if (path === "") {
+            dispatch(setCurrentSidebarTab("home"));
+        } else {
+            dispatch(setCurrentSidebarTab(path));
+        }
+    }
 }
 
 export default useAuthProviderStateChange;
