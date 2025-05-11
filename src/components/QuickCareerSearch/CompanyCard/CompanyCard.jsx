@@ -44,9 +44,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
                 window.refetchQuickCareerCompanies(); // Call the refetch function
             } else {
                 // refetch();
-                queryClient.invalidateQueries({
-                    queryKey: ["favoriteCompanies"]
-                });
+                queryClient.invalidateQueries(["favoriteCompanies", "companies"]);
             }
             return;
         }
@@ -61,6 +59,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         // postFavoriteCompany(favCompanyObj);
         postFavoriteMutate(favCompanyObj);
         setFavoriteCompanyStyle(true);
+        queryClient.invalidateQueries(["favoriteCompanies", "companies"]);
         refetch();
     }
 
@@ -118,9 +117,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
         onSuccess: () => {
             toast.error("Favorite removed!");
             setAppliedCompany(false);
-            queryClient.invalidateQueries({
-                queryKey: ["favoriteCompanies"]
-            });
+            queryClient.invalidateQueries(["favoriteCompanies", "companies"]);
         },
         onError: () => {
             toast.error("Removing favorite failed!");

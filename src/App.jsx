@@ -67,7 +67,7 @@ function App() {
           path: "quickcareersearch",
           element:
             <Suspense>
-              <QueryClientProvider client={queryClientQuickCareerCompanies}>
+              <QueryClientProvider client={queryClientWithSlate}>
                 <ReactQueryDevtools initialIsOpen={false} />
                 <QuickCareerSearch />
               </QueryClientProvider>
@@ -83,7 +83,7 @@ function App() {
           path: "favorite-companies",
           element:
             <Suspense>
-              <QueryClientProvider client={queryClientWithoutSlate}>
+              <QueryClientProvider client={queryClientWithSlate}>
                 <FavoriteCompanies />
               </QueryClientProvider>
             </Suspense>

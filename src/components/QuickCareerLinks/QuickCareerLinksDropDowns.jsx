@@ -2,7 +2,7 @@ import React from 'react'
 
 const QuickCareerLinksDropDowns = ({ filteredRecords, onDropdownSelect }) => {
     return (
-        <div className='absolute top-18 bg-gray-300 max-h-36 overflow-y-scroll 
+        <div className='absolute top-18 bg-gray-200 max-h-36 overflow-y-scroll 
                                         w-full rounded-xl z-10'>
             {filteredRecords.map((role) => {
                 return <div onClick={() => onDropdownSelect(role)}
