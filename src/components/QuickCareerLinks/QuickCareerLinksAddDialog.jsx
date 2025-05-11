@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Dialog,
     DialogContent,
@@ -21,7 +21,7 @@ import quickCareerJobLinkLocations from './../../utils/constants/json/quickCaree
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 
-const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetails }) => {
+const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetails, company }) => {
 
     const { register, handleSubmit, formState, reset } = useForm();
     
@@ -34,6 +34,12 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
     const [filteredCompany, setFilteredCompany] = useState([]);
     const { errors } = formState;
     const userInfo = useSelector((store) => store.app.userInfo);
+
+    useEffect(() => {
+        if(company){
+            setCompanyText(company);
+        }
+    }, [company]);
 
     const getQuickCareerJobLinkCompanies = async (companyTextValue) => {
         try {

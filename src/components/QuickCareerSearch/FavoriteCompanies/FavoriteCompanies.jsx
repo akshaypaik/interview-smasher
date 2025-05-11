@@ -44,7 +44,7 @@ const FavoriteCompanies = () => {
 
     return (
         <div className='favorite-companies-container'>
-            <h1 className='font-bold text-2xl'>Your Favorite Companies</h1>
+            <h1 className='font-bold text-2xl mb-4'>Your Favorite Companies</h1>
             {filteredFavoriteCompanies?.length === 0 &&
                 <div className='interview-no-result-text'> Please add favorite companies in Interview section...
                 </div>}
