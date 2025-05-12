@@ -248,7 +248,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
                     </AlertDialogFooter>
                 </AlertDialogContent>}
             </AlertDialog>
-            <QuickCareerLinksAddDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} company={info?.displayName} />
+            {dialogOpen && <QuickCareerLinksAddDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} company={info?.displayName} />}
         </>
 
     )
