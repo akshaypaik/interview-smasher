@@ -39,7 +39,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
     const handleFavoriteClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (info.isFavoriteCompany) {
+        if (info.isFavoriteCompany || favoriteCompanyStyle) {
             // removeFavoriteCompany(info);
             removeFavoriteMutate(info);
             setFavoriteCompanyStyle(false);
