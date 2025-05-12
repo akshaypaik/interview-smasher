@@ -108,7 +108,8 @@ const QuickCareerLinks = () => {
             cellStyle: params => setStylesForStatus(params)
         },
         {
-            headerName: "Created On", field: "createdOn", minWidth: 200,
+            headerName: "Date", field: "createdOn", minWidth: 200,
+            tooltipValueGetter: params => setToolTipForDate(params)
         }
     ]);
 
@@ -152,7 +153,7 @@ const QuickCareerLinks = () => {
     const setStylesForStatus = (params) => {
         const style = {
             textAlign: 'center', borderRadius: '8px', display: 'flex', alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center', fontWeight: 600, height: '32px', marginTop: '14px'
         };
         if (params?.value === "Yet to Apply") {
             style.backgroundColor = "#f5af19";
@@ -164,6 +165,14 @@ const QuickCareerLinks = () => {
             style.backgroundColor = "#00B4DB";
         }
         return style;
+    }
+
+    const setToolTipForDate = (params) => {
+        if(params?.data?.jobStatus === "Applied"){
+            return "Applied On";
+        }else{
+            return "Created On";
+        }
     }
 
     const onAddClick = () => {
@@ -292,6 +301,7 @@ const QuickCareerLinks = () => {
                             paginationPageSizeSelector={paginationPageSizeSelector}
                             loading={loading}
                             rowHeight={rowHeight}
+                            tooltipShowDelay={500}
                         />
                     </div>
                 </div>

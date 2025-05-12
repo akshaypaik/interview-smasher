@@ -191,7 +191,7 @@ export function QuickCareerLinksFilterSection({ sectionName, filterEntries, cate
                 </span>}
             </div>
             {filterEntries?.length > 0 && filterEntries?.map((entry) => {
-                return <span className='flex gap-2 m-1' key={entry?.id}>
+                return <span className={`flex gap-2 m-1 ${entry?.isChecked ? 'bg-amber-400 rounded-lg p-1 font-semibold' : ''}`} key={entry?.id}>
                     <input type='checkbox' id={entry?.id} onClick={(e) => {
                         e.stopPropagation();
                         handleQuickCareerLinkClick(entry, category);

@@ -29,6 +29,19 @@ const Profile = () => {
                 </svg>
                 <span>Log In</span>
             </button>}
+            {userInfo?.email && <div>
+                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24"
+                    fill="currentColor" className="mercado-match" width="24" height="28" focusable="false">
+                    <path d="M22 19.24a3.46 3.46 0 01-.09.78l-.22 1-6.76-1.51A2.16 2.16 0 0115 20a2 2 0 11-3.53-1.28L2 16.62l.22-1A4.45 4.45 0 014 13.12l1.22-.93 15.46 3.44.7 1.36a5 5 0 01.62 2.25zm-1.49-10.4a6.29 6.29 0 00-4.92-6.69A6.76 6.76 0 0014.18 2a6.29 6.29 0 00-5.9 4.12l-2 5.27 13.8 3.08z"></path>
+                </svg> */}
+                <svg xmlns="http://www.w3.org/2000/svg" id="bell-fill-medium" fill="currentColor"
+                    className='dark:bell-icon cursor-pointer'
+                    data-supported-dps="24x24" viewBox="0 0 24 24" data-token-id="240"
+                    aria-label="" aria-hidden="true"
+                    style={{ width: '28px', minWidth: '28px', height: '28px', minHeight: '28px' }}>
+                    <path d="M22 19h-8.28a2 2 0 1 1-3.44 0H2v-1a4.52 4.52 0 0 1 1.17-2.83l1-1.17h15.7l1 1.17A4.42 4.42 0 0 1 22 18zM18.21 7.44A6.27 6.27 0 0 0 12 2a6.27 6.27 0 0 0-6.21 5.44L5 13h14z"></path>
+                </svg>
+            </div>}
             {userInfo?.email && <div className='user-avatar-container'>
                 {userInfo?.authProvider && userInfo?.photoURL ?
                     <img src={userInfo?.photoURL} alt='user-avatar'

@@ -29,7 +29,7 @@ const QuickCareerSearch = () => {
         Object.keys(enableQuickFilter).forEach(key => {
             if (enableQuickFilter[key] === true) {
                 trueFound = true;
-                 queryClient.invalidateQueries(['companies', searchBarQuery, userInfo, quickFilterOptions[key].name]);
+                queryClient.invalidateQueries(['companies', searchBarQuery, userInfo, quickFilterOptions[key].name]);
                 setCompanyFilter(quickFilterOptions[key].name);
             }
         })
@@ -55,10 +55,10 @@ const QuickCareerSearch = () => {
                 return;
             }
             const result = await fetch(`${GET_SEARCH_QUERY_RESULT_COMPANIES_FOR_INTERVIEW}${searchBarQuery}&email=${userInfo?.email}&page=${pageParam}`);
-            if(result.status != 200){
+            if (result.status != 200) {
                 setErrorMessage(`${result.statusText}. please try after some time!`);
                 toast.error(`${result.statusText}. please try after some time!`);
-            }else{
+            } else {
                 setErrorMessage("");
             }
             const resultJson = await result.json();
@@ -106,7 +106,7 @@ const QuickCareerSearch = () => {
         if (error && error?.message) {
             if (error?.message.includes("Email is not valid")) {
                 setEmailNotValid(true);
-            }else{
+            } else {
                 setErrorMessage(error?.message);
             }
         } else {
@@ -121,7 +121,7 @@ const QuickCareerSearch = () => {
     }, [userInfo]);
 
     return (
-        <div className='interview-container lg:m-8 md:m-8'> 
+        <div className='interview-container mt-6'>
             <div className='quick-search-header'>
                 <h1 className='font-bold text-2xl'>Quick Career Search</h1>
                 {!emailNotValid && <div className='flex gap-4'>
@@ -133,7 +133,18 @@ const QuickCareerSearch = () => {
                 <h3 className='no-result-found-container'><span>Please login to search companies here...</span></h3>
             </div>}
             {isLoading && <LoadingSpinner />}
-            {data?.pages[0]?.length === 0 && !isLoading && <h2 className='no-result-found-container'>No results found. <span> Try searching a different company.</span></h2>}
+            {data?.pages[0]?.length === 0 && !isLoading &&
+                <div className='flex justify-center flex-col items-center'>
+                    <h2 className='no-result-found-container'>No results found.
+                        <span> Try searching a different company.</span>
+                    </h2>
+                    <span className='my-4 font-semibold text-red-700 text-2xl'>OR</span>
+                    <button className='bg-green-800 rounded-xl py-2 px-6 font-bold cursor-pointer hover:bg-white 
+                        add-btn text-white flex justify-center'>
+                        Add your Own
+                    </button>
+                </div>
+            }
             <div className='company-card-main-container'>
                 {errorMessage === "" ? data?.pages?.map((pages, index) => {
                     return Array.isArray(pages) && pages?.map((company) =>

@@ -24,7 +24,7 @@ import { useSelector } from 'react-redux';
 const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetails, company }) => {
 
     const { register, handleSubmit, formState, reset } = useForm();
-    
+
     const [roleText, setRoleText] = useState("");
     const [filteredRoles, setFilteredRoles] = useState([]);
     const [locationText, setLocationText] = useState("");
@@ -34,10 +34,12 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
     const [filteredCompany, setFilteredCompany] = useState([]);
     const { errors } = formState;
     const userInfo = useSelector((store) => store.app.userInfo);
+     const jobRoleRef = useRef(null);
 
     useEffect(() => {
-        if(company){
+        if (company && dialogOpen) {
             setCompanyText(company);
+            jobRoleRef?.current?.focus();
         }
     }, [company]);
 
@@ -177,7 +179,7 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                             <Label htmlFor="jobRole" className="text-right">
                                 Role
                             </Label>
-                            <Input type='text' id="jobRole"
+                            <Input type='text' id="jobRole" ref={jobRoleRef}
                                 placeholder="Job Role" className="col-span-3" {...register("jobRole", {
                                     required: "This field is required"
                                 })} value={roleText} onChange={(e) => onRoleTextChange(e)} />
