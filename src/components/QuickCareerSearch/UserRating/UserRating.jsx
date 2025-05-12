@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './UserRating.css';
+import { FaArrowCircleRight } from "react-icons/fa";
 
 const UserRating = ({ userRatingInfo }) => {
 
     const { rating } = userRatingInfo;
     const [stars, setStars] = useState("");
     const [ratingDecimal, setRatingDecimal] = useState(0.0);
+    const [showArrow, setShowArrow] = useState(false);
 
     useEffect(() => {
         generateStars(rating);
@@ -22,8 +24,28 @@ const UserRating = ({ userRatingInfo }) => {
         setStars(starArr);
     }
 
+    const handleMouseHover = () => {
+        setShowArrow(true);
+    }
+
+    const handleMouseLeave = () => {
+        setShowArrow(false);
+    }
+
+    const handleRatingClick = (e) => {
+        e.preventDefault();
+        if (!userRatingInfo?.ratingLink) {
+            return;
+        }
+        window.open(userRatingInfo?.ratingLink, "_blank");
+    }
+
     return (
-        <div className='user-rating-container flex items-center'>
+        <div className='user-rating-container flex items-center' onMouseEnter={handleMouseHover}
+            onMouseLeave={handleMouseLeave} onClick={(e) => handleRatingClick(e)}>
+            {showArrow && <span className='pr-2 animate-bounce-left-right'>
+                <FaArrowCircleRight className='text-[#FFC107]' />
+            </span>}
             {userRatingInfo.rating}/{userRatingInfo.totalRating}
             <span className='user-rating-count-star'>{stars}</span>
             <span className='half-star-company'>
