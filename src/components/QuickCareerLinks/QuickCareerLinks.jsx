@@ -172,6 +172,18 @@ const QuickCareerLinks = () => {
         if (params?.value === "Save Only") {
             style.backgroundColor = "#00B4DB";
         }
+        if (params?.value === "Interview Done") {
+            style.backgroundColor = "#CF601B";
+        }
+        if (params?.value === "Selected") {
+            style.backgroundColor = "#008000";
+        }
+        if (params?.value === "Rejected") {
+            style.backgroundColor = "#ED213A";
+        }
+        if (params?.value === "Offer Received") {
+            style.backgroundColor = "#a8ff78";
+        }
         return style;
     }
 

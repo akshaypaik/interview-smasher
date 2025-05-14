@@ -13,5 +13,25 @@
         "id": "2",
         "name": "saveOnly",
         "displayName": "Save Only"
+    },
+    {
+        "id": "3",
+        "name": "interviewDone",
+        "displayName": "Interview Done"
+    },
+    {
+        "id": "4",
+        "name": "selected",
+        "displayName": "Selected"
+    },
+    {
+        "id": "5",
+        "name": "rejected",
+        "displayName": "Rejected"
+    },
+    {
+        "id": "6",
+        "name": "offerReceived",
+        "displayName": "Offer Received"
     }
 ]
