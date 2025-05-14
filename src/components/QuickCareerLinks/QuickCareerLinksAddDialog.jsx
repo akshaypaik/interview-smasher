@@ -208,6 +208,12 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                         })} />
                         {errors?.jobID?.message &&
                             <div className='error-msg'>{errors?.jobID?.message}</div>}
+                        <Label htmlFor="candidateID" className="text-right">
+                            Candidate ID
+                        </Label>
+                        <Input id="candidateID" placeholder="Candidate ID" className="col-span-3" {...register("candidateID")} />
+                        {errors?.jobID?.message &&
+                            <div className='error-msg'>{errors?.candidateID?.message}</div>}
                         <Label htmlFor="jobLink" className="text-right">
                             Job Link
                         </Label>

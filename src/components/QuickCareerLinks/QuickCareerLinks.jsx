@@ -108,6 +108,14 @@ const QuickCareerLinks = () => {
             cellStyle: params => setStylesForStatus(params)
         },
         {
+            headerName: "Candidate ID", field: "candidateID", minWidth: 200,
+            cellStyle: params => {
+                if (params?.value) {
+                    return { fontWeight: 600, display: 'flex', alignItems: 'center' }
+                }
+            }
+        },
+        {
             headerName: "Date", field: "createdOn", minWidth: 200,
             tooltipValueGetter: params => setToolTipForDate(params)
         }
