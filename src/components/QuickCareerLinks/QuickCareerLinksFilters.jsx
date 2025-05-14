@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import quickFilterCareerLinkOptions from "../../utils/constants/json/quickFilterCareerLinkOptions.json";
 import { useDispatch } from 'react-redux';
 import { clearQuickCareerLinkFilters, updateQuickCareerLinkFilters } from '../../utils/ReduxStore/companiesSlice';
+import { FaAngleUp } from "react-icons/fa6";
+import { FaAngleDown } from "react-icons/fa6";
 
 const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setResetQuickFilterRolesAndLocations }) => {
 
@@ -54,13 +56,15 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                 if (statusCounts[item.displayName] !== undefined) {
                     const newItem = {
                         ...item,
-                        count: statusCounts[item.displayName]
+                        count: statusCounts[item.displayName],
+                        showItems: true
                     }
                     return newItem;
                 } else {
                     return {
                         ...item,
-                        count: 0
+                        count: 0,
+                        showItems: true
                     }
                 }
             })
@@ -71,7 +75,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     id: Math.floor(100000 + Math.random() * 900000),
                     name: location,
                     displayName: location,
-                    count: locationCounts[location] || 0
+                    count: locationCounts[location] || 0,
+                    showItems: false
                 })
             }
             const roleArrayObject = [];
@@ -80,7 +85,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     id: Math.floor(100000 + Math.random() * 900000),
                     name: role,
                     displayName: role,
-                    count: roleCounts[role] || 0
+                    count: roleCounts[role] || 0,
+                    showItems: false
                 });
             }
             const companyArrayObject = [];
@@ -89,7 +95,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     id: Math.floor(100000 + Math.random() * 900000),
                     name: company,
                     displayName: company,
-                    count: companyCounts[company] || 0
+                    count: companyCounts[company] || 0,
+                    showItems: false
                 });
             }
             setLocations(locationArrayObject);
@@ -140,15 +147,33 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
         }
     }
 
+    const handleAccordionChange = (category) => {
+        if (category === "jobStatus") {
+            return;
+        }
+        const updatedFilters = { ...jobEntryFilters };
+        updatedFilters[category] = updatedFilters[category].map(record => ({
+            ...record,
+            showItems: !record.showItems
+        }));
+        setJobEntryFilters(updatedFilters);
+    }
+
     return (
         <div className='filter-container w-72 bg-neutral-100 p-4 rounded-xl shadow-2xl border-2 
         dark:bg-gray-700 max-h-[70vh] overflow-y-scroll'>
+            <div className='text-sm font-semibold text-[#878b94] w-full flex dark:text-white'>
+                <span className='ml-auto'>
+                    Total - {info?.length} items
+                </span>
+            </div>
             <div>
                 <QuickCareerLinksFilterSection sectionName="STATUS" filterEntries={jobEntryFilters?.jobStatus}
                     category="jobStatus"
                     handleQuickCareerLinkClick={handleQuickCareerLinkClick}
                     handleClearFilters={handleClearFilters}
-                    handleChecboxChange={handleChecboxChange} />
+                    handleChecboxChange={handleChecboxChange}
+                    handleAccordionChange={handleAccordionChange} />
             </div>
             <div>
                 {locations.length > 0 && <QuickCareerLinksFilterSection sectionName="LOCATION"
@@ -156,7 +181,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     category="jobLocation"
                     handleQuickCareerLinkClick={handleQuickCareerLinkClick}
                     handleClearFilters={handleClearFilters}
-                    handleChecboxChange={handleChecboxChange} />}
+                    handleChecboxChange={handleChecboxChange}
+                    handleAccordionChange={handleAccordionChange} />}
             </div>
             <div>
                 {roles.length > 0 && <QuickCareerLinksFilterSection sectionName="ROLES"
@@ -164,7 +190,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     category="jobRole"
                     handleQuickCareerLinkClick={handleQuickCareerLinkClick}
                     handleClearFilters={handleClearFilters}
-                    handleChecboxChange={handleChecboxChange} />}
+                    handleChecboxChange={handleChecboxChange}
+                    handleAccordionChange={handleAccordionChange} />}
             </div>
             <div>
                 {companies.length > 0 && <QuickCareerLinksFilterSection sectionName="COMPANIES"
@@ -172,7 +199,8 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
                     category="company"
                     handleQuickCareerLinkClick={handleQuickCareerLinkClick}
                     handleClearFilters={handleClearFilters}
-                    handleChecboxChange={handleChecboxChange} />}
+                    handleChecboxChange={handleChecboxChange}
+                    handleAccordionChange={handleAccordionChange} />}
             </div>
         </div>
     )
@@ -181,27 +209,43 @@ const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setR
 export default QuickCareerLinksFilters;
 
 export function QuickCareerLinksFilterSection({ sectionName, filterEntries, category, handleQuickCareerLinkClick,
-    handleClearFilters, handleChecboxChange }) {
+    handleClearFilters, handleChecboxChange, handleAccordionChange }) {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        if (filterEntries?.length > 0) {
+            setIsOpen(filterEntries[0].showItems);
+        }
+    }, [filterEntries]);
+
     return (
         <>
-            <div className='flex items-center justify-between'>
+            <div className={`flex items-center justify-between 
+            ${sectionName !== "STATUS" ? 'bg-gray-200 cursor-pointer my-4 dark:bg-gray-900' : ''} px-1`}
+                onClick={() => handleAccordionChange(category)}>
                 <h4 className='font-bold text-[14px]'>{sectionName}</h4>
-                {sectionName === "STATUS" && <span className='clear-filter-text' onClick={handleClearFilters}>
+                {sectionName === "STATUS" ? <span className='clear-filter-text' onClick={handleClearFilters}>
                     Clear Filters
+                </span> : <span className='cursor-pointer mr-2'>
+                    {isOpen ? <FaAngleDown /> : <FaAngleUp />}
                 </span>}
             </div>
             {filterEntries?.length > 0 && filterEntries?.map((entry) => {
-                return <span className={`flex gap-2 m-1 ${entry?.isChecked ? 'bg-amber-400 rounded-lg p-1 font-semibold' : ''}`} key={entry?.id}>
-                    <input type='checkbox' id={entry?.id} onClick={(e) => {
-                        e.stopPropagation();
-                        handleQuickCareerLinkClick(entry, category);
-                    }} className='cursor-pointer' checked={entry?.isChecked || false}
-                        onChange={(e) => handleChecboxChange(e.target.checked, entry, category)} />
-                    <label htmlFor={entry?.id} className='cursor-pointer text-[14px] flex gap-1'>
-                        <span>{entry?.displayName}</span>
-                        <span className='count-filter'>({entry?.count})</span>
-                    </label>
-                </span>
+                {
+                    return entry?.showItems && <span className={`flex gap-2 m-1 ${entry?.isChecked ? 'bg-amber-400 rounded-lg p-1 font-semibold' : ''}`} key={entry?.id}>
+                        <input type='checkbox' id={entry?.id} onClick={(e) => {
+                            e.stopPropagation();
+                            handleQuickCareerLinkClick(entry, category);
+                        }} className='cursor-pointer' checked={entry?.isChecked || false}
+                            onChange={(e) => handleChecboxChange(e.target.checked, entry, category)} />
+                        <label htmlFor={entry?.id} className='cursor-pointer text-[14px] flex gap-1'>
+                            <span>{entry?.displayName}</span>
+                            <span className='count-filter'>({entry?.count})</span>
+                        </label>
+                    </span>
+                }
+
             })}
         </>
     )
