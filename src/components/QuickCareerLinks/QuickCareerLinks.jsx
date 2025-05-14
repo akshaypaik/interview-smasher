@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './QuickCareerLinks.css';
 import { AgGridReact } from 'ag-grid-react';
 import toast from 'react-hot-toast';
-import { GET_QUICK_CAREER_JOB_LINK, PUT_QUICK_CAREER_JOB_LINK_STATUS_APPLIED } from '../../utils/constants/apiConstants';
+import { GET_QUICK_CAREER_JOB_LINK, PUT_QUICK_CAREER_JOB_LINK_STATUS } from '../../utils/constants/apiConstants';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { getDateFormatted } from '../../utils/helper';
@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import QuickCareerLinksAddDialog from './QuickCareerLinksAddDialog';
 import QuickCareerLinksFilters from './QuickCareerLinksFilters';
+import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
 
 function IconComponent({ info }) {
     return <span className='flex gap-2'>
@@ -44,6 +45,96 @@ function IconComponent({ info }) {
             info.displayName
         }
     </span>
+}
+
+function StatusComponent({ info, getJobLinkDetails }) {
+
+    const [statusVal, setStatusVal] = useState(info?.jobStatus);
+    const [alertDialogOpen, setAlertDialogOpen] = useState(false);
+
+    const setStylesForStatus = (params) => {
+        const style = {
+            textAlign: 'center', borderRadius: '8px', display: 'flex', alignItems: 'center',
+            justifyContent: 'center', fontWeight: 600, height: '32px', marginTop: '14px'
+        };
+        if (params === "Yet to Apply") {
+            style.backgroundColor = "#f5af19";
+        }
+        if (params === "Applied") {
+            style.backgroundColor = "#38ef7d";
+        }
+        if (params === "Save Only") {
+            style.backgroundColor = "#00B4DB";
+        }
+        if (params === "Interview Done") {
+            style.backgroundColor = "#CF601B";
+        }
+        if (params === "Selected") {
+            style.backgroundColor = "#008000";
+        }
+        if (params === "Rejected") {
+            style.backgroundColor = "#ED213A";
+        }
+        if (params === "Offer Received") {
+            style.backgroundColor = "#a8ff78";
+        }
+        return style;
+    }
+
+    const handleStatusChange = (value) => {
+        setStatusVal(value);
+        setAlertDialogOpen(true);
+    }
+
+    const handleAlertCancel = () => {
+        setStatusVal(info?.jobStatus);
+        setAlertDialogOpen(false);
+    }
+
+    const handleStatusChangeYes = async() => {
+        const updatedData = {
+            ...info,
+            jobStatus: statusVal
+        }
+        try {
+            const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS, updatedData);
+            getJobLinkDetails();
+            setAlertDialogOpen(false);
+        } catch (error) {
+            toast.error(error);
+            setAlertDialogOpen(false);
+        }
+    }
+
+    return (
+        <>
+            <div style={{ ...setStylesForStatus(statusVal), width: '100%' }}>
+                <select style={{ outline: 'none', cursor: 'pointer' }}
+                    value={statusVal} onChange={(e) =>
+                        handleStatusChange(e.target.value)}>
+                    {quickCareerJobLinkStatus.map((status) => {
+                        return <option key={status.id} className='cursor-pointer'>{status.displayName}</option>
+                    })}
+                </select>
+            </div>
+            <AlertDialog open={alertDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Do you want to change the status of {info.company}({info.jobID}) to "{statusVal}"?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            If yes, {info.company}({info.jobID}) will be marked as {statusVal}.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="cursor-pointer" onClick={handleAlertCancel}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction className="cursor-pointer" onClick={handleStatusChangeYes}>Yes</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
 }
 
 const QuickCareerLinks = () => {
@@ -105,7 +196,11 @@ const QuickCareerLinks = () => {
         },
         {
             headerName: "Status", field: "jobStatus", minWidth: 200,
-            cellStyle: params => setStylesForStatus(params)
+            cellRenderer: "statusComponent",
+            cellRendererParams: (params) => ({
+                info: params.data,
+                getJobLinkDetails: getJobLinkDetails
+            })
         },
         {
             headerName: "Candidate ID", field: "candidateID", minWidth: 200,
@@ -158,39 +253,10 @@ const QuickCareerLinks = () => {
         );
     }, []);
 
-    const setStylesForStatus = (params) => {
-        const style = {
-            textAlign: 'center', borderRadius: '8px', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', fontWeight: 600, height: '32px', marginTop: '14px'
-        };
-        if (params?.value === "Yet to Apply") {
-            style.backgroundColor = "#f5af19";
-        }
-        if (params?.value === "Applied") {
-            style.backgroundColor = "#38ef7d";
-        }
-        if (params?.value === "Save Only") {
-            style.backgroundColor = "#00B4DB";
-        }
-        if (params?.value === "Interview Done") {
-            style.backgroundColor = "#CF601B";
-        }
-        if (params?.value === "Selected") {
-            style.backgroundColor = "#008000";
-        }
-        if (params?.value === "Rejected") {
-            style.backgroundColor = "#ED213A";
-        }
-        if (params?.value === "Offer Received") {
-            style.backgroundColor = "#a8ff78";
-        }
-        return style;
-    }
-
     const setToolTipForDate = (params) => {
-        if(params?.data?.jobStatus === "Applied"){
+        if (params?.data?.jobStatus === "Applied") {
             return "Applied On";
-        }else{
+        } else {
             return "Created On";
         }
     }
@@ -200,26 +266,26 @@ const QuickCareerLinks = () => {
     }
 
     const getJobLinkDetails = async (isAdded) => {
-        if(userInfo?.email){
+        if (userInfo?.email) {
             try {
-            setLoading(true);
-            const userEmail = userInfo?.email;
-            const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
-            data.map((entry) => {
-                return entry.createdOn = getDateFormatted(entry.createdOn);
-            })
-            setRowData(data);
-            setFilteredRowData(data);
-            setLoading(false);
-            if (isAdded) {
-                setResetQuickFilterRolesAndLocations(true);
-            } else {
-                setResetQuickFilterRolesAndLocations(false);
+                setLoading(true);
+                const userEmail = userInfo?.email;
+                const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
+                data.map((entry) => {
+                    return entry.createdOn = getDateFormatted(entry.createdOn);
+                })
+                setRowData(data);
+                setFilteredRowData(data);
+                setLoading(false);
+                if (isAdded) {
+                    setResetQuickFilterRolesAndLocations(true);
+                } else {
+                    setResetQuickFilterRolesAndLocations(false);
+                }
+            } catch (error) {
+                toast.error(error);
+                setLoading(false);
             }
-        } catch (error) {
-            toast.error(error);
-            setLoading(false);
-        }
         }
     }
 
@@ -263,8 +329,12 @@ const QuickCareerLinks = () => {
     }, [quickCareerLinkFilters]);
 
     const handleApplied = async () => {
+        const updatedData = {
+            ...navJobLinkCompany,
+            jobStatus: "Applied"
+        }
         try {
-            const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS_APPLIED, navJobLinkCompany);
+            const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS, updatedData);
             getJobLinkDetails();
             setAlertDialogOpen(false);
         } catch (error) {
@@ -314,7 +384,8 @@ const QuickCareerLinks = () => {
                             defaultColDef={defaultColDef}
                             theme={theme}
                             components={{
-                                iconComponent: IconComponent
+                                iconComponent: IconComponent,
+                                statusComponent: StatusComponent
                             }}
                             pagination={pagination}
                             paginationPageSize={paginationPageSize}
