@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './QuickCareerLinks.css';
 import { AgGridReact } from 'ag-grid-react';
 import toast from 'react-hot-toast';
@@ -7,13 +7,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { getDateFormatted } from '../../utils/helper';
 import { themeQuartz } from "ag-grid-community";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
 import quickFilterCareerLinkOptions from "../../utils/constants/json/quickFilterCareerLinkOptions.json"
-import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -26,116 +20,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import QuickCareerLinksAddDialog from './QuickCareerLinksAddDialog';
 import QuickCareerLinksFilters from './QuickCareerLinksFilters';
-import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
-
-function IconComponent({ info }) {
-    return <span className='flex gap-2'>
-        {/* {info.companyIconURL ? <img src={info.companyIconURL} alt='company-icon' className='h-8' /> : info.displayName} */}
-
-        {info.companyIconURL ?
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <img src={info.companyIconURL} alt='company-icon' className='h-8' />
-                </TooltipTrigger>
-                <TooltipContent side="right" align="center">
-                    {info.displayName}
-                </TooltipContent>
-            </Tooltip>
-            :
-            info.displayName
-        }
-    </span>
-}
-
-function StatusComponent({ info, getJobLinkDetails }) {
-
-    const [statusVal, setStatusVal] = useState(info?.jobStatus);
-    const [alertDialogOpen, setAlertDialogOpen] = useState(false);
-
-    const setStylesForStatus = (params) => {
-        const style = {
-            textAlign: 'center', borderRadius: '8px', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', fontWeight: 600, height: '32px', marginTop: '14px'
-        };
-        if (params === "Yet to Apply") {
-            style.backgroundColor = "#f5af19";
-        }
-        if (params === "Applied") {
-            style.backgroundColor = "#38ef7d";
-        }
-        if (params === "Save Only") {
-            style.backgroundColor = "#00B4DB";
-        }
-        if (params === "Interview Done") {
-            style.backgroundColor = "#CF601B";
-        }
-        if (params === "Selected") {
-            style.backgroundColor = "#008000";
-        }
-        if (params === "Rejected") {
-            style.backgroundColor = "#ED213A";
-        }
-        if (params === "Offer Received") {
-            style.backgroundColor = "#a8ff78";
-        }
-        return style;
-    }
-
-    const handleStatusChange = (value) => {
-        setStatusVal(value);
-        setAlertDialogOpen(true);
-    }
-
-    const handleAlertCancel = () => {
-        setStatusVal(info?.jobStatus);
-        setAlertDialogOpen(false);
-    }
-
-    const handleStatusChangeYes = async() => {
-        const updatedData = {
-            ...info,
-            jobStatus: statusVal
-        }
-        try {
-            const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS, updatedData);
-            getJobLinkDetails();
-            setAlertDialogOpen(false);
-        } catch (error) {
-            toast.error(error);
-            setAlertDialogOpen(false);
-        }
-    }
-
-    return (
-        <>
-            <div style={{ ...setStylesForStatus(statusVal), width: '100%' }}>
-                <select style={{ outline: 'none', cursor: 'pointer' }}
-                    value={statusVal} onChange={(e) =>
-                        handleStatusChange(e.target.value)}>
-                    {quickCareerJobLinkStatus.map((status) => {
-                        return <option key={status.id} className='cursor-pointer'>{status.displayName}</option>
-                    })}
-                </select>
-            </div>
-            <AlertDialog open={alertDialogOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            Do you want to change the status of {info.company}({info.jobID}) to "{statusVal}"?
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                            If yes, {info.company}({info.jobID}) will be marked as {statusVal}.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="cursor-pointer" onClick={handleAlertCancel}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction className="cursor-pointer" onClick={handleStatusChangeYes}>Yes</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        </>
-    )
-}
+import IconComponentCareerLinks from './IconComponentCareerLinks';
+import StatusComponentCareerLinks from './StatusComponentCareerLinks';
 
 const QuickCareerLinks = () => {
 
@@ -364,8 +250,6 @@ const QuickCareerLinks = () => {
                         onInput={onFilterTextBoxChanged}
                     />
                     <div className='flex gap-8'>
-                        {/* {quickFilterCareerLinkOptions?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
-                            enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)} */}
                         <button className='bg-green-700 rounded-xl py-2 px-16 font-bold cursor-pointer hover:bg-white 
                         add-btn text-white' onClick={onAddClick}>
                             Add
@@ -384,8 +268,8 @@ const QuickCareerLinks = () => {
                             defaultColDef={defaultColDef}
                             theme={theme}
                             components={{
-                                iconComponent: IconComponent,
-                                statusComponent: StatusComponent
+                                iconComponent: IconComponentCareerLinks,
+                                statusComponent: StatusComponentCareerLinks
                             }}
                             pagination={pagination}
                             paginationPageSize={paginationPageSize}
