@@ -22,6 +22,7 @@ import QuickCareerLinksAddDialog from './QuickCareerLinksAddDialog';
 import QuickCareerLinksFilters from './QuickCareerLinksFilters';
 import IconComponentCareerLinks from './IconComponentCareerLinks';
 import StatusComponentCareerLinks from './StatusComponentCareerLinks';
+import DeleteComponentCareerLinks from './DeleteComponentCareerLinks';
 
 const QuickCareerLinks = () => {
 
@@ -47,6 +48,17 @@ const QuickCareerLinks = () => {
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = useState([
+        {
+            headerName: "", field: "", minWidth: 40,
+            sortable: false,
+            filter: false,
+            filterParams: false,
+            cellRenderer: "deleteComponent",
+            cellRendererParams: (params) => ({
+                info: params.data,
+                getJobLinkDetails: getJobLinkDetails
+            })
+        },
         {
             headerName: "Company", field: "company", minWidth: 240,
             cellRenderer: "iconComponent",
@@ -282,7 +294,8 @@ const QuickCareerLinks = () => {
                             theme={theme}
                             components={{
                                 iconComponent: IconComponentCareerLinks,
-                                statusComponent: StatusComponentCareerLinks
+                                statusComponent: StatusComponentCareerLinks,
+                                deleteComponent: DeleteComponentCareerLinks
                             }}
                             pagination={pagination}
                             paginationPageSize={paginationPageSize}

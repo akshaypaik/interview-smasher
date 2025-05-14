@@ -56,6 +56,8 @@ export const GET_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-caree
 
 export const PUT_QUICK_CAREER_JOB_LINK_STATUS = BASE_URL + "/BackendApp/api/quick-career/updateStatusJobLink";
 
+export const DELETE_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-career/deleteQuickCareerJobLink";
+
 
 // External APIs
 
