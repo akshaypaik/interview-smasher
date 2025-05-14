@@ -142,7 +142,20 @@ const QuickCareerLinks = () => {
     const setToolTipForDate = (params) => {
         if (params?.data?.jobStatus === "Applied") {
             return "Applied On";
-        } else {
+        }
+        else if (params?.data?.jobStatus === "Interview Done") {
+            return "Interview Finished On";
+        }
+        else if (params?.data?.jobStatus === "Selected") {
+            return "Selected On";
+        }
+        else if (params?.data?.jobStatus === "Rejected") {
+            return "Rejected On";
+        }
+        else if (params?.data?.jobStatus === "Offer Received") {
+            return "Offer Received On";
+        }
+        else {
             return "Created On";
         }
     }
