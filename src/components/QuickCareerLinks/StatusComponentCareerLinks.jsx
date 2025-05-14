@@ -64,7 +64,7 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
         }
         try {
             const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS, updatedData);
-            getJobLinkDetails();
+            getJobLinkDetails(true);
             setAlertDialogOpen(false);
         } catch (error) {
             toast.error(error);

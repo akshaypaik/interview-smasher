@@ -25,7 +25,7 @@ export default function DeleteComponentCareerLinks({ info, getJobLinkDetails }) 
     const handleDeleteConfirmed = async() => {
         try{
             const { data } = await axios.post(DELETE_QUICK_CAREER_JOB_LINK, info);
-            getJobLinkDetails();
+            getJobLinkDetails(true);
             setAlertDialogOpen(false);
         }catch(error){
             toast.error(error);

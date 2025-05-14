@@ -176,7 +176,7 @@ const QuickCareerLinks = () => {
         setDialogOpen(true);
     }
 
-    const getJobLinkDetails = async (isAdded) => {
+    const getJobLinkDetails = async (isFilterStateChanged) => {
         if (userInfo?.email) {
             try {
                 setLoading(true);
@@ -188,7 +188,7 @@ const QuickCareerLinks = () => {
                 setRowData(data);
                 setFilteredRowData(data);
                 setLoading(false);
-                if (isAdded) {
+                if (isFilterStateChanged) {
                     setResetQuickFilterRolesAndLocations(true);
                 } else {
                     setResetQuickFilterRolesAndLocations(false);
