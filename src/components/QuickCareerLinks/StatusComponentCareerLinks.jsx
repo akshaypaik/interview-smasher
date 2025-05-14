@@ -21,7 +21,7 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
     const setStylesForStatus = (params) => {
         const style = {
             textAlign: 'center', borderRadius: '8px', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', fontWeight: 600, height: '32px', marginTop: '14px'
+            justifyContent: 'center', fontWeight: 600, height: '32px'
         };
         if (params === "Yet to Apply") {
             style.backgroundColor = "#f5af19";
