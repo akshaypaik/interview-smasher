@@ -154,7 +154,7 @@ const QuickCareerLinks = () => {
         }
         const url = params.data.jobLink;
         window.open(url, "_blank");
-        if (params.data.jobStatus != "Applied") {
+        if (params.data.jobStatus === "Yet to Apply" || params.data.jobStatus === "Save Only") {
             setAlertDialogOpen(true);
         }
     }
