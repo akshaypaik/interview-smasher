@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { clearQuickCareerLinkFilters, updateQuickCareerLinkFilters } from '../../utils/ReduxStore/companiesSlice';
 import { FaAngleUp } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa6";
+import { motion } from 'framer-motion';
 
 const QuickCareerLinksFilters = ({ info, resetQuickFilterRolesAndLocations, setResetQuickFilterRolesAndLocations }) => {
 
@@ -222,7 +223,8 @@ export function QuickCareerLinksFilterSection({ sectionName, filterEntries, cate
     return (
         <>
             <div className={`flex items-center justify-between 
-            ${sectionName !== "STATUS" ? 'bg-gray-200 cursor-pointer my-4 dark:bg-gray-900' : ''} px-1`}
+            ${sectionName !== "STATUS" ? 'bg-gray-200 cursor-pointer my-4 dark:bg-gray-900' : ''} 
+            ${isOpen && sectionName !== "STATUS" ? 'bg-gray-400' : ''} px-1`}
                 onClick={() => handleAccordionChange(category)}>
                 <h4 className='font-bold text-[14px]'>{sectionName}</h4>
                 {sectionName === "STATUS" ? <span className='clear-filter-text' onClick={handleClearFilters}>
@@ -233,16 +235,23 @@ export function QuickCareerLinksFilterSection({ sectionName, filterEntries, cate
             </div>
             {filterEntries?.length > 0 && filterEntries?.map((entry) => {
                 {
-                    return entry?.showItems && <span className={`flex gap-2 m-1 ${entry?.isChecked ? 'bg-amber-400 rounded-lg p-1 font-semibold' : ''}`} key={entry?.id}>
-                        <input type='checkbox' id={entry?.id} onClick={(e) => {
-                            e.stopPropagation();
-                            handleQuickCareerLinkClick(entry, category);
-                        }} className='cursor-pointer' checked={entry?.isChecked || false}
-                            onChange={(e) => handleChecboxChange(e.target.checked, entry, category)} />
-                        <label htmlFor={entry?.id} className='cursor-pointer text-[14px] flex gap-1'>
-                            <span>{entry?.displayName}</span>
-                            <span className='count-filter'>({entry?.count})</span>
-                        </label>
+                    return entry?.showItems && <span key={entry?.id}>
+                        <motion.div
+                            className={`flex gap-2 m-1 ${entry?.isChecked ? 'bg-amber-400 rounded-lg p-1 font-semibold' : ''}`}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                            viewport={{ once: true }}>
+                            <input type='checkbox' id={entry?.id} onClick={(e) => {
+                                e.stopPropagation();
+                                handleQuickCareerLinkClick(entry, category);
+                            }} className='cursor-pointer' checked={entry?.isChecked || false}
+                                onChange={(e) => handleChecboxChange(e.target.checked, entry, category)} />
+                            <label htmlFor={entry?.id} className='cursor-pointer text-[14px] flex gap-1'>
+                                <span>{entry?.displayName}</span>
+                                <span className='count-filter'>({entry?.count})</span>
+                            </label>
+                        </motion.div>
                     </span>
                 }
 
