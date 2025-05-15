@@ -144,7 +144,6 @@ const QuickCareerLinks = () => {
     const rowHeight = 60;
     const [alertDialogOpen, setAlertDialogOpen] = useState(false);
 
-    const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [navJobLinkCompany, setNavJobLinkCompany] = useState("");
 
     const gridRef = useRef(null);
@@ -172,6 +171,9 @@ const QuickCareerLinks = () => {
         }
         else if (params?.data?.jobStatus === "Offer Received") {
             return "Offer Received On";
+        } 
+        else if (params?.data?.jobStatus === "Application Rejected") {
+            return "Application Rejected On";
         }
         else {
             return "Created On";
@@ -209,20 +211,6 @@ const QuickCareerLinks = () => {
     useEffect(() => {
         getJobLinkDetails();
     }, [userInfo]);
-
-    useEffect(() => {
-        let trueFound = false;
-        Object.keys(enableQuickFilter).forEach(key => {
-            if (enableQuickFilter[key] === true) {
-                trueFound = true;
-                const updatedData = rowData.filter((item) => item.jobStatus === quickFilterCareerLinkOptions[key].displayName);
-                setFilteredRowData(updatedData);
-            }
-        })
-        if (!trueFound) {
-            setFilteredRowData(rowData);
-        }
-    }, [enableQuickFilter]);
 
     useEffect(() => {
         if (quickCareerLinkFilters.length > 0) {

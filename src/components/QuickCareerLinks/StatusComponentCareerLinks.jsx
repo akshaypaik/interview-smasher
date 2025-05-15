@@ -44,6 +44,9 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
         if (params === "Offer Received") {
             style.backgroundColor = "#a8ff78";
         }
+        if (params === "Application Rejected") {
+            style.backgroundColor = "#A43931";
+        }
         return style;
     }
 

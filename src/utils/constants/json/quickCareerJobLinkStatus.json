@@ -33,5 +33,10 @@
         "id": "6",
         "name": "offerReceived",
         "displayName": "Offer Received"
+    },
+    {
+        "id": "7",
+        "name": "applicationRejected",
+        "displayName": "Application Rejected"
     }
 ]
