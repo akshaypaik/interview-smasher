@@ -23,6 +23,7 @@ import QuickCareerLinksFilters from './QuickCareerLinksFilters';
 import IconComponentCareerLinks from './IconComponentCareerLinks';
 import StatusComponentCareerLinks from './StatusComponentCareerLinks';
 import DeleteComponentCareerLinks from './DeleteComponentCareerLinks';
+import { motion } from 'framer-motion';
 
 const QuickCareerLinks = () => {
 
@@ -110,7 +111,12 @@ const QuickCareerLinks = () => {
         },
         {
             headerName: "Date", field: "createdOn", minWidth: 200,
-            tooltipValueGetter: params => setToolTipForDate(params)
+            tooltipValueGetter: params => setToolTipForDate(params),
+            comparator: (valueA, valueB) => {
+                const dateA = new Date(valueA).getTime();
+                const dateB = new Date(valueB).getTime();
+                return dateA - dateB;
+            }
         }
     ]);
 
@@ -285,7 +291,12 @@ const QuickCareerLinks = () => {
                     {rowData.length > 0 && <QuickCareerLinksFilters info={filteredRowData}
                         resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
                         setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />}
-                    <div style={{ height: '70vh', flexGrow: 1 }}>
+                    <motion.div
+                        style={{ height: '70vh', flexGrow: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        viewport={{ once: true }}>
                         <AgGridReact
                             ref={gridRef}
                             rowData={filteredRowData}
@@ -304,7 +315,7 @@ const QuickCareerLinks = () => {
                             rowHeight={rowHeight}
                             tooltipShowDelay={500}
                         />
-                    </div>
+                    </motion.div>
                 </div>
 
                 <QuickCareerLinksAddDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} getJobLinkDetails={getJobLinkDetails} />
