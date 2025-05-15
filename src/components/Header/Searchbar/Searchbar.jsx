@@ -16,12 +16,7 @@ const Searchbar = () => {
 
   const handleQuerySearch = (event) => {
     setSearchQuery(event.target.value);
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
-    debounceTimer.current = setTimeout(() => {
-      dispatch(updateSearchBarQuery(event.target.value));
-    }, 300);
+    dispatch(updateSearchBarQuery(event.target.value));
   }
 
   const clearSearchQuery = () => {
