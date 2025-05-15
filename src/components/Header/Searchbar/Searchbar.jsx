@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Searchbar.css';
 import SearchResultContainer from './SearchResultContainer/SearchResultContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,10 +12,16 @@ const Searchbar = () => {
   const darkMode = useSelector((store) => store.app.darkMode);
   const dispatch = useDispatch();
   const searchBarQueryReduxState = useSelector((store) => store.app.searchBarQuery);
+  const debounceTimer = useRef(null);
 
   const handleQuerySearch = (event) => {
     setSearchQuery(event.target.value);
-    dispatch(updateSearchBarQuery(event.target.value));
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+    debounceTimer.current = setTimeout(() => {
+      dispatch(updateSearchBarQuery(event.target.value));
+    }, 300);
   }
 
   const clearSearchQuery = () => {
@@ -24,7 +30,12 @@ const Searchbar = () => {
   }
 
   useEffect(() => {
-    setSearchQuery(searchBarQueryReduxState);
+    const timer = setTimeout(() => {
+      setSearchQuery(searchBarQueryReduxState);
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    }
   }, [searchBarQueryReduxState]);
 
   return (
