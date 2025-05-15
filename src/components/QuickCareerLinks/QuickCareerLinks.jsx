@@ -24,6 +24,8 @@ import IconComponentCareerLinks from './IconComponentCareerLinks';
 import StatusComponentCareerLinks from './StatusComponentCareerLinks';
 import DeleteComponentCareerLinks from './DeleteComponentCareerLinks';
 import { motion } from 'framer-motion';
+import quickCareerJobLinkDates from '../../utils/constants/json/quickCareerJobLinkDates.json';
+import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 
 const QuickCareerLinks = () => {
 
@@ -32,6 +34,8 @@ const QuickCareerLinks = () => {
     const [filteredRowData, setFilteredRowData] = useState([]);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [resetQuickFilterRolesAndLocations, setResetQuickFilterRolesAndLocations] = useState(false);
+    const [enableQuickFilter, setEnableQuickFilter] = useState({});
+    const [dateFilter, setDateFilter] = useState("");
 
     const quickCareerLinkFilters = useSelector((store) => store.companies.quickCareerLinkFilters);
 
@@ -171,7 +175,7 @@ const QuickCareerLinks = () => {
         }
         else if (params?.data?.jobStatus === "Offer Received") {
             return "Offer Received On";
-        } 
+        }
         else if (params?.data?.jobStatus === "Application Rejected") {
             return "Application Rejected On";
         }
@@ -233,6 +237,44 @@ const QuickCareerLinks = () => {
         }
     }, [quickCareerLinkFilters]);
 
+    useEffect(() => {
+        let trueFound = false;
+        Object.keys(enableQuickFilter).forEach(key => {
+            if (enableQuickFilter[key] === true) {
+                trueFound = true;
+                setDateFilter(quickCareerJobLinkDates[key].name);
+            }
+        })
+        if (!trueFound) {
+            setDateFilter("");
+        }
+    }, [enableQuickFilter]);
+
+    useEffect(() => {
+        if (dateFilter !== "") {
+            const now = new Date();
+            let startDate;
+            if (dateFilter === "today") {
+                startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            } else if (dateFilter === "week") {
+                startDate = new Date(now);
+                startDate.setDate(now.getDate() - 6);
+                startDate.setHours(0, 0, 0, 0);
+            } else if (dateFilter === "month") {
+                startDate = new Date(now);
+                startDate.setDate(now.getDate() - 29);
+                startDate.setHours(0, 0, 0, 0);
+            }
+            const filtered = rowData.filter(item => {
+                const itemDate = new Date(item.createdOn);
+                return itemDate >= startDate && itemDate <= now;
+            });
+            setFilteredRowData(filtered);
+        } else {
+            setFilteredRowData(rowData);
+        }
+    }, [dateFilter]);
+
     const handleApplied = async () => {
         const updatedData = {
             ...navJobLinkCompany,
@@ -268,6 +310,10 @@ const QuickCareerLinks = () => {
                         className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-2/4 cursor-pointer'
                         onInput={onFilterTextBoxChanged}
                     />
+                    <div className='flex gap-6 ml-auto mr-10'>
+                        {quickCareerJobLinkDates?.map((item) => <SlidderToggle key={item.id} slidderInfo={item}
+                            enableQuickFilter={enableQuickFilter} setEnableQuickFilter={setEnableQuickFilter} />)}
+                    </div>
                     <div className='flex gap-8'>
                         <button className='bg-green-700 rounded-xl py-2 px-16 font-bold cursor-pointer hover:bg-white 
                         add-btn text-white' onClick={onAddClick}>
