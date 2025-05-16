@@ -40,7 +40,7 @@ export default function DeleteComponentCareerLinks({ info, getJobLinkDetails }) 
     return (
         <>
             <div className='cursor-pointer hover:text-red-600' onClick={handleDeleteJobLink}>
-                <FaTrashAlt />
+                <FaTrashAlt title="Delete" />
             </div>
             <AlertDialog open={alertDialogOpen}>
                 <AlertDialogContent>

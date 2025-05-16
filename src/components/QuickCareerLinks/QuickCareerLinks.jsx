@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { getDateFormatted } from '../../utils/helper';
 import { themeQuartz } from "ag-grid-community";
-import quickFilterCareerLinkOptions from "../../utils/constants/json/quickFilterCareerLinkOptions.json"
+import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJobLinkRoles.json';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -26,6 +26,8 @@ import DeleteComponentCareerLinks from './DeleteComponentCareerLinks';
 import { motion } from 'framer-motion';
 import quickCareerJobLinkDates from '../../utils/constants/json/quickCareerJobLinkDates.json';
 import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
+import EditAndSaveComponentCareerLinks from './EditAndSaveComponentCareerLinks';
+import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
 
 const QuickCareerLinks = () => {
 
@@ -36,6 +38,7 @@ const QuickCareerLinks = () => {
     const [resetQuickFilterRolesAndLocations, setResetQuickFilterRolesAndLocations] = useState(false);
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [dateFilter, setDateFilter] = useState("");
+    const [isEditRow, setIsEditRow] = useState(true);
 
     const quickCareerLinkFilters = useSelector((store) => store.companies.quickCareerLinkFilters);
 
@@ -58,6 +61,7 @@ const QuickCareerLinks = () => {
             sortable: false,
             filter: false,
             filterParams: false,
+            editable: false,
             cellRenderer: "deleteComponent",
             cellRendererParams: (params) => ({
                 info: params.data,
@@ -65,7 +69,24 @@ const QuickCareerLinks = () => {
             })
         },
         {
+            headerName: "", field: "", minWidth: 60,
+            sortable: false,
+            filter: false,
+            filterParams: false,
+            editable: false,
+            cellRenderer: "editAndSaveComponent",
+            cellRendererParams: (params) => ({
+                isEditRow: isEditRow,
+                setIsEditRow: setIsEditRow,
+                info: params.data,
+                getJobLinkDetails: getJobLinkDetails,
+                gridRef: gridRef,
+                rowIndex: params.node.rowIndex
+            })
+        },
+        {
             headerName: "Company", field: "company", minWidth: 240,
+            editable: false,
             cellRenderer: "iconComponent",
             cellRendererParams: (params) => ({
                 info: {
@@ -74,8 +95,20 @@ const QuickCareerLinks = () => {
                 },
             })
         },
-        { headerName: "Role", field: "jobRole", minWidth: 240 },
-        { headerName: "Location", field: "jobLocation", minWidth: 200 },
+        {
+            headerName: "Role", field: "jobRole", minWidth: 240,
+            cellEditor: "agSelectCellEditor",
+            cellEditorParams: {
+                values: quickCareerJobLinkRoles.map((item) => item.displayName),
+            }
+        },
+        {
+            headerName: "Location", field: "jobLocation", minWidth: 200,
+            cellEditor: "agSelectCellEditor",
+            cellEditorParams: {
+                values: quickCareerJobLinkLocations.map((item) => item.displayName),
+            }
+        },
         {
             headerName: "Job ID", field: "jobID", minWidth: 200,
             cellStyle: params => {
@@ -100,6 +133,7 @@ const QuickCareerLinks = () => {
         {
             headerName: "Status", field: "jobStatus", minWidth: 200,
             cellRenderer: "statusComponent",
+            editable: false,
             cellRendererParams: (params) => ({
                 info: params.data,
                 getJobLinkDetails: getJobLinkDetails
@@ -116,6 +150,7 @@ const QuickCareerLinks = () => {
         {
             headerName: "Date", field: "createdOn", minWidth: 200,
             tooltipValueGetter: params => setToolTipForDate(params),
+            editable: false,
             comparator: (valueA, valueB) => {
                 const dateA = new Date(valueA).getTime();
                 const dateB = new Date(valueB).getTime();
@@ -139,6 +174,7 @@ const QuickCareerLinks = () => {
         flex: 1,
         minWidth: 100,
         filter: true,
+        editable: true,
         cellStyle: (params) => ({
             display: "flex",
             alignItems: "center"
@@ -343,7 +379,8 @@ const QuickCareerLinks = () => {
                             components={{
                                 iconComponent: IconComponentCareerLinks,
                                 statusComponent: StatusComponentCareerLinks,
-                                deleteComponent: DeleteComponentCareerLinks
+                                deleteComponent: DeleteComponentCareerLinks,
+                                editAndSaveComponent: EditAndSaveComponentCareerLinks
                             }}
                             pagination={pagination}
                             paginationPageSize={paginationPageSize}
@@ -351,6 +388,8 @@ const QuickCareerLinks = () => {
                             loading={loading}
                             rowHeight={rowHeight}
                             tooltipShowDelay={500}
+                            editType={"fullRow"}
+                            suppressClickEdit={true}
                         />
                     </motion.div>
                 </div>
