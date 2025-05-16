@@ -203,15 +203,13 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                         <Label htmlFor="jobSource" className="text-right">
                             Job Source
                         </Label>
-                        <Input id="jobSource" placeholder="LinkedIn/Naukri/Phone Call/Career Site" className="col-span-3" {...register("jobSource")} />
+                        <Input id="jobSource" placeholder="LinkedIn/Naukri/Phone Call/Career Site/Referral" className="col-span-3" {...register("jobSource")} />
                         {errors?.jobID?.message &&
                             <div className='error-msg'>{errors?.jobID?.message}</div>}
                         <Label htmlFor="jobID" className="text-right">
                             Job ID
                         </Label>
-                        <Input id="jobID" placeholder="Job ID" className="col-span-3" {...register("jobID", {
-                            required: "This field is required"
-                        })} />
+                        <Input id="jobID" placeholder="Job ID" className="col-span-3" {...register("jobID")} />
                         {errors?.jobID?.message &&
                             <div className='error-msg'>{errors?.jobID?.message}</div>}
                         <Label htmlFor="candidateID" className="text-right">
