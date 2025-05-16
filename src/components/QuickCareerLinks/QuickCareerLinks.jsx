@@ -197,6 +197,9 @@ const QuickCareerLinks = () => {
                 data.map((entry) => {
                     return entry.createdOn = getDateFormatted(entry.createdOn);
                 })
+                data.sort((a, b) => {
+                    return new Date(b.createdOn) - new Date(a.createdOn);
+                });
                 setRowData(data);
                 setFilteredRowData(data);
                 setLoading(false);
