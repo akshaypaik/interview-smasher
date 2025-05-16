@@ -150,6 +150,9 @@ const QuickCareerLinks = () => {
             }
         },
         {
+            headerName: "Job Source", field: "jobSource", minWidth: 200
+        },
+        {
             headerName: "Date", field: "createdOn", minWidth: 200,
             tooltipValueGetter: params => setToolTipForDate(params),
             editable: false,

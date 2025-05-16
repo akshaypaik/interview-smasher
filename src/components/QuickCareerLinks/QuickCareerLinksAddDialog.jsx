@@ -34,7 +34,7 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
     const [filteredCompany, setFilteredCompany] = useState([]);
     const { errors } = formState;
     const userInfo = useSelector((store) => store.app.userInfo);
-     const jobRoleRef = useRef(null);
+    const jobRoleRef = useRef(null);
 
     useEffect(() => {
         if (company && dialogOpen) {
@@ -200,6 +200,12 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                             {errors?.jobLocation?.message &&
                                 <div className='error-msg'>{errors?.jobLocation?.message}</div>}
                         </div>
+                        <Label htmlFor="jobSource" className="text-right">
+                            Job Source
+                        </Label>
+                        <Input id="jobSource" placeholder="LinkedIn/Naukri/Phone Call/Career Site" className="col-span-3" {...register("jobSource")} />
+                        {errors?.jobID?.message &&
+                            <div className='error-msg'>{errors?.jobID?.message}</div>}
                         <Label htmlFor="jobID" className="text-right">
                             Job ID
                         </Label>
