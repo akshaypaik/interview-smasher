@@ -46,7 +46,7 @@ export default function DeleteComponentCareerLinks({ info, getJobLinkDetails }) 
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            Are you sure? Do you want to delete {info?.company} with Job ID: {info?.jobID} ?
+                            Do you want to delete {info?.company} with Job ID: {info?.jobID} ?
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             Please select yes to proceed.

@@ -70,7 +70,7 @@ const EditAndSaveComponentCareerLinks = ({ isEditRow, setIsEditRow, info, getJob
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            Are you sure? Do you want to edit {info?.company} ?
+                            Do you want to save this edit ?
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             Please select yes to proceed.
