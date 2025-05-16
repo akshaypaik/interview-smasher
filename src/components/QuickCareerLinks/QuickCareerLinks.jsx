@@ -57,11 +57,12 @@ const QuickCareerLinks = () => {
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = useState([
         {
-            headerName: "", field: "", minWidth: 40,
+            headerName: "", field: "", maxWidth: 40,
             sortable: false,
             filter: false,
             filterParams: false,
             editable: false,
+            pinned: 'left',
             cellRenderer: "deleteComponent",
             cellRendererParams: (params) => ({
                 info: params.data,
@@ -69,11 +70,12 @@ const QuickCareerLinks = () => {
             })
         },
         {
-            headerName: "", field: "", minWidth: 60,
+            headerName: "", field: "", maxWidth: 60,
             sortable: false,
             filter: false,
             filterParams: false,
             editable: false,
+            pinned: 'left',
             cellRenderer: "editAndSaveComponent",
             cellRendererParams: (params) => ({
                 isEditRow: isEditRow,
