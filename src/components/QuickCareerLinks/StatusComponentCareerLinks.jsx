@@ -1,22 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
 import { PUT_QUICK_CAREER_JOB_LINK_STATUS } from "../../utils/constants/apiConstants";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 import quickCareerJobLinkStatus from './../../utils/constants/json/quickCareerJobLinkStatus.json';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) {
 
     const [statusVal, setStatusVal] = useState(info?.jobStatus);
     const [alertDialogOpen, setAlertDialogOpen] = useState(false);
+    const [interviewDateTime, setInterviewDateTime] = useState(null);
 
     const setStylesForStatus = (params) => {
         const style = {
@@ -66,7 +66,8 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
     const handleStatusChangeYes = async () => {
         const updatedData = {
             ...info,
-            jobStatus: statusVal
+            jobStatus: statusVal,
+            createdOn: new Date(interviewDateTime).toISOString()
         }
         try {
             const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS, updatedData);
@@ -89,22 +90,28 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
                     })}
                 </select>
             </div>
-            <AlertDialog open={alertDialogOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            Do you want to change the status of {info.company}({info.jobID}) to "{statusVal}"?
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                            If yes, {info.company}({info.jobID}) will be marked as {statusVal}.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="cursor-pointer" onClick={handleAlertCancel}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction className="cursor-pointer" onClick={handleStatusChangeYes}>Yes</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            <Dialog open={alertDialogOpen}>
+                <DialogTitle >
+                    Do you want to change the status of {info.company}({info.jobID}) to "{statusVal}"?
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText >
+                        {statusVal === "Interview Scheduled" && <span className="my-2 flex">
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DateTimePicker className="pointer-events-auto" label="Date and time of interview"
+                                    disablePortal={false}
+                                    value={interviewDateTime}
+                                    onChange={setInterviewDateTime} />
+                            </LocalizationProvider>
+                        </span>}
+                        If yes, {info.company}({info.jobID}) will be marked as {statusVal}.
+                    </DialogContentText>
+                    <DialogActions>
+                        <Button className="cursor-pointer" onClick={handleAlertCancel}>Cancel</Button>
+                        <Button className="cursor-pointer" onClick={handleStatusChangeYes}>Yes</Button>
+                    </DialogActions>
+                </DialogContent>
+            </Dialog>
         </>
     )
 }
