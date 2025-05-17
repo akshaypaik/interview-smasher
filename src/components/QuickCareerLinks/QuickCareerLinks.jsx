@@ -220,6 +220,9 @@ const QuickCareerLinks = () => {
         else if (params?.data?.jobStatus === "Application Rejected") {
             return "Application Rejected On";
         }
+        else if (params?.data?.jobStatus === "Interview Scheduled") {
+            return "Interview Scheduled On";
+        }
         else {
             return "Created On";
         }

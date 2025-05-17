@@ -47,6 +47,9 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
         if (params === "Application Rejected") {
             style.backgroundColor = "#A43931";
         }
+        if (params === "Interview Scheduled") {
+            style.backgroundColor = "#CF601B";
+        }
         return style;
     }
 

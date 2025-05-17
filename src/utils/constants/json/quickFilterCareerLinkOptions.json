@@ -38,5 +38,10 @@
         "id": "7",
         "name": "applicationRejected",
         "displayName": "Application Rejected"
+    },
+    {
+        "id": "8",
+        "name": "interviewScheduled",
+        "displayName": "Interview Scheduled"
     }
 ]
