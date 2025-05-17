@@ -91,8 +91,10 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
                 </select>
             </div>
             <Dialog open={alertDialogOpen}>
-                <DialogTitle >
-                    Do you want to change the status of {info.company}({info.jobID}) to "{statusVal}"?
+                <DialogTitle>
+                    <span className="text-lg font-semibold">
+                        Do you want to change the status of {info.company}({info.jobID}) to "{statusVal}"?
+                    </span>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText >
@@ -104,11 +106,22 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
                                     onChange={setInterviewDateTime} />
                             </LocalizationProvider>
                         </span>}
-                        If yes, {info.company}({info.jobID}) will be marked as {statusVal}.
+                        <span className="text-muted-foreground text-sm"> If yes, {info.company}({info.jobID}) will be marked as {statusVal}.</span>
                     </DialogContentText>
                     <DialogActions>
-                        <Button className="cursor-pointer" onClick={handleAlertCancel}>Cancel</Button>
-                        <Button className="cursor-pointer" onClick={handleStatusChangeYes}>Yes</Button>
+                        <Button className="cursor-pointer" onClick={handleAlertCancel}>
+                            <span className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md 
+                            text-sm font-semibold transition-all disabled:pointer-events-none disabled:opacity-50 
+                            aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground 
+                            dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3 cursor-pointer text-black">
+                                Cancel
+                            </span>
+                        </Button>
+                        <Button className="cursor-pointer" onClick={handleStatusChangeYes}>
+                            <span className="bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 h-9 px-4 py-2 rounded-md text-sm">
+                                Yes
+                            </span>
+                        </Button>
                     </DialogActions>
                 </DialogContent>
             </Dialog>
