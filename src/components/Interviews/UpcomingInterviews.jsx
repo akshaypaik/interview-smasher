@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { formatDate } from '@fullcalendar/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -21,23 +21,59 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import './Interviews.css';
+import './UpcomingInterviews.css';
+import { useSelector } from 'react-redux'
+import toast from 'react-hot-toast'
+import axios from 'axios'
+import { GET_UPCOMING_INTERVIEWS } from '../../utils/constants/apiConstants'
 
-export default function Interview() {
+export default function UpcomingInterviews() {
     const [weekendsVisible, setWeekendsVisible] = useState(true)
     const [currentEvents, setCurrentEvents] = useState([])
     const [dialogOpen, setDialogOpen] = useState(false) // State for dialog visibility
     const [selectedDate, setSelectedDate] = useState(null) // State for selected date
 
+    const userInfo = useSelector((store) => store.app.userInfo);
+    const [initialEvents, setInitialEvents] = useState([]);
+
+    useEffect(() => {
+        if (userInfo?.email) {
+            fetchUpcomingInterviews();
+        }
+    }, [userInfo]);
+
+    const fetchUpcomingInterviews = async () => {
+        try {
+            const { data } = await axios.get(`${GET_UPCOMING_INTERVIEWS}${userInfo.email}`);
+            console.log("data: ", data);
+            const updatedData = data.map((item) => {
+                return {
+                    id: createEventId(),
+                    title: `${item.company}`,
+                    start: item.createdOn,
+                    extendedProps: {
+                        role: item.jobRole,
+                        company: item.company,
+                        companyURL: item.companyIconURL
+                    }
+                }
+            })
+            setInitialEvents(updatedData);
+            console.log("updatedData: ", updatedData);
+        } catch (error) {
+            toast.error(error);
+        }
+    }
+
     function handleDateSelect(selectInfo) {
         setSelectedDate(selectInfo) // Save selected date info
-        setDialogOpen(true) // Open the dialog
+        // setDialogOpen(true) // Open the dialog
     }
 
     function handleEventClick(clickInfo) {
-        if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-            clickInfo.event.remove()
-        }
+        // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+        //     clickInfo.event.remove()
+        // }
     }
 
     function handleEvents(events) {
@@ -87,11 +123,11 @@ export default function Interview() {
                     editable={true}
                     selectable={true}
                     weekends={weekendsVisible}
-                    initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                    events={initialEvents}
                     select={handleDateSelect}
-                    eventContent={renderEventContent} // custom render function
+                    eventContent={renderEventContent}
                     eventClick={handleEventClick}
-                    eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+                    eventsSet={handleEvents}
                 />
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen} disableEnforceFocus className="w-[800px]">
                     <DialogContent className="w-full">
@@ -125,23 +161,24 @@ export default function Interview() {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DateTimePicker']}>
-                        <DateTimePicker label="Basic date time picker" disablePortal={false} />
-                    </DemoContainer>
-                </LocalizationProvider>
             </div>
         </div>
     )
 }
 
 function renderEventContent(eventInfo) {
+    const start = eventInfo.event.start;
+    const formattedTime = start
+        ? start.toLocaleTimeString([], { hour: 'numeric', minute: undefined, hour12: true }).toUpperCase()
+        : eventInfo.timeText;
     return (
-        <>
-            <b>{eventInfo.timeText}</b>
-            <i>🚀{eventInfo.event.title}</i>
-            <br />
-            <i>{eventInfo.event.extendedProps.company}</i>
-        </>
+        <div className='flex flex-col'>
+            <b>{formattedTime}</b>
+            <span className='flex gap-2'>
+                <img className='h-8' src={eventInfo.event.extendedProps.companyURL}
+                    alt='company-logo' />
+            </span>
+            <div>{eventInfo.event.extendedProps.role}</div>
+        </div>
     )
 }

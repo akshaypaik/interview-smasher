@@ -43,7 +43,7 @@ function App() {
   const CoursePage = lazy(() => import('./components/CoursePage/CoursePage.jsx'));
   const UserProfile = lazy(() => import("./components/UserProfile/UserProfile.jsx"));
   const TrendingNews = lazy(() => import("./components/TrendingNews/TrendingNews.jsx"));
-  const Interview = lazy(() => import("./components/Interviews/Interviews.jsx"));
+  const UpcomingInterviews = lazy(() => import("./components/Interviews/UpcomingInterviews.jsx"));
   const QuickCareerLinks = lazy(() => import("./components/QuickCareerLinks/QuickCareerLinks.jsx"))
 
   const routes = createBrowserRouter([
@@ -103,7 +103,7 @@ function App() {
         },
         {
           path: 'interview',
-          element: <Suspense> <Interview /> </Suspense>
+          element: <Suspense> <UpcomingInterviews /> </Suspense>
         },
         {
           path: 'quickcareerlinks',

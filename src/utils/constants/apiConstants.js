@@ -48,6 +48,10 @@ export const GET_APPLIED_COMPANY = BASE_URL + "/BackendApp/api/interview/getAppl
 
 export const REMOVE_APPLIED_COMPANIES_INTERVIEW = BASE_URL + "/BackendApp/api/interview/removeAppliedCompany";
 
+// Upcoming Interview
+
+export const GET_UPCOMING_INTERVIEWS = BASE_URL + "/BackendApp/api/interview/getUpcomingInterviews?email="
+
 // Quick Career APIs
 
 export const POST_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-career/postQuickCareerJobLink";
