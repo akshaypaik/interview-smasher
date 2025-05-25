@@ -308,5 +308,10 @@
         "id": "60",
         "name": "finance",
         "displayName": "Finance"
+    },
+    {
+        "id": "61",
+        "name": "seniorFrontendDeveloper",
+        "displayName": "Senior Frontend Developer"
     }
 ]

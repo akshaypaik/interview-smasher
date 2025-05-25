@@ -4,7 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 import toast from 'react-hot-toast';
 import { GET_QUICK_CAREER_JOB_LINK, PUT_QUICK_CAREER_JOB_LINK_STATUS } from '../../utils/constants/apiConstants';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDateFormatted } from '../../utils/helper';
 import { themeQuartz } from "ag-grid-community";
 import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJobLinkRoles.json';
@@ -28,6 +28,7 @@ import quickCareerJobLinkDates from '../../utils/constants/json/quickCareerJobLi
 import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 import EditAndSaveComponentCareerLinks from './EditAndSaveComponentCareerLinks';
 import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
+import { hideSideBar } from '../../utils/ReduxStore/appSlice';
 
 const QuickCareerLinks = () => {
 
@@ -193,6 +194,7 @@ const QuickCareerLinks = () => {
 
     const gridRef = useRef(null);
     const userInfo = useSelector((store) => store.app.userInfo);
+    const dispatch = useDispatch();
 
     const onFilterTextBoxChanged = useCallback(() => {
         gridRef.current.api.setGridOption(
@@ -260,6 +262,7 @@ const QuickCareerLinks = () => {
     }
 
     useEffect(() => {
+        dispatch(hideSideBar());
         getJobLinkDetails();
     }, [userInfo]);
 
