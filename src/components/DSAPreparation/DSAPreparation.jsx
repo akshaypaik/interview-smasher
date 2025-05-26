@@ -86,7 +86,7 @@ const DSAPreparation = () => {
         {
             headerName: "LeetCode Link", field: "leetCodeLink", cellRenderer: ActionButton, minWidth: 200,
             cellRendererParams: (params) => ({
-                leetCodeLink: params?.value?.leetCodeLink,
+                leetCodeLink: params?.data?.leetCodeLink,
             }),
             cellStyle: params => {
                 if (params?.data) {
