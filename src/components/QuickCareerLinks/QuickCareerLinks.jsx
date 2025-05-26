@@ -95,6 +95,7 @@ const QuickCareerLinks = () => {
                 info: {
                     companyIconURL: params.data.companyIconURL,
                     displayName: params.data.company,
+                    isReferral: params.data.isReferral
                 },
             })
         },

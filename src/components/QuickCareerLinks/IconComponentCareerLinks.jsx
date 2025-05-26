@@ -9,7 +9,13 @@ export default function IconComponentCareerLinks({ info }) {
         {info.companyIconURL ?
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <img src={info.companyIconURL} alt='company-icon' className='h-8' />
+                    <div>
+                        {info?.isReferral && <span className="absolute top-[-1px] px-4 py-0.5 rounded-lg max-h-8 left-0 
+                        bg-orange-500 font-semibold text-xs">
+                            Referral
+                        </span>}
+                        <img src={info.companyIconURL} alt='company-icon' className='h-8' />
+                    </div>
                 </TooltipTrigger>
                 <TooltipContent side="right" align="center">
                     {info.displayName}

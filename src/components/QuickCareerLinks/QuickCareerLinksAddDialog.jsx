@@ -20,6 +20,7 @@ import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJob
 import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import { Checkbox } from '@mui/material';
 
 const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetails, company }) => {
 
@@ -216,7 +217,7 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                             Candidate ID
                         </Label>
                         <Input id="candidateID" placeholder="Candidate ID" className="col-span-3" {...register("candidateID")} />
-                        {errors?.jobID?.message &&
+                        {errors?.candidateID?.message &&
                             <div className='error-msg'>{errors?.candidateID?.message}</div>}
                         <Label htmlFor="jobLink" className="text-right">
                             Job Link
@@ -230,6 +231,14 @@ const QuickCareerLinksAddDialog = ({ dialogOpen, setDialogOpen, getJobLinkDetail
                         })} />
                         {errors?.jobLink?.message &&
                             <div className='error-msg'>{errors?.jobLink?.message}</div>}
+                        <div className='flex'>
+                            <Checkbox id="isReferral" placeholder="Candidate ID" {...register("isReferral")} />
+                            <Label htmlFor="isReferral" className="text-right">
+                                Referral
+                            </Label>
+                        </div>
+                        {errors?.isReferral?.message &&
+                            <div className='error-msg'>{errors?.isReferral?.message}</div>}
                         <Label htmlFor="jobStatus" className="text-right">
                             Status
                         </Label>
