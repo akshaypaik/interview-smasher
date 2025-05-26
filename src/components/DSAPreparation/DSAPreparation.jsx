@@ -120,6 +120,15 @@ const DSAPreparation = () => {
             <div className='quick-search-header mb-4'>
                 <h1 className='font-bold text-2xl'>Top 60 DSA Questions</h1>
             </div>
+            <div className='mb-4'>
+                <input
+                    type="text"
+                    id="filter-text-box"
+                    placeholder="Search Filter..."
+                    className='bg-neutral-200 shadow-2xl py-2 px-4 rounded-xl dark:bg-gray-700 w-2/4 cursor-pointer'
+                    onInput={onFilterTextBoxChanged}
+                />
+            </div>
             <motion.div
                 style={{ height: '70vh', flexGrow: 1 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -140,9 +149,6 @@ const DSAPreparation = () => {
                     tooltipShowDelay={500}
                     editType={"fullRow"}
                     suppressClickEdit={true}
-                    groupDefaultExpanded={1}
-                    rowGroupPanelShow={"always"}
-                    autoGroupColumnDef={autoGroupColumnDef}
                 />
             </motion.div>
         </div>
