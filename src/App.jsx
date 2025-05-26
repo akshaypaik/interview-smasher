@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 
 function App() {
 
@@ -44,7 +44,8 @@ function App() {
   const UserProfile = lazy(() => import("./components/UserProfile/UserProfile.jsx"));
   const TrendingNews = lazy(() => import("./components/TrendingNews/TrendingNews.jsx"));
   const UpcomingInterviews = lazy(() => import("./components/Interviews/UpcomingInterviews.jsx"));
-  const QuickCareerLinks = lazy(() => import("./components/QuickCareerLinks/QuickCareerLinks.jsx"))
+  const QuickCareerLinks = lazy(() => import("./components/QuickCareerLinks/QuickCareerLinks.jsx"));
+  const DSAPreparation = lazy(() => import("./components/DSAPreparation/DSAPreparation.jsx"));
 
   const routes = createBrowserRouter([
     {
@@ -108,6 +109,10 @@ function App() {
         {
           path: 'quickcareerlinks',
           element: <Suspense> <QuickCareerLinks /> </Suspense>
+        },
+        {
+          path: 'dsa-preparation',
+          element: <Suspense> <DSAPreparation /> </Suspense>
         }
       ]
     }

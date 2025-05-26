@@ -123,6 +123,28 @@ const Sidebar = () => {
                 <hr />
             </ul>}
 
+            {isUserLoggedIn && <ul className='sidebar-ul'>
+                <h4 className='text-lg font-bold m-2'>
+                    Preparations
+                </h4>
+                <Link to={"/dsa-preparation"} className='router-link'>
+                    <li className={`${activeTab === "dsa-preparation" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("dsa-preparation")}>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" role="img" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.226,19.857H1.353l1.79-4.225h4.812L13.308,3.21H7.564l-4.226,9.82h2.587c.18.3.511.51.887.51a1.04,1.04,0,0,0,1.038-1.037c0-.572-.467-1.023-1.038-1.023-.421,0-.767.24-.932.602H4.647l3.503-7.94h3.76L7.383,14.684l-4.766.03L0,20.79h8.842L10,18.263h3.835l1.278,2.526H24L15.985,3.211Zm2.27-2.586,1.384-3.023,1.503,3.023zm5.218,2.691-.872-1.759h2.737c.18.33.526.556.917.556a1.04,1.04,0,0,0,1.038-1.037,1.04,1.04,0,0,0-1.038-1.038c-.42,0-.782.256-.947.617H14.42l-2.09-4.06,1.534-3.369,1.729,3.519h.812c.165.346.526.601.932.601a1.04,1.04,0,0,0,1.038-1.037,1.04,1.04,0,0,0-1.038-1.038c-.436,0-.812.271-.962.662h-.3l-1.79-3.64,1.699-3.728,6.677,14.751Z"></path></svg>
+                        <span>DSA</span>
+                        <span className='text-xs font-semibold text-white bg-amber-600 px-2 py-0.5 rounded-full animate-bounce'>
+                            New
+                        </span>
+                    </li>
+                </Link>
+                {/* <Link to={"/interview"} className='router-link'>
+                    <li className={`${activeTab === "finishedInterviews" ? 'selected-tab' : ''}`} onClick={() => handleSidebarTabClick("finishedInterviews")}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true" style={{ display: 'inherit', height: '100%' }}><path clipRule="evenodd" d="m14 2-1.5.886-5.195 3.07C4.637 7.533 3 10.401 3 13.5c0 4.694 3.806 8.5 8.5 8.5s8.5-3.806 8.5-8.5V1l-1.5 1-3 2L14 5V2ZM8.068 7.248l4.432-2.62v3.175l2.332-1.555L18.5 3.803V13.5c0 3.866-3.134 7-7 7s-7-3.134-7-7c0-2.568 1.357-4.946 3.568-6.252ZM9 15c0-1.226.693-2.346 1.789-2.894L15 10v5c0 1.657-1.343 3-3 3s-3-1.343-3-3Z" fillRule="evenodd"></path></svg>
+                        <span>Finished</span>
+                    </li>
+                </Link> */}
+                <hr />
+            </ul>}
+
         </div>
     )
 }

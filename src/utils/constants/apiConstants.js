@@ -64,6 +64,10 @@ export const DELETE_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-ca
 
 export const UPDATE_QUICK_CAREER_JOB_LINK = BASE_URL + "/BackendApp/api/quick-career/updateQuickCareerJobLinkDetails";
 
+// Preparation
+
+export const GET_DSA_TOP_SIXTY_PROBLEMS = BASE_URL + "/BackendApp/api/preparation/getDSATopSixtyProblems";
+
 
 // External APIs
 
