@@ -23,10 +23,10 @@ FROM nginx:1.21.6-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port 1200
-EXPOSE 1200
+EXPOSE 5173
 
-# Update Nginx configuration to listen on port 1200
-RUN sed -i 's/listen       80;/listen       1200;/g' /etc/nginx/conf.d/default.conf
+# Update Nginx configuration to listen on port 5173
+RUN sed -i 's/listen       80;/listen       5173;/g' /etc/nginx/conf.d/default.conf
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
