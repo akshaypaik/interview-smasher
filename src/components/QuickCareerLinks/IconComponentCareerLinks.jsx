@@ -9,9 +9,9 @@ export default function IconComponentCareerLinks({ info }) {
         {info.companyIconURL ?
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <div>
-                        {info?.isReferral && <span className="absolute top-[-1px] px-4 py-0.5 rounded-lg max-h-8 left-0 
-                        bg-orange-500 font-semibold text-xs">
+                    <div className="flex gap-2">
+                        {info?.isReferral && <span className="px-3 py-2 rounded-lg
+                        bg-gray-500 font-semibold text-xs text-white">
                             Referral
                         </span>}
                         <img src={info.companyIconURL} alt='company-icon' className='h-8' />

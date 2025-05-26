@@ -88,7 +88,7 @@ const QuickCareerLinks = () => {
             })
         },
         {
-            headerName: "Company", field: "company", minWidth: 240,
+            headerName: "Company", field: "company", minWidth: 320,
             editable: false,
             cellRenderer: "iconComponent",
             cellRendererParams: (params) => ({
