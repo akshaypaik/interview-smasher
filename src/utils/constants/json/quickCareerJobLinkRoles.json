@@ -313,5 +313,20 @@
         "id": "61",
         "name": "seniorFrontendDeveloper",
         "displayName": "Senior Frontend Developer"
+    },
+    {
+        "id": "62",
+        "name": "staffSoftwareEngineerUIUX",
+        "displayName": "Staff Software Engineer - UI/UX"
+    },
+    {
+        "id": "63",
+        "name": "seniorSoftwareEngineerUI",
+        "displayName": "Senior Software Engineer - UI"
+    },
+    {
+        "id": "64",
+        "name": "fullStackDeveloperMERN",
+        "displayName": "Full Stack Developer (MERN)"
     }
 ]
