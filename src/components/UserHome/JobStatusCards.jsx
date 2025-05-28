@@ -35,7 +35,7 @@ const JobStatusCards = () => {
     }, []);
 
     return (
-        <div className='my-18 px-12 flex gap-8 flex-wrap'>
+        <div className='my-18 px-12 grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5'>
             <div className='flex gap-4 justify-center items-center bg-gray-50 border-gray-800 shadow px-16 py-6 
             rounded-lg hover:shadow-2xl'>
                 <span>
