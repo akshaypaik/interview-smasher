@@ -46,6 +46,7 @@ function App() {
   const UpcomingInterviews = lazy(() => import("./components/Interviews/UpcomingInterviews.jsx"));
   const QuickCareerLinks = lazy(() => import("./components/QuickCareerLinks/QuickCareerLinks.jsx"));
   const DSAPreparation = lazy(() => import("./components/DSAPreparation/DSAPreparation.jsx"));
+  const UserHome = lazy(() => import("./components/UserHome/UserHome.jsx"));
 
   const routes = createBrowserRouter([
     {
@@ -113,6 +114,10 @@ function App() {
         {
           path: 'dsa-preparation',
           element: <Suspense> <DSAPreparation /> </Suspense>
+        },
+        {
+          path: 'user-home',
+          element: <Suspense> <UserHome /> </Suspense>
         }
       ]
     }

@@ -84,7 +84,7 @@ const DSAPreparation = () => {
             headerName: "Status", field: "status", minWidth: 200
         },
         {
-            headerName: "LeetCode Link", field: "leetCodeLink", cellRenderer: ActionButton, minWidth: 200,
+            headerName: "LeetCode Link", field: "leetCodeLink", cellRenderer: ActionButton, minWidth: 100,
             cellRendererParams: (params) => ({
                 leetCodeLink: params?.data?.leetCodeLink,
             }),
@@ -92,7 +92,7 @@ const DSAPreparation = () => {
                 if (params?.data) {
                     return {
                         border: '1px solid blue', textAlign: 'center', borderRadius: '8px', display: 'flex',
-                        alignItems: 'center', width: '100%', top: '12px',
+                        alignItems: 'center', width: '24px', top: '12px',
                         justifyContent: 'center', fontWeight: 600, height: '32px', cursor: 'pointer'
                     }
                 }
