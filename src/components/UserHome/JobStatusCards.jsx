@@ -1,13 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import { GET_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
-import { RxCrossCircled } from "react-icons/rx";
 
-const JobStatusCards = () => {
+const JobStatusCards = ({ info }) => {
 
-    const userInfo = useSelector((store) => store.app.userInfo);
     const [appliedCount, setAppliedCount] = useState(0);
     const [selectedCount, setSelectedCount] = useState(0);
     const [rejectedCount, setRejectedCount] = useState(0);
@@ -15,15 +10,13 @@ const JobStatusCards = () => {
     const [applicationRejectedCount, setApplicationRejectedCount] = useState(0);
 
     const getJobDetails = async () => {
-        if (userInfo?.email) {
+        if (info) {
             try {
-                const userEmail = userInfo?.email;
-                const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
-                setAppliedCount(data.filter((item) => item.jobStatus === "Applied").length);
-                setSelectedCount(data.filter((item) => item.jobStatus === "Selected").length);
-                setRejectedCount(data.filter((item) => item.jobStatus === "Rejected").length);
-                setOfferReceivedCount(data.filter((item) => item.jobStatus === "Offer Received").length);
-                setApplicationRejectedCount(data.filter((item) => item.jobStatus === "Application Rejected").length);
+                setAppliedCount(info.filter((item) => item.jobStatus === "Applied").length);
+                setSelectedCount(info.filter((item) => item.jobStatus === "Selected").length);
+                setRejectedCount(info.filter((item) => item.jobStatus === "Rejected").length);
+                setOfferReceivedCount(info.filter((item) => item.jobStatus === "Offer Received").length);
+                setApplicationRejectedCount(info.filter((item) => item.jobStatus === "Application Rejected").length);
             } catch (error) {
                 toast.error(error);
             }
@@ -32,7 +25,7 @@ const JobStatusCards = () => {
 
     useEffect(() => {
         getJobDetails();
-    }, []);
+    }, [info]);
 
     return (
         <div className='my-18 px-12 grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5'>
@@ -82,7 +75,8 @@ const JobStatusCards = () => {
                 </span>
                 <div className='flex flex-col'>
                     <span className='text-4xl font-semibold'>{rejectedCount}</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Rejects</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Interview</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Rejects</span>
                 </div>
             </div>
 
