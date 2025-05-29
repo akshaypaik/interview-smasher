@@ -1,0 +1,23 @@
+.dashboard-graph-tip-container{
+    display: flex;
+    gap: 48px;
+}
+
+@media screen and (max-width: 2400px) {
+    .dashboard-graph-tip-container{
+        gap: 288px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .dashboard-graph-tip-container{
+        gap: 80px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .dashboard-graph-tip-container{
+        gap: 60px;
+        flex-direction: column;
+    }
+}

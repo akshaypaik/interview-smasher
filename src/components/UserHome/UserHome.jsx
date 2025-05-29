@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { GET_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
 import UserTips from './UserTips';
+import './UserHome.css';
 
 const UserHome = () => {
 
@@ -31,7 +32,7 @@ const UserHome = () => {
         <div>
             <div className='font-semibold text-2xl my-8'>Your Personalised Dashboard</div>
             <JobStatusCards info={dashboardJobDetails} />
-            <div className='flex gap-8 mx-8'>
+            <div className='dashboard-graph-tip-container mx-8'>
                 <UserGraph info={dashboardJobDetails} />
                 <UserTips info={dashboardJobDetails} />
             </div>

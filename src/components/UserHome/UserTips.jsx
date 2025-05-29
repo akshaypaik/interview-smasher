@@ -9,7 +9,7 @@ const UserTips = ({ info }) => {
     }, [info]);
 
     return (
-        <div className='bg-white shadow border rounded-lg w-2/6'>
+        <div className='bg-white shadow border rounded-lg w-full'>
             <div className='font-semibold px-4 py-2 text-2xl'>Tips</div>
             <hr className='border-gray-50' />
             <div className='p-4 text-gray-500'>

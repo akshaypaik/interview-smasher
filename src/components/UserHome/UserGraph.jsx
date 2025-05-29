@@ -70,8 +70,7 @@ const UserGraph = ({ info }) => {
     }
 
     return (
-        <div className='lg:w-[1000px] lg:h-[300px] md:w-[800px] md:h-[300px] sm:w-[300px] sm:h-[300px] bg-white p-4 
-        rounded-lg shadow border'>
+        <div className='lg:w-2/4 lg:h-[300px] bg-white p-4 rounded-lg shadow border'>
             <div className='font-semibold mb-4'>Success vs Failure vs No Actions</div>
             {chartData.length > 0 && <ResponsiveContainer width="100%" height="100%">
                 <BarChart
