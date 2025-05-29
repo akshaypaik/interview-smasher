@@ -348,7 +348,7 @@ const QuickCareerLinks = () => {
     return (
         <div className='m-2 lg:m-8 md:m-4 w-full'>
             <div className='quick-search-header'>
-                <h1 className='font-bold text-2xl'>Quick Career Links</h1>
+                <h1 className='font-bold text-2xl'>My Jobs</h1>
                 <div className='flex gap-4'>
                 </div>
             </div>
