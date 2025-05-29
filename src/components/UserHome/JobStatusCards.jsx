@@ -28,8 +28,8 @@ const JobStatusCards = ({ info }) => {
     }, [info]);
 
     return (
-        <div className='my-18 px-12 grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5'>
-            <div className='flex gap-4 justify-center items-center bg-gray-50 border-gray-800 shadow px-16 py-6 
+        <div className='mb-18 px-12 grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5'>
+            <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-6 
             rounded-lg hover:shadow-2xl'>
                 <span>
                     <svg fill='oklch(72.3% 0.219 149.579)' height="42" width="42" version="1.1" id="Layer_1"
@@ -49,7 +49,7 @@ const JobStatusCards = ({ info }) => {
                 </div>
             </div>
 
-            <div className='flex gap-4 justify-center items-center bg-gray-50 border-gray-800 shadow px-16 py-8 
+            <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
             rounded-lg hover:shadow-2xl'>
                 <span>
                     <svg fill="#016630" height="42" width="42" version="1.1" id="Layer_1"
@@ -66,7 +66,7 @@ const JobStatusCards = ({ info }) => {
                 </div>
             </div>
 
-            <div className='flex gap-4 justify-center items-center bg-gray-50 border-gray-800 shadow px-16 py-8 
+            <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
             rounded-lg hover:shadow-2xl'>
                 <span>
                     <svg fill='#9f0712' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="42" height="42" viewBox="0 0 50 50">
@@ -80,7 +80,7 @@ const JobStatusCards = ({ info }) => {
                 </div>
             </div>
 
-            <div className='flex gap-4 justify-center items-center bg-gray-50 border-gray-800 shadow px-16 py-8 
+            <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
             rounded-lg hover:shadow-2xl'>
                 <span>
                     <svg fill="oklch(55.3% 0.195 38.402)" height="42" width="42" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ const JobStatusCards = ({ info }) => {
                 </div>
             </div>
 
-            <div className='flex gap-4 justify-center items-center bg-gray-50 border-gray-800 shadow px-16 py-8 
+            <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
             rounded-lg hover:shadow-2xl'>
                 <span>
                     <svg fill='#82181a' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="42" height="42" viewBox="0 0 128 128">

@@ -4,6 +4,7 @@ import UserGraph from './UserGraph';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { GET_QUICK_CAREER_JOB_LINK } from '../../utils/constants/apiConstants';
+import UserTips from './UserTips';
 
 const UserHome = () => {
 
@@ -28,8 +29,12 @@ const UserHome = () => {
 
     return (
         <div>
+            <div className='font-semibold text-2xl my-8'>Your Personalised Dashboard</div>
             <JobStatusCards info={dashboardJobDetails} />
-            <UserGraph info={dashboardJobDetails} />
+            <div className='flex gap-8 mx-8'>
+                <UserGraph info={dashboardJobDetails} />
+                <UserTips info={dashboardJobDetails} />
+            </div>
         </div>
     )
 }
