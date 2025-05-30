@@ -13,6 +13,10 @@ const Profile = () => {
     const dispatch = useDispatch();
 
     const handleLoginClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
         dispatch(updateShowLoginSidebar(true));
     }
 
