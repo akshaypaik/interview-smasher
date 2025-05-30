@@ -116,7 +116,7 @@ const UserProfile = () => {
                 </div>
                 <div className='m-12'>
 
-                    <form className='flex flex-col gap-4' onSubmit={handleSubmit(saveUserProfile)} encType='multipart/form-data'>
+                    <form className='flex flex-col gap-4 items-center' onSubmit={handleSubmit(saveUserProfile)} encType='multipart/form-data'>
                         <input
                             type="file"
                             accept="image/*"
@@ -181,7 +181,7 @@ const UserProfile = () => {
                         </div>
 
                         {/* Social Links */}
-                        <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8 mt-8'>
+                        <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8 mt-8 w-full'>
                             <div className='flex items-center gap-2 cursor-pointer' onClick={(() => setIsOpen(!isOpen))}>
                                 <IoShareSocialSharp size={32} />
                                 <div className='flex justify-between items-center w-full'>
@@ -225,7 +225,7 @@ const UserProfile = () => {
 
                         <div>
                             {!userInfo?.authProvider && <button
-                                className='bg-green-400 px-8 py-2 rounded-lg font-bold
+                                className='bg-green-400 px-24 py-2 rounded-lg font-bold
                                 hover:cursor-pointer text-white hover:bg-gray-600  dark:hover:bg-white dark:hover:text-black'>
                                 Save
                             </button>}
