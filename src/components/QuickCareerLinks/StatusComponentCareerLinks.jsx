@@ -66,8 +66,10 @@ export default function StatusComponentCareerLinks({ info, getJobLinkDetails }) 
     const handleStatusChangeYes = async () => {
         const updatedData = {
             ...info,
-            jobStatus: statusVal,
-            createdOn: new Date(interviewDateTime).toISOString()
+            jobStatus: statusVal
+        }
+        if(interviewDateTime){
+            updatedData["createdOn"] = new Date(interviewDateTime).toISOString()
         }
         try {
             const { data } = await axios.put(PUT_QUICK_CAREER_JOB_LINK_STATUS, updatedData);
