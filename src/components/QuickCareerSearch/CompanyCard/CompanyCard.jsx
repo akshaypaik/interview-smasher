@@ -203,7 +203,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
                         <a href={info.companyCareerPageURL} target='_blank'>
                             <div className={`company-card-container 
                     p-16  flex flex-col justify-center items-center w-[240px] lg:w-[320px] md:w-[320px]
-                    rounded-xl flex-wrap relative  shadow-xl border-1 hover:bg-gray-600 
+                    rounded-xl flex-wrap relative  shadow-xl border-1 hover:bg-gray-600
                     dark:hover:shadow-gray-700 dark:hover:bg-gray-700 hover:shadow-gray-500 
                     ${appliedCompany ? 'bg-green-100 dark:bg-green-900' : 'dark:bg-gray-700 bg-neutral-100'} `}>
                                 {appliedCompany && <span className='applied-company'
@@ -227,7 +227,7 @@ const CompanyCard = ({ info, refetch, setShowAppliedDialog }) => {
                                     <img src={favoriteCompanyStyle ? likeIconFavorite : likeIcon} alt='favorite' />
                                 </span>
                                 <img src={info.companyIconURL} alt='company-icon' loading='lazy' className='h-6 lg:h-[60px] md:h-[60px]' />
-                                <span className='company-name whitespace-nowrap'> {info?.displayName}</span>
+                                <span className='company-name'> {info?.displayName}</span>
                                 <span className='user-star-company'>
                                     <UserRating userRatingInfo={userRatings} />
                                 </span>
