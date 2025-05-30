@@ -13,9 +13,9 @@ const Contact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0 }}
                 viewport={{ once: false }}>
-                <h2 className="text-4xl font-semibold flex justify-center">
+                <span className="text-4xl font-semibold flex justify-center">
                     Contact Us
-                </h2>
+                </span>
                 <h4 className='mt-4 text-gray-700 font-medium flex justify-center'>
                     Please drop a message. We will get back soon.
                 </h4>

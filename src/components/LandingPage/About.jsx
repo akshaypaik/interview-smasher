@@ -11,9 +11,9 @@ import { motion } from 'framer-motion';
 const About = () => {
   return (
     <div className=''>
-      <h2 className="text-4xl font-semibold flex justify-center">
+      <span className="text-4xl font-semibold flex justify-center">
         About
-      </h2>
+      </span>
       <h4 className='mt-4 text-gray-700 font-medium flex justify-center'>
         Empowering You to track your interviews
       </h4>

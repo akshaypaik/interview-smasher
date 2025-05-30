@@ -10,7 +10,7 @@ const Pricing = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}>
             <div className='mt-2'>
-                <h2 className="text-4xl font-semibold flex justify-center">Pricing</h2>
+                <span className="text-4xl font-semibold flex justify-center">Pricing</span>
                 <h4 className='mt-4 text-gray-700 font-medium flex justify-center'>Pay only for what you use.</h4>
                 <div className='flex justify-center mt-8 mb-8'>
                     <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl'>
