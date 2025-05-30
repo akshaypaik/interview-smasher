@@ -15,7 +15,7 @@ const Logo = () => {
 
   return (
     <Link to={"/user-home"}>
-      <div className='logo-container hidden lg:block md:block cursor-pointer' onClick={handleLogoClick}>
+      <div className='logo-container ml-36 hidden lg:block md:block cursor-pointer' onClick={handleLogoClick}>
         INTERVIEW SMASHER
       </div>
     </Link>

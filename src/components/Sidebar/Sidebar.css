@@ -51,9 +51,9 @@ hr {
     font-weight: 600;
 }
 
-a {
+/* a {
     all: unset;
-}
+} */
 
 @media screen and (max-width:586px) {
     .sidebar-ul li span {

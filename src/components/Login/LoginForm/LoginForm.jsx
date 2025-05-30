@@ -42,7 +42,7 @@ const LoginForm = ({ setShowRegister }) => {
                     dispatch(setCurrentSidebarTab("home"));
                     toast.success("Logged in");
                     body?.classList.remove('no-scroll');
-                    navigate("/");
+                    navigate("/user-home");
                 } else {
                     toast.error(data?.messageModel?.statusMessage);
                 }

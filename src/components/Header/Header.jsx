@@ -11,6 +11,7 @@ const Header = () => {
 
     const dispatch = useDispatch();
     const darkMode = useSelector((store) => store.app.darkMode);
+    const userInfo = useSelector((store) => store.app.userInfo);
 
     useAuthProviderStateChange();
 
@@ -21,7 +22,7 @@ const Header = () => {
     return (
         <div className='header-container shadow-xl'>
             <div className='menu-logo-container'>
-                <svg onClick={handleToggleSideBar} xmlns="http://www.w3.org/2000/svg"
+                {userInfo?.email && <svg onClick={handleToggleSideBar} xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     focusable="false"
                     aria-hidden="true"
@@ -29,10 +30,10 @@ const Header = () => {
                     style={{ display: 'inherit' }}
                     stroke={darkMode ? 'white' : 'black'}>
                     <path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z" fill={darkMode ? 'white' : 'black'}></path>
-                </svg>
+                </svg>}
                 <Logo />
             </div>
-            <Searchbar />
+            {userInfo?.email && <Searchbar />}
             <Profile />
         </div>
     )

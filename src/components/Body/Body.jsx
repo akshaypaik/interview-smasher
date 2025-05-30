@@ -11,6 +11,7 @@ const Body = () => {
 
     const showSidebar = useSelector((store) => store.app.showSidebar);
     const showLoginSidebar = useSelector((store) => store.app.showLoginSidebar);
+    const userInfo = useSelector((store) => store.app.userInfo);
 
     return (
         <>
@@ -32,7 +33,7 @@ const Body = () => {
                 }} />
             <Header />
             <div className='body-container pt-16'>
-                {showSidebar && <Sidebar />}
+                {showSidebar && userInfo?.email && <Sidebar />}
                 {showLoginSidebar && <Login />}
                 <Outlet />
             </div>

@@ -1,0 +1,78 @@
+.click-effect {
+    display: inline-block;
+    animation: click-effect 4s ease-in-out 0s infinite normal none running;
+}
+
+@keyframes click-effect {
+    0% {
+        transform: scale(1);
+        opacity: 1
+    }
+
+    50% {
+        transform: scale(0.8);
+        /* Zoom in */
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        /* Zoom out */
+        opacity: 1;
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse-glow {
+    0% {
+        -webkit-filter: drop-shadow(0 0 5px rgba(139, 92, 246, .6));
+        filter: drop-shadow(0 0 5px rgba(139, 92, 246, .6));
+    }
+
+    50% {
+        -webkit-filter: drop-shadow(0 0 12px rgba(139, 92, 246, .8));
+        filter: drop-shadow(0 0 12px rgba(139, 92, 246, .8));
+    }
+
+    100% {
+        -webkit-filter: drop-shadow(0 0 5px rgba(139, 92, 246, .6));
+        filter: drop-shadow(0 0 5px rgba(139, 92, 246, .6));
+    }
+}
+
+.explore-services-btn:hover svg {
+    animation: bounce 1s linear infinite;
+}
+
+.home-section,
+.services-section,
+.pricing-section,
+.about-section,
+.contact-section {
+    margin-top: 8rem;
+    scroll-margin-top: 80px;
+}
+
+.error-msg {
+    color: #b91c1c;
+    font-size: 0.8rem;
+    margin-left: 0.6rem;
+    white-space: wrap;
+    display: flex;
+    margin-top: 0 !important;
+}
