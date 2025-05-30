@@ -91,7 +91,7 @@ const UserProfile = () => {
         <div className='w-full h-screen m-8'>
             <h1 className='font-bold text-2xl'>Profile</h1>
             <div className='flex'>
-                <div className='m-12 flex flex-col justify-center items-center gap-4 bg-gray-200 dark:bg-gray-800 h-48 w-68 rounded-2xl'>
+                <div className='m-12 flex flex-col justify-center items-center gap-4 bg-white border-gray-800 shadow hover:shadow-2xl px-4 py-8 dark:bg-gray-800 h-48 w-68 rounded-2xl'>
                     <div className='w-24 h-24 flex justify-center items-center 
                     dark:bg-gray-500 bg-gray-300 rounded-[50%] hover:cursor-pointer'
                         onMouseEnter={() => setShowEditProfilePic(true)}
@@ -128,15 +128,15 @@ const UserProfile = () => {
                         />
 
                         {/* Basic Info */}
-                        <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8'>
+                        <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8 dark:bg-gray-800'>
                             <div className='flex items-center gap-2'>
                                 <FaCircleInfo size={32} />
-                                <div className='font-semibold text-2xl text-gray-600'>Basic Info</div>
+                                <div className='font-semibold text-2xl text-gray-600 dark:text-white'>Basic Info</div>
                             </div>
                             <hr className='m-4' />
                             <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-col-2 gap-8'>
                                 <div className='form-field'>
-                                    <div className='font-semibold text-gray-500 text-lg'>First Name</div>
+                                    <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>First Name</div>
                                     {userInfo?.authProvider ? <TooltipProvider>
                                         <Tooltip>
                                             <TooltipTrigger asChild>
@@ -148,10 +148,10 @@ const UserProfile = () => {
                                             </TooltipContent>
                                         </Tooltip>
                                     </TooltipProvider> : <input type='text' maxLength="25" value={userInfo?.firstName} onChange={(e) => editUserProfile("firstName", e.target.value)}
-                                        className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 mt-2' required />}
+                                        className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-500 rounded-md p-2 mt-2 w-72' required />}
                                 </div>
                                 <div className='form-field'>
-                                    <div className='font-semibold text-gray-500 text-lg'>Last Name</div>
+                                    <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Last Name</div>
                                     {userInfo?.authProvider ? <TooltipProvider>
                                         <Tooltip>
                                             <TooltipTrigger asChild>
@@ -163,17 +163,17 @@ const UserProfile = () => {
                                             </TooltipContent>
                                         </Tooltip>
                                     </TooltipProvider> : <input type='text' maxLength="25" value={userInfo?.lastName} onChange={(e) => editUserProfile("lastName", e.target.value)}
-                                        className='bg-gray-50 shadow border border-gray-200 rounded-md p-2 mt-2' required />}
+                                        className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 mt-2 w-72' required />}
                                 </div>
                             </div>
                             <div className='grid grid-cols-2 gap-8 mt-4'>
                                 <div className='form-field'>
-                                    <div className='font-semibold text-gray-500 text-lg'>Email</div>
+                                    <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Email</div>
                                     <input type='text' value={userInfo?.email}
                                         className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2 cursor-not-allowed' disabled />
                                 </div>
                                 <div className='form-field'>
-                                    <div className='font-semibold text-gray-500 text-lg'>Phone Number</div>
+                                    <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Phone Number</div>
                                     <input type='text' value={userInfo?.phoneNumber}
                                         className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2 cursor-not-allowed' disabled />
                                 </div>
@@ -181,11 +181,11 @@ const UserProfile = () => {
                         </div>
 
                         {/* Social Links */}
-                        <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8 mt-8 w-full'>
+                        <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8 mt-8 w-full dark:bg-gray-800'>
                             <div className='flex items-center gap-2 cursor-pointer' onClick={(() => setIsSocialLinkOpen(!isSocialLinkOpen))}>
                                 <IoShareSocialSharp size={32} />
                                 <div className='flex justify-between items-center w-full'>
-                                    <div className='font-semibold text-2xl text-gray-600'>Social Links</div>
+                                    <div className='font-semibold text-2xl text-gray-600 dark:text-white'>Social Links</div>
                                     {isSocialLinkOpen ? <FaAngleDown size={32} /> :
                                         <FaAngleUp size={32} />}
                                 </div>
@@ -196,7 +196,7 @@ const UserProfile = () => {
                                     <div className='form-field'>
                                         <div className='flex gap-2 items-center'>
                                             <FaGithub size={24} />
-                                            <div className='font-semibold text-gray-500 text-lg'>Github Profile</div>
+                                            <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Github Profile</div>
                                         </div>
                                         <input type='text' value={userInfo?.githubProfileURL} onChange={(e) => editUserProfile("githubProfileURL", e.target.value)}
                                             className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
@@ -204,7 +204,7 @@ const UserProfile = () => {
                                     <div className='form-field'>
                                         <div className='flex gap-2 items-center'>
                                             <FaLinkedin size={24} />
-                                            <div className='font-semibold text-gray-500 text-lg'>LinkedIn Profile</div>
+                                            <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>LinkedIn Profile</div>
                                         </div>
                                         <input type='text' value={userInfo?.linkedInProfileURL} onChange={(e) => editUserProfile("linkedInProfileURL", e.target.value)}
                                             className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
@@ -214,7 +214,7 @@ const UserProfile = () => {
                                     <div className='form-field'>
                                         <div className='flex gap-2 items-center'>
                                             <CgWebsite size={24} />
-                                            <div className='font-semibold text-gray-500 text-lg'>Portfolio Website</div>
+                                            <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Portfolio Website</div>
                                         </div>
                                         <input type='text' value={userInfo?.portfolioWebsiteURL} onChange={(e) => editUserProfile("portfolioWebsiteURL", e.target.value)}
                                             className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
