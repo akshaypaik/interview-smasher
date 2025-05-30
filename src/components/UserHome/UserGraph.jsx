@@ -31,32 +31,8 @@ const UserGraph = ({ info }) => {
                 weekData.push(item);
             }
         });
-        console.log("weekData: ", weekData);
 
-        const { appliedCount, selectedCount, rejectedCount, offerReceivedCount, applicationRejectedCount,
-            interviewDoneCount, interviewScheduledCount, yetToApplyCount, saveOnlyCount
-        } = calculateSpecificJobStatusCount(weekData);
-
-        const totalWeekActivityCount = weekData.length;
-        const successRate = selectedCount + offerReceivedCount + interviewDoneCount + interviewScheduledCount;
-        const failureRate = rejectedCount + applicationRejectedCount;
-        const noActionRate = yetToApplyCount + saveOnlyCount + appliedCount;
-
-        const total = successRate + failureRate;
-        const successPercentage = totalActivityCount > 0 ? (successRate / totalWeekActivityCount) * 100 : 0;
-        const failurePercentage = totalActivityCount > 0 ? (failureRate / totalWeekActivityCount) * 100 : 0;
-        const noActionPercentage = totalActivityCount > 0 ? (noActionRate / totalWeekActivityCount) * 100 : 0;
-        const weekChartData = [];
-        const updatedData = {
-            name: `${formatDate(oneWeekAgo)} to ${formatDate(now)}`,
-            successPercentage: parseFloat(successPercentage.toFixed(2)),
-            failurePercentage: parseFloat(failurePercentage.toFixed(2)),
-            noActionPercentage: parseFloat(noActionPercentage.toFixed(2)),
-            totalPercentage: 100
-        }
-        weekChartData.push(updatedData);
-        setChartData(weekChartData);
-        dispatch(updateUserDashboardGraphData(updatedData));
+        calculateChartData(totalActivityCount, weekData, `${formatDate(oneWeekAgo)} to ${formatDate(now)}`);
     }
 
     const calculatAllData = (totalActivityCount) => {
@@ -64,11 +40,17 @@ const UserGraph = ({ info }) => {
         allData.sort((a, b) => {
             return new Date(b.createdOn) - new Date(a.createdOn);
         });
+
+        calculateChartData(totalActivityCount, allData,
+            `${getDateFormatted(allData[allData.length - 1].createdOn)} to ${getDateFormatted(allData[0].createdOn)}`);
+    }
+
+    const calculateChartData = (totalActivityCount, data, chartName) => {
         const { appliedCount, selectedCount, rejectedCount, offerReceivedCount, applicationRejectedCount,
             interviewDoneCount, interviewScheduledCount, yetToApplyCount, saveOnlyCount
-        } = calculateSpecificJobStatusCount(allData);
+        } = calculateSpecificJobStatusCount(data);
 
-        const totalWeekActivityCount = allData.length;
+        const totalWeekActivityCount = data.length;
         const successRate = selectedCount + offerReceivedCount + interviewDoneCount + interviewScheduledCount;
         const failureRate = rejectedCount + applicationRejectedCount;
         const noActionRate = yetToApplyCount + saveOnlyCount + appliedCount;
@@ -77,16 +59,16 @@ const UserGraph = ({ info }) => {
         const successPercentage = totalActivityCount > 0 ? (successRate / totalWeekActivityCount) * 100 : 0;
         const failurePercentage = totalActivityCount > 0 ? (failureRate / totalWeekActivityCount) * 100 : 0;
         const noActionPercentage = totalActivityCount > 0 ? (noActionRate / totalWeekActivityCount) * 100 : 0;
-        const allChartData = [];
+        const chartData = [];
         const updatedData = {
-            name: `${getDateFormatted(allData[allData.length - 1].createdOn)} to ${getDateFormatted(allData[0].createdOn)}`,
+            name: `${chartName}`,
             successPercentage: parseFloat(successPercentage.toFixed(2)),
             failurePercentage: parseFloat(failurePercentage.toFixed(2)),
             noActionPercentage: parseFloat(noActionPercentage.toFixed(2)),
             totalPercentage: 100
         }
-        allChartData.push(updatedData);
-        setChartData(allChartData);
+        chartData.push(updatedData);
+        setChartData(chartData);
         dispatch(updateUserDashboardGraphData(updatedData));
     }
 
@@ -108,9 +90,9 @@ const UserGraph = ({ info }) => {
     }
 
     const handleSelectOptionChange = (e) => {
-        if(e.target.value === "week"){
+        if (e.target.value === "week") {
             setShowByWeeks(true);
-        }else{
+        } else {
             setShowByWeeks(false);
         }
     }
