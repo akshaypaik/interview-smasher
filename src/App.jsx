@@ -7,6 +7,7 @@ import { lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import CourseListContainer from './components/CourseListContainer/CourseListContainer.jsx';
 
 function App() {
 
@@ -56,6 +57,10 @@ function App() {
         {
           path: "/",
           element: <MainContainer />
+        },
+        {
+          path: "/courses",
+          element: <CourseListContainer />
         },
         {
           path: "/course/:courseId",

@@ -32,8 +32,8 @@ const CourseListContainer = () => {
     }, [searchBarQuery]);
 
     return (
-        <>
-            <h1 className='text-2xl font-bold'>Pick a course</h1>
+        <div className='flex flex-col'>
+            <h1 className='text-2xl font-bold mt-8'>Pick a course</h1>
             <div className='course-list-container'>
                 {/* <CourseCard /> */}
                 {filteredCourseList.map((course) =>
@@ -46,7 +46,7 @@ const CourseListContainer = () => {
                     )
                 )}
             </div>
-        </>
+        </div>
     )
 }
 
