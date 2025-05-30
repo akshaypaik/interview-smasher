@@ -118,5 +118,45 @@
         "id": "24",
         "name": "others",
         "displayName": "Others"
+    },
+    {
+        "id": "25",
+        "name": "thailand",
+        "displayName": "Thailand"
+    },
+    {
+        "id": "26",
+        "name": "singapore",
+        "displayName": "Singapore"
+    },
+    {
+        "id": "27",
+        "name": "unitedStates",
+        "displayName": "United States"
+    },
+    {
+        "id": "28",
+        "name": "dubai",
+        "displayName": "Dubai"
+    },
+    {
+        "id": "29",
+        "name": "australia",
+        "displayName": "Australia"
+    },
+    {
+        "id": "30",
+        "name": "london",
+        "displayName": "London"
+    },
+    {
+        "id": "31",
+        "name": "germany",
+        "displayName": "Germany"
+    },
+    {
+        "id": "32",
+        "name": "scotland",
+        "displayName": "Scotland"
     }
 ]
