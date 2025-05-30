@@ -30,7 +30,7 @@ const JobStatusCards = ({ info }) => {
     return (
         <div className='mb-18 px-12 grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5'>
             <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-6 
-            rounded-lg hover:shadow-2xl'>
+            rounded-lg hover:shadow-2xl dark:bg-gray-800'>
                 <span>
                     <svg fill='oklch(72.3% 0.219 149.579)' height="42" width="42" version="1.1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -45,12 +45,14 @@ const JobStatusCards = ({ info }) => {
                 </span>
                 <div className='flex flex-col'>
                     <span className='text-4xl font-semibold'>{appliedCount}</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Applies</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Total Applies
+                    </span>
                 </div>
             </div>
 
             <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
-            rounded-lg hover:shadow-2xl'>
+            rounded-lg hover:shadow-2xl dark:bg-gray-800'>
                 <span>
                     <svg fill="#016630" height="42" width="42" version="1.1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -62,12 +64,14 @@ const JobStatusCards = ({ info }) => {
                 </span>
                 <div className='flex flex-col'>
                     <span className='text-4xl font-semibold'>{selectedCount}</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Selects</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Total Selects
+                    </span>
                 </div>
             </div>
 
             <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
-            rounded-lg hover:shadow-2xl'>
+            rounded-lg hover:shadow-2xl dark:bg-gray-800'>
                 <span>
                     <svg fill='#9f0712' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="42" height="42" viewBox="0 0 50 50">
                         <path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 32.990234 15.986328 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.990234 15.986328 z"></path>
@@ -75,13 +79,17 @@ const JobStatusCards = ({ info }) => {
                 </span>
                 <div className='flex flex-col'>
                     <span className='text-4xl font-semibold'>{rejectedCount}</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Interview</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Rejects</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Total Interview
+                    </span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Rejects
+                    </span>
                 </div>
             </div>
 
             <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
-            rounded-lg hover:shadow-2xl'>
+            rounded-lg hover:shadow-2xl dark:bg-gray-800'>
                 <span>
                     <svg fill="oklch(55.3% 0.195 38.402)" height="42" width="42" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                         xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xmlSpace="preserve">
@@ -92,13 +100,17 @@ const JobStatusCards = ({ info }) => {
                 </span>
                 <div className='flex flex-col'>
                     <span className='text-4xl font-semibold'>{offerReceivedCount}</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Offer</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Received</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Total Offer
+                    </span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Received
+                    </span>
                 </div>
             </div>
 
             <div className='flex gap-4 justify-center items-center bg-white border-gray-800 shadow px-16 py-8 
-            rounded-lg hover:shadow-2xl'>
+            rounded-lg hover:shadow-2xl dark:bg-gray-800'>
                 <span>
                     <svg fill='#82181a' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="42" height="42" viewBox="0 0 128 128">
                         <path d="M64,1C29.26,1,1,29.26,1,64s28.26,63,63,63s63-28.26,63-63S98.74,1,64,1z M7,64C7,32.57,32.57,7,64,7 c14.64,0,28,5.55,38.11,14.65l-80.45,80.45C12.55,92,7,78.64,7,64z M64,121c-14.64,0-28-5.55-38.11-14.65l80.45-80.45 C115.45,36,121,49.36,121,64C121,95.43,95.43,121,64,121z"></path>
@@ -106,8 +118,12 @@ const JobStatusCards = ({ info }) => {
                 </span>
                 <div className='flex flex-col'>
                     <span className='text-4xl font-semibold'>{applicationRejectedCount}</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Total Application</span>
-                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap'>Rejected</span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Total Application
+                    </span>
+                    <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
+                        Rejected
+                    </span>
                 </div>
             </div>
 

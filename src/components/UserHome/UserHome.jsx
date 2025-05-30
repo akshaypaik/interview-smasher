@@ -30,7 +30,7 @@ const UserHome = () => {
 
     return (
         <div>
-            <div className='font-semibold text-2xl my-8'>Your Personalised Dashboard</div>
+            <div className='font-semibold text-2xl my-8 dark:text-gray-400'>Your Personalised Dashboard</div>
             <JobStatusCards info={dashboardJobDetails} />
             <div className='dashboard-graph-tip-container mx-8'>
                 <UserGraph info={dashboardJobDetails} />
