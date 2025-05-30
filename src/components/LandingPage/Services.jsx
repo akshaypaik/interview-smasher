@@ -27,7 +27,7 @@ const Services = () => {
                         transition={{ duration: 1.0 }}
                         viewport={{ once: false }}>
                         <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
-                    duration-300 hover:shadow-lg hover:-translate-y-1'>
+                    duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
                             <div className='flex justify-center'>
                                 <FaHandHoldingDollar className='h-12 w-12 text-red-400 animate-float' />
                             </div>
@@ -47,7 +47,7 @@ const Services = () => {
                         transition={{ duration: 1.0 }}
                         viewport={{ once: false }}>
                         <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
-                duration-300 hover:shadow-lg hover:-translate-y-1'>
+                duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
                             <div className='flex justify-center'>
                                 <FaSackDollar className='h-12 w-12 text-red-400 animate-float' />
                             </div>
@@ -67,7 +67,7 @@ const Services = () => {
                         transition={{ duration: 1.0 }}
                         viewport={{ once: false }}>
                         <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
-                duration-300 hover:shadow-lg hover:-translate-y-1'>
+                duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
                             <div className='flex justify-center'>
                                 <FaRegCreditCard className='h-12 w-12 text-red-400 animate-float' />
                             </div>
@@ -87,7 +87,7 @@ const Services = () => {
                         transition={{ duration: 1.0 }}
                         viewport={{ once: false }}>
                         <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
-                duration-300 hover:shadow-lg hover:-translate-y-1'>
+                duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
                             <div className='flex justify-center'>
                                 <FaChartLine className='h-12 w-12 text-red-400 animate-float' />
                             </div>
@@ -107,7 +107,7 @@ const Services = () => {
                         transition={{ duration: 1.0 }}
                         viewport={{ once: false }}>
                         <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
-                duration-300 hover:shadow-lg hover:-translate-y-1'>
+                duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
                             <div className='flex justify-center'>
                                 <FaChartColumn className='h-12 w-12 text-red-400 animate-float' />
                             </div>
@@ -127,7 +127,7 @@ const Services = () => {
                         transition={{ duration: 1.0 }}
                         viewport={{ once: false }}>
                         <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
-                duration-300 hover:shadow-lg hover:-translate-y-1'>
+                duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
                             <div className='flex justify-center'>
                                 <FaNewspaper className='h-12 w-12 text-red-400 animate-float' />
                             </div>

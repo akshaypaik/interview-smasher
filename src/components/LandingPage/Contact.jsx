@@ -38,13 +38,32 @@ const Contact = () => {
                                         md: '40ch',   // medium screens
                                         lg: '45ch',   // large screens
                                         xl: '50ch',   // extra-large screens
-                                    }
+                                    },
+                                    input: { color: 'black' },
+                                    '.dark & input': {
+                                        color: 'white',
+                                    },
+                                    '.dark & label': {
+                                        color: 'white',
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: 'gray',
+                                        },
+                                        '.dark & .focus fieldset': {
+                                            borderColor: 'white',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: 'lightgray',
+                                        },
+                                        
+                                    },
                                 }
                             }}
                             noValidate
                             autoComplete="off"
                         >
-                            <TextField id="outlined-basic" label="Name" variant="outlined" />
+                            <TextField className='dark:bg-gray-800 dark:text-white rounded-lg' id="outlined-basic" label="Name" variant="outlined" />
                         </Box>
                     </div>
                     <div>
@@ -58,13 +77,31 @@ const Contact = () => {
                                         md: '40ch',   // medium screens
                                         lg: '45ch',   // large screens
                                         xl: '50ch',   // extra-large screens
-                                    }
+                                    },
+                                    input: { color: 'black' },
+                                    '.dark & input': {
+                                        color: 'white',
+                                    },
+                                    '.dark & label': {
+                                        color: 'white',
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: 'gray',
+                                        },
+                                        '.dark & .focus fieldset': {
+                                            borderColor: 'white',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: 'lightgray',
+                                        }
+                                    },
                                 }
                             }}
                             noValidate
                             autoComplete="off"
                         >
-                            <TextField id="outlined-basic" label="Email" variant="outlined" />
+                            <TextField className='dark:bg-gray-800 dark:text-white rounded-lg' id="outlined-basic" label="Email" variant="outlined" />
                         </Box>
                     </div>
                     <div>
@@ -78,7 +115,25 @@ const Contact = () => {
                                         md: '40ch',   // medium screens
                                         lg: '45ch',   // large screens
                                         xl: '50ch',   // extra-large screens
-                                    }
+                                    },
+                                    input: { color: 'black' },
+                                    '.dark & input': {
+                                        color: 'white',
+                                    },
+                                    '.dark & label': {
+                                        color: 'white',
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: 'gray',
+                                        },
+                                        '.dark & .focus & fieldset': {
+                                            borderColor: 'white',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: 'lightgray',
+                                        }
+                                    },
                                 }
                             }}
                             noValidate
@@ -89,6 +144,7 @@ const Contact = () => {
                                 label="Message"
                                 multiline
                                 rows={4}
+                                className='dark:bg-gray-800 dark:text-white rounded-lg'
                             />
                         </Box>
                     </div>
