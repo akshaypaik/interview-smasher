@@ -31,7 +31,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0 }}
           viewport={{ once: false }}>
-          <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
+          <div className='bg-white p-6 rounded-xl shadow border text-center transition-all 
                           duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
             <div className='flex justify-center'>
               <TbDeviceDesktopDollar className='h-12 w-12 text-red-400 animate-float' />
@@ -47,7 +47,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0 }}
           viewport={{ once: false }}>
-          <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
+          <div className='bg-white p-6 rounded-xl shadow border text-center transition-all 
                           duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
             <div className='flex justify-center'>
               <FaBook className='h-12 w-12 text-red-400 animate-float' />
@@ -63,7 +63,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0 }}
           viewport={{ once: false }}>
-          <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
+          <div className='bg-white p-6 rounded-xl shadow border text-center transition-all 
                           duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
             <div className='flex justify-center'>
               <ImUserCheck className='h-12 w-12 text-red-400 animate-float' />
@@ -83,7 +83,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0 }}
           viewport={{ once: false }}>
-          <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
+          <div className='bg-white p-6 rounded-xl shadow border text-center transition-all 
                           duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
             <div className='flex justify-center'>
               <FaChalkboardUser className='h-12 w-12 text-red-400 animate-float' />
@@ -100,7 +100,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0 }}
           viewport={{ once: false }}>
-          <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
+          <div className='bg-white p-6 rounded-xl shadow border text-center transition-all 
                           duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
             <div className='flex justify-center'>
               <FaLock className='h-12 w-12 text-red-400 animate-float' />
@@ -117,7 +117,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0 }}
           viewport={{ once: false }}>
-          <div className='bg-white p-6 rounded-xl shadow border border-gray-100 text-center transition-all 
+          <div className='bg-white p-6 rounded-xl shadow border text-center transition-all 
                           duration-300 hover:shadow-lg hover:-translate-y-1 dark:bg-gray-800'>
             <div className='flex justify-center'>
               <GiStumpRegrowth className='h-12 w-12 text-red-400 animate-float' />
