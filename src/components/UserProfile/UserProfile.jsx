@@ -12,7 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { FaCircleInfo, FaGithub, FaLinkedin, FaPencil } from 'react-icons/fa6';
+import { FaAngleDown, FaAngleUp, FaCircleInfo, FaGithub, FaLinkedin, FaPencil } from 'react-icons/fa6';
 import { USER_PROFILE_PIC_BACKEND_DIRECTORY } from '../../utils/constants/constants';
 import { CgWebsite } from "react-icons/cg";
 import { IoShareSocialSharp } from "react-icons/io5";
@@ -23,6 +23,7 @@ const UserProfile = () => {
     const [showEditProfilePic, setShowEditProfilePic] = useState(false);
     const userProfilePicInput = useRef(null);
     const [userProfilePicURL, setUserProfilePicURL] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
 
     const { handleSubmit } = useForm();
     const dispatch = useDispatch();
@@ -181,39 +182,45 @@ const UserProfile = () => {
 
                         {/* Social Links */}
                         <div className='bg-white border-gray-800 shadow rounded-lg hover:shadow-2xl px-4 py-8 mt-8'>
-                            <div className='flex items-center gap-2'>
+                            <div className='flex items-center gap-2 cursor-pointer' onClick={(() => setIsOpen(!isOpen))}>
                                 <IoShareSocialSharp size={32} />
-                                <div className='font-semibold text-2xl text-gray-600'>Social Links</div>
-                            </div>
-                            <hr className='mt-4' />
-                            <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-col-2 gap-8 mt-4'>
-                                <div className='form-field'>
-                                    <div className='flex gap-2 items-center'>
-                                        <FaGithub size={24} />
-                                        <div className='font-semibold text-gray-500 text-lg'>Github Profile</div>
-                                    </div>
-                                    <input type='text' value={userInfo?.githubProfileURL} onChange={(e) => editUserProfile("githubProfileURL", e.target.value)}
-                                        className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
-                                </div>
-                                <div className='form-field'>
-                                    <div className='flex gap-2 items-center'>
-                                        <FaLinkedin size={24} />
-                                        <div className='font-semibold text-gray-500 text-lg'>LinkedIn Profile</div>
-                                    </div>
-                                    <input type='text' value={userInfo?.linkedInProfileURL} onChange={(e) => editUserProfile("linkedInProfileURL", e.target.value)}
-                                        className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
+                                <div className='flex justify-between items-center w-full'>
+                                    <div className='font-semibold text-2xl text-gray-600'>Social Links</div>
+                                    {isOpen ? <FaAngleDown size={32} /> :
+                                        <FaAngleUp size={32} />}
                                 </div>
                             </div>
-                            <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-col-2 gap-8 mt-4'>
-                                <div className='form-field'>
-                                    <div className='flex gap-2 items-center'>
-                                        <CgWebsite size={24} />
-                                        <div className='font-semibold text-gray-500 text-lg'>Portfolio Website</div>
+                            {isOpen && <hr className='mt-4' />}
+                            {isOpen && <div>
+                                <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-col-2 gap-8 mt-4'>
+                                    <div className='form-field'>
+                                        <div className='flex gap-2 items-center'>
+                                            <FaGithub size={24} />
+                                            <div className='font-semibold text-gray-500 text-lg'>Github Profile</div>
+                                        </div>
+                                        <input type='text' value={userInfo?.githubProfileURL} onChange={(e) => editUserProfile("githubProfileURL", e.target.value)}
+                                            className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
                                     </div>
-                                    <input type='text' value={userInfo?.portfolioWebsiteURL} onChange={(e) => editUserProfile("portfolioWebsiteURL", e.target.value)}
-                                        className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
+                                    <div className='form-field'>
+                                        <div className='flex gap-2 items-center'>
+                                            <FaLinkedin size={24} />
+                                            <div className='font-semibold text-gray-500 text-lg'>LinkedIn Profile</div>
+                                        </div>
+                                        <input type='text' value={userInfo?.linkedInProfileURL} onChange={(e) => editUserProfile("linkedInProfileURL", e.target.value)}
+                                            className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
+                                    </div>
                                 </div>
-                            </div>
+                                <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-col-2 gap-8 mt-4'>
+                                    <div className='form-field'>
+                                        <div className='flex gap-2 items-center'>
+                                            <CgWebsite size={24} />
+                                            <div className='font-semibold text-gray-500 text-lg'>Portfolio Website</div>
+                                        </div>
+                                        <input type='text' value={userInfo?.portfolioWebsiteURL} onChange={(e) => editUserProfile("portfolioWebsiteURL", e.target.value)}
+                                            className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
+                                    </div>
+                                </div>
+                            </div>}
                         </div>
 
                         <div>
