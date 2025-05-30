@@ -22,3 +22,8 @@
     cursor: pointer;
     padding: 0px 8px;
 }
+
+.selected {
+    border-bottom: 2px solid red;
+    color: oklch(50.5% 0.213 27.518);
+}
