@@ -65,6 +65,9 @@ const UserProfile = () => {
             formData.append("firstName", userInfo?.firstName);
             formData.append("lastName", userInfo?.lastName);
             formData.append("phoneNumber", userInfo?.phoneNumber);
+            formData.append("githubProfileURL", userInfo?.githubProfileURL);
+            formData.append("linkedInProfileURL", userInfo?.linkedInProfileURL);
+            formData.append("portfolioWebsiteURL", userInfo?.portfolioWebsiteURL);
             try {
                 const { data } = await axios.post(UPDATE_USER_PROFILE_PICTURE, formData);
                 toast.success(data?.messageModel.statusMessage);
