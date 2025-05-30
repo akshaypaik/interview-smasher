@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
+import { updateUserDashboardGraphData } from '../../utils/ReduxStore/dashboardSlice';
+import { getDateFormatted } from '../../utils/helper';
 
 const UserGraph = ({ info }) => {
 
     const [chartData, setChartData] = useState([]);
     const [showByWeeks, setShowByWeeks] = useState(true);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (info && info?.length > 0) {
             const totalActivityCount = info.length;
             if (showByWeeks) {
                 calculateWeekData(totalActivityCount);
+            } else {
+                calculatAllData(totalActivityCount)
             }
         }
-    }, [info]);
+    }, [info, showByWeeks]);
 
     const calculateWeekData = (totalActivityCount) => {
         const now = new Date();
@@ -50,6 +56,38 @@ const UserGraph = ({ info }) => {
         }
         weekChartData.push(updatedData);
         setChartData(weekChartData);
+        dispatch(updateUserDashboardGraphData(updatedData));
+    }
+
+    const calculatAllData = (totalActivityCount) => {
+        const allData = info;
+        allData.sort((a, b) => {
+            return new Date(b.createdOn) - new Date(a.createdOn);
+        });
+        const { appliedCount, selectedCount, rejectedCount, offerReceivedCount, applicationRejectedCount,
+            interviewDoneCount, interviewScheduledCount, yetToApplyCount, saveOnlyCount
+        } = calculateSpecificJobStatusCount(allData);
+
+        const totalWeekActivityCount = allData.length;
+        const successRate = selectedCount + offerReceivedCount + interviewDoneCount + interviewScheduledCount;
+        const failureRate = rejectedCount + applicationRejectedCount;
+        const noActionRate = yetToApplyCount + saveOnlyCount + appliedCount;
+
+        const total = successRate + failureRate;
+        const successPercentage = totalActivityCount > 0 ? (successRate / totalWeekActivityCount) * 100 : 0;
+        const failurePercentage = totalActivityCount > 0 ? (failureRate / totalWeekActivityCount) * 100 : 0;
+        const noActionPercentage = totalActivityCount > 0 ? (noActionRate / totalWeekActivityCount) * 100 : 0;
+        const allChartData = [];
+        const updatedData = {
+            name: `${getDateFormatted(allData[allData.length - 1].createdOn)} to ${getDateFormatted(allData[0].createdOn)}`,
+            successPercentage: parseFloat(successPercentage.toFixed(2)),
+            failurePercentage: parseFloat(failurePercentage.toFixed(2)),
+            noActionPercentage: parseFloat(noActionPercentage.toFixed(2)),
+            totalPercentage: 100
+        }
+        allChartData.push(updatedData);
+        setChartData(allChartData);
+        dispatch(updateUserDashboardGraphData(updatedData));
     }
 
     const calculateSpecificJobStatusCount = (data) => {
@@ -69,9 +107,31 @@ const UserGraph = ({ info }) => {
         }
     }
 
+    const handleSelectOptionChange = (e) => {
+        if(e.target.value === "week"){
+            setShowByWeeks(true);
+        }else{
+            setShowByWeeks(false);
+        }
+    }
+
+
+
     return (
         <div className='lg:w-2/4 lg:h-[300px] bg-white p-4 rounded-lg shadow border dark:bg-gray-800'>
-            <div className='font-semibold mb-4'>Success vs Failure vs No Actions</div>
+            <div className='font-semibold mb-4 flex flex-col'>
+                <span className='flex justify-between'>
+                    <span className='text-sm'>Job Applications</span>
+                    <span className='flex gap-1'>
+                        <span>Show by</span>
+                        <select onChange={handleSelectOptionChange}>
+                            <option value="week">Week</option>
+                            <option value="all">All</option>
+                        </select>
+                    </span>
+                </span>
+                <span>Success vs Failure vs No Actions</span>
+            </div>
             {chartData.length > 0 && <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                     data={chartData}

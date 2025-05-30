@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { GET_QUICK_CAREER_JOB_LINK, PUT_QUICK_CAREER_JOB_LINK_STATUS } from '../../utils/constants/apiConstants';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDateFormatted } from '../../utils/helper';
+import { getFullDateFormatted } from '../../utils/helper';
 import { themeQuartz } from "ag-grid-community";
 import quickCareerJobLinkRoles from './../../utils/constants/json/quickCareerJobLinkRoles.json';
 import {
@@ -242,7 +242,7 @@ const QuickCareerLinks = () => {
                 const userEmail = userInfo?.email;
                 const { data } = await axios.get(`${GET_QUICK_CAREER_JOB_LINK}${userEmail}`);
                 data.map((entry) => {
-                    return entry.createdOn = getDateFormatted(entry.createdOn);
+                    return entry.createdOn = getFullDateFormatted(entry.createdOn);
                 })
                 data.sort((a, b) => {
                     return new Date(b.createdOn) - new Date(a.createdOn);
