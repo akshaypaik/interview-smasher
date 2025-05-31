@@ -62,6 +62,7 @@ const QuickCareerSearch = () => {
                 setErrorMessage("");
             }
             const resultJson = await result.json();
+            // dispatch({type: 'FETCH_COMPANY_SEARCH_DATA_REQUEST', payload: searchBarQuery})
             dispatch(updateCompaniesSearchResultCache({ searchQuery: searchBarQuery, searchResult: resultJson }));
             return resultJson;
         } catch (error) {
