@@ -83,7 +83,7 @@ const NotesComponentMyJobs = ({ info, getJobLinkDetails }) => {
                             <span className="text-lg font-semibold">
                                 Notes
                             </span>
-                            <span>Last saved on: {getFullDateFormatted(info?.notesSavedOn)}</span>
+                            {info?.notesSavedOn && <span>Last saved on: {getFullDateFormatted(info?.notesSavedOn)}</span>}
                             <FaTimesCircle size={36} className='hover:text-red-600 cursor-pointer'
                                 onClick={() => setOpenDialog(false)} />
                         </div>
