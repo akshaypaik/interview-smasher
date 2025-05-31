@@ -50,7 +50,7 @@ export default function UpcomingInterviews() {
                 return {
                     id: createEventId(),
                     title: `${item.company}`,
-                    start: item.createdOn,
+                    start: new Date(item.createdOn).toISOString(),
                     extendedProps: {
                         role: item.jobRole,
                         company: item.company,
