@@ -42,7 +42,10 @@ const QuickCareerLinks = () => {
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [dateFilter, setDateFilter] = useState("");
     const [isEditRow, setIsEditRow] = useState(true);
-    const [showFilter, setShowFilter] = useState(true);
+    const [showFilter, setShowFilter] = useState(() => {
+        const storedShowFilter = sessionStorage.getItem("showMyJobFilter");
+        return storedShowFilter !== null ? JSON.parse(storedShowFilter) : true;
+    });
 
     const quickCareerLinkFilters = useSelector((store) => store.companies.quickCareerLinkFilters);
 
@@ -362,6 +365,11 @@ const QuickCareerLinks = () => {
         setAlertDialogOpen(false);
     }
 
+    const handleShowFiltersClick = () => {
+        setShowFilter(!showFilter);
+        sessionStorage.setItem("showMyJobFilter", JSON.stringify(!showFilter));
+    }
+
     return (
         <div className='m-2 lg:m-8 md:m-4 w-full'>
             <div className='quick-search-header'>
@@ -392,9 +400,9 @@ const QuickCareerLinks = () => {
                 <div className='flex gap-4 relative'>
                     <div className={`${showFilter ? 'absolute' : 'relative'}`}>
                         {showFilter ? <PiArrowSquareRightFill title='Hide Filters' size={36} className='cursor-pointer'
-                            onClick={() => setShowFilter(!showFilter)} /> :
+                            onClick={handleShowFiltersClick} /> :
                             <PiArrowSquareLeftFill title='Show Filters' size={36} className='cursor-pointer'
-                                onClick={() => setShowFilter(!showFilter)} />}
+                                onClick={handleShowFiltersClick} />}
                     </div>
                     {rowData.length > 0 && showFilter && <QuickCareerLinksFilters info={filteredRowData}
                         resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
