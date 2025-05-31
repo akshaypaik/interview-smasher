@@ -7,7 +7,7 @@ const LoadingSpinnerSolid = ({ width }) => {
 
     return (
         <div className='loading-spinner-solid-container'>
-            <div className={`loader ${darkMode ? 
+            <div className={`loader-solid ${darkMode ? 
                 'dark' : 
                 'light'}`} style={{ width: width }}></div>
             {/* <h2>Loading...</h2> */}
