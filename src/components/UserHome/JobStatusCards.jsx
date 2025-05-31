@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import LoadingSpinnerSolid from '../Shared/LoadingSpinnerSolid/LoadingSpinnerSolid';
 
 const JobStatusCards = ({ info }) => {
 
@@ -44,7 +45,8 @@ const JobStatusCards = ({ info }) => {
                     </svg>
                 </span>
                 <div className='flex flex-col'>
-                    <span className='text-4xl font-semibold'>{appliedCount}</span>
+                    {info?.length > 0 ? <span className='text-4xl font-semibold'>{appliedCount}</span> :
+                        <span> <LoadingSpinnerSolid width={48} /> </span>}
                     <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
                         Total Applies
                     </span>
@@ -63,7 +65,8 @@ const JobStatusCards = ({ info }) => {
                     </svg>
                 </span>
                 <div className='flex flex-col'>
-                    <span className='text-4xl font-semibold'>{selectedCount}</span>
+                    {info?.length > 0 ? <span className='text-4xl font-semibold'>{selectedCount}</span> :
+                        <span> <LoadingSpinnerSolid width={48} /> </span>}
                     <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
                         Total Selects
                     </span>
@@ -78,7 +81,8 @@ const JobStatusCards = ({ info }) => {
                     </svg>
                 </span>
                 <div className='flex flex-col'>
-                    <span className='text-4xl font-semibold'>{rejectedCount}</span>
+                    {info?.length > 0 ? <span className='text-4xl font-semibold'>{rejectedCount}</span> :
+                        <span> <LoadingSpinnerSolid width={48} /> </span>}
                     <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
                         Total Interview
                     </span>
@@ -99,7 +103,8 @@ const JobStatusCards = ({ info }) => {
                     </svg>
                 </span>
                 <div className='flex flex-col'>
-                    <span className='text-4xl font-semibold'>{offerReceivedCount}</span>
+                    {info?.length > 0 ? <span className='text-4xl font-semibold'>{offerReceivedCount}</span> :
+                        <span> <LoadingSpinnerSolid width={48} /> </span>}
                     <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
                         Total Offer
                     </span>
@@ -117,7 +122,8 @@ const JobStatusCards = ({ info }) => {
                     </svg>
                 </span>
                 <div className='flex flex-col'>
-                    <span className='text-4xl font-semibold'>{applicationRejectedCount}</span>
+                    {info?.length > 0 ? <span className='text-4xl font-semibold'>{applicationRejectedCount}</span> :
+                        <span> <LoadingSpinnerSolid width={48} /> </span>}
                     <span className='text-sm font-semibold text-gray-600 whitespace-nowrap dark:text-gray-400'>
                         Total Application
                     </span>

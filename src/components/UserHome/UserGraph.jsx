@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
 import { updateUserDashboardGraphData } from '../../utils/ReduxStore/dashboardSlice';
 import { getDateFormatted } from '../../utils/helper';
+import LoadingSpinnerSolid from '../Shared/LoadingSpinnerSolid/LoadingSpinnerSolid';
 
 const UserGraph = ({ info }) => {
 
@@ -114,7 +115,7 @@ const UserGraph = ({ info }) => {
                 </span>
                 <span>Success vs Failure vs No Actions</span>
             </div>
-            {chartData.length > 0 && <ResponsiveContainer width="100%" height="100%">
+            {chartData.length > 0 ? <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                     data={chartData}
                     margin={{
@@ -138,7 +139,8 @@ const UserGraph = ({ info }) => {
                     <Bar dataKey="failurePercentage" name="Failure" barSize={20} fill='oklch(57.7% 0.245 27.325)' />
                     <Bar dataKey="noActionPercentage" name="No Actions" barSize={20} fill='oklch(55.1% 0.027 264.364)' />
                 </BarChart>
-            </ResponsiveContainer>}
+            </ResponsiveContainer> : 
+            <span> <LoadingSpinnerSolid width={120} /> </span>}
         </div>
     )
 }
