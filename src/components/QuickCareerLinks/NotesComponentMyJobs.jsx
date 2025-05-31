@@ -61,10 +61,15 @@ const NotesComponentMyJobs = ({ info, getJobLinkDetails }) => {
 
     return (
         <div className='flex flex-col relative'>
-            <div className='border-1 border-blue-600 px-6 py-1 cursor-pointer rounded-lg'>
+            <div className={`border-1 ${info?.notes && info?.notes != "" && info?.notes != "<p></p>" ?
+                'border-blue-600' : 'border-green-600'} px-6 py-1 cursor-pointer rounded-lg`}>
                 {/* <Tiptap onContentChange={(content) => { onNotesContentUpdate(content) }} isReset={isReset} /> */}
-                <button className='text-blue-800 cursor-pointer font-semibold'
-                    onClick={() => setOpenDialog(true)}>Add Notes</button>
+                <button className={`${info?.notes && info?.notes != "" && info?.notes != "<p></p>" ?
+                    'text-blue-800' : 'text-green-800'} cursor-pointer font-semibold`}
+                    onClick={() => setOpenDialog(true)}>
+                    {info?.notes && info?.notes != "" && info?.notes != "<p></p>" ?
+                        <span>Edit</span> : <span> Add </span>} Notes
+                </button>
 
                 {/* Dialog to edit notes  */}
                 <Dialog open={openDialog}
@@ -129,7 +134,7 @@ const NotesComponentMyJobs = ({ info, getJobLinkDetails }) => {
                     </DialogActions>
                 </Dialog>
             </div>
-            {info?.notes && <span className='absolute left-4 max-h-2 text-xs font-semibold'>Notes Available</span>}
+            {/* {info?.notes && <span className='absolute left-4 max-h-2 text-xs font-semibold'>Notes Available</span>} */}
         </div>
     )
 }

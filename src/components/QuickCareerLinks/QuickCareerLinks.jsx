@@ -177,12 +177,6 @@ const QuickCareerLinks = () => {
                 info: params.data,
                 getJobLinkDetails: getJobLinkDetails
             })
-        },
-        {
-            headerName: "Notes Available", minWidth: 160,
-            cellRenderer: (params) => {
-                return params.data?.notes ? "Yes" : "No"
-            }
         }
     ]);
 
