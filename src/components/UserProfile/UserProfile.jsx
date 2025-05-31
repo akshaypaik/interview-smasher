@@ -12,7 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { FaAngleDown, FaAngleUp, FaCircleInfo, FaGithub, FaLinkedin, FaPencil } from 'react-icons/fa6';
+import { FaAngleDown, FaAngleUp, FaCircleInfo, FaCopy, FaGithub, FaLinkedin, FaPencil } from 'react-icons/fa6';
 import { USER_PROFILE_PIC_BACKEND_DIRECTORY } from '../../utils/constants/constants';
 import { CgWebsite } from "react-icons/cg";
 import { IoShareSocialSharp } from "react-icons/io5";
@@ -89,6 +89,12 @@ const UserProfile = () => {
             setUserProfilePicURL(profilePicURL);
         }
     }, [userInfo]);
+
+    const handleCopy = (textName) => {
+        navigator.clipboard.writeText(userInfo?.[textName]).then(() => {
+            toast.success("Copied to clipboard");
+        }).catch(error => toast.error("Failed to copy: ", error));
+    }
 
     return (
         <div className='w-full h-screen m-8'>
@@ -200,6 +206,7 @@ const UserProfile = () => {
                                         <div className='flex gap-2 items-center'>
                                             <FaGithub size={24} />
                                             <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Github Profile</div>
+                                            <FaCopy title='Copy' className='cursor-pointer' onClick={() => handleCopy("githubProfileURL")} />
                                         </div>
                                         <input type='text' value={userInfo?.githubProfileURL} onChange={(e) => editUserProfile("githubProfileURL", e.target.value)}
                                             className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
@@ -208,6 +215,7 @@ const UserProfile = () => {
                                         <div className='flex gap-2 items-center'>
                                             <FaLinkedin size={24} />
                                             <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>LinkedIn Profile</div>
+                                            <FaCopy title='Copy' className='cursor-pointer' onClick={() => handleCopy("linkedInProfileURL")} />
                                         </div>
                                         <input type='text' value={userInfo?.linkedInProfileURL} onChange={(e) => editUserProfile("linkedInProfileURL", e.target.value)}
                                             className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
@@ -218,6 +226,7 @@ const UserProfile = () => {
                                         <div className='flex gap-2 items-center'>
                                             <CgWebsite size={24} />
                                             <div className='font-semibold text-gray-500 text-lg dark:text-gray-300'>Portfolio Website</div>
+                                            <FaCopy title='Copy' className='cursor-pointer' onClick={() => handleCopy("portfolioWebsiteURL")} />
                                         </div>
                                         <input type='text' value={userInfo?.portfolioWebsiteURL} onChange={(e) => editUserProfile("portfolioWebsiteURL", e.target.value)}
                                             className='bg-gray-50 shadow border border-gray-200 dark:bg-gray-700 rounded-md p-2 w-72 mt-2' />
