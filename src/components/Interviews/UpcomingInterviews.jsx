@@ -174,8 +174,8 @@ function renderEventContent(eventInfo) {
         <div className='flex flex-col'>
             <b>{formattedTime}</b>
             <span className='flex gap-2'>
-                <img className='h-8' src={eventInfo.event.extendedProps.companyURL}
-                    alt='company-logo' />
+                {eventInfo.event.extendedProps.companyURL ? <img className='h-8' src={eventInfo.event.extendedProps.companyURL}
+                    alt='company-logo' /> : <span>{eventInfo.event.extendedProps.company}</span>}
             </span>
             <div>{eventInfo.event.extendedProps.role}</div>
         </div>
