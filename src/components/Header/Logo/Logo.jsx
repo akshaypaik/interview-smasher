@@ -9,7 +9,7 @@ const Logo = () => {
   const dispatch = useDispatch();
 
   const handleLogoClick = () => {
-    dispatch(setCurrentSidebarTab("home"));
+    dispatch(setCurrentSidebarTab("user-home"));
     dispatch(openSideBar());
   }
 
