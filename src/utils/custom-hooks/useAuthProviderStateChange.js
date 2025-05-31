@@ -41,7 +41,7 @@ const useAuthProviderStateChange = () => {
                         dispatch(setUserInfo(userInfo));
 
                         setCurrentActiveTab();
-                        navigate("/user-home");
+                        // navigate("/user-home");
                         return userInfo;
                     } else {
                         dispatch(removeUser());

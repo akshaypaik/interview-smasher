@@ -59,7 +59,6 @@ export default function UpcomingInterviews() {
                 }
             })
             setInitialEvents(updatedData);
-            console.log("updatedData: ", updatedData);
         } catch (error) {
             toast.error(error);
         }
@@ -169,7 +168,7 @@ export default function UpcomingInterviews() {
 function renderEventContent(eventInfo) {
     const start = eventInfo.event.start;
     const formattedTime = start
-        ? start.toLocaleTimeString([], { hour: 'numeric', minute: undefined, hour12: true }).toUpperCase()
+        ? start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }).toUpperCase()
         : eventInfo.timeText;
     return (
         <div className='flex flex-col'>
