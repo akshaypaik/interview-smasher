@@ -39,7 +39,7 @@ const LoginForm = ({ setShowRegister }) => {
                         portfolioWebsiteURL: data?.portfolioWebsiteURL
                     }
                     dispatch(setUserInfo(userInfo));
-                    dispatch(setCurrentSidebarTab("home"));
+                    dispatch(setCurrentSidebarTab("user-home"));
                     toast.success("Logged in");
                     body?.classList.remove('no-scroll');
                     navigate("/user-home");
