@@ -29,6 +29,7 @@ import SlidderToggle from '../Shared/SlidderToggle/SlidderToggle';
 import EditAndSaveComponentCareerLinks from './EditAndSaveComponentCareerLinks';
 import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
 import { hideSideBar } from '../../utils/ReduxStore/appSlice';
+import { PiArrowSquareLeftFill, PiArrowSquareRightFill } from "react-icons/pi";
 
 const QuickCareerLinks = () => {
 
@@ -40,6 +41,7 @@ const QuickCareerLinks = () => {
     const [enableQuickFilter, setEnableQuickFilter] = useState({});
     const [dateFilter, setDateFilter] = useState("");
     const [isEditRow, setIsEditRow] = useState(true);
+    const [showFilter, setShowFilter] = useState(true);
 
     const quickCareerLinkFilters = useSelector((store) => store.companies.quickCareerLinkFilters);
 
@@ -372,8 +374,14 @@ const QuickCareerLinks = () => {
                         </button>
                     </div>
                 </div>
+                <div>
+                    {showFilter ? <PiArrowSquareRightFill title='Hide Filters' size={36} className='cursor-pointer'
+                        onClick={() => setShowFilter(!showFilter)} /> :
+                        <PiArrowSquareLeftFill title='Show Filters' size={36} className='cursor-pointer'
+                            onClick={() => setShowFilter(!showFilter)} />}
+                </div>
                 <div className='flex gap-4'>
-                    {rowData.length > 0 && <QuickCareerLinksFilters info={filteredRowData}
+                    {rowData.length > 0 && showFilter && <QuickCareerLinksFilters info={filteredRowData}
                         resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
                         setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />}
                     <motion.div
