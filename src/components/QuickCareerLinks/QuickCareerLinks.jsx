@@ -176,7 +176,7 @@ const QuickCareerLinks = () => {
             })
         },
         {
-            headerName: "Notes Available", minWidth: 160, 
+            headerName: "Notes Available", minWidth: 160,
             cellRenderer: (params) => {
                 return params.data?.notes ? "Yes" : "No"
             }
@@ -389,13 +389,13 @@ const QuickCareerLinks = () => {
                         </button>
                     </div>
                 </div>
-                <div>
-                    {showFilter ? <PiArrowSquareRightFill title='Hide Filters' size={36} className='cursor-pointer'
-                        onClick={() => setShowFilter(!showFilter)} /> :
-                        <PiArrowSquareLeftFill title='Show Filters' size={36} className='cursor-pointer'
-                            onClick={() => setShowFilter(!showFilter)} />}
-                </div>
-                <div className='flex gap-4'>
+                <div className='flex gap-4 relative'>
+                    <div className={`${showFilter ? 'absolute' : 'relative'}`}>
+                        {showFilter ? <PiArrowSquareRightFill title='Hide Filters' size={36} className='cursor-pointer'
+                            onClick={() => setShowFilter(!showFilter)} /> :
+                            <PiArrowSquareLeftFill title='Show Filters' size={36} className='cursor-pointer'
+                                onClick={() => setShowFilter(!showFilter)} />}
+                    </div>
                     {rowData.length > 0 && showFilter && <QuickCareerLinksFilters info={filteredRowData}
                         resetQuickFilterRolesAndLocations={resetQuickFilterRolesAndLocations}
                         setResetQuickFilterRolesAndLocations={setResetQuickFilterRolesAndLocations} />}
