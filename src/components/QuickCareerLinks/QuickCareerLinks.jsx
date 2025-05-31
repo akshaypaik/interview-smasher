@@ -30,6 +30,7 @@ import EditAndSaveComponentCareerLinks from './EditAndSaveComponentCareerLinks';
 import quickCareerJobLinkLocations from './../../utils/constants/json/quickCareerJobLinkLocations.json';
 import { hideSideBar } from '../../utils/ReduxStore/appSlice';
 import { PiArrowSquareLeftFill, PiArrowSquareRightFill } from "react-icons/pi";
+import NotesComponentMyJobs from './NotesComponentMyJobs';
 
 const QuickCareerLinks = () => {
 
@@ -165,6 +166,14 @@ const QuickCareerLinks = () => {
                 const dateB = new Date(valueB).getTime();
                 return dateA - dateB;
             }
+        },
+        {
+            headerName: "Notes", field: "notes", minWidth: 200,
+            cellRenderer: "notesComponent",
+            cellRendererParams: (params) => ({
+                info: params.data,
+                getJobLinkDetails: getJobLinkDetails
+            })
         }
     ]);
 
@@ -400,7 +409,8 @@ const QuickCareerLinks = () => {
                                 iconComponent: IconComponentCareerLinks,
                                 statusComponent: StatusComponentCareerLinks,
                                 deleteComponent: DeleteComponentCareerLinks,
-                                editAndSaveComponent: EditAndSaveComponentCareerLinks
+                                editAndSaveComponent: EditAndSaveComponentCareerLinks,
+                                notesComponent: NotesComponentMyJobs
                             }}
                             pagination={pagination}
                             paginationPageSize={paginationPageSize}
